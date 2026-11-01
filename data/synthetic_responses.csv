@@ -1,0 +1,41 @@
+student_id,question_id,question_text,answer,explanation
+S001,Q01,Calculate 1/2 + 1/3.,2/5,I added the top numbers and the bottom numbers.
+S002,Q01,Calculate 1/2 + 1/3.,5/6,"I changed them to 3/6 and 2/6, then added."
+S003,Q02,"Which is larger, 1/4 or 1/8?",1/8,Eight is bigger than four.
+S004,Q02,"Which is larger, 1/4 or 1/8?",1/4,A quarter is a larger piece than an eighth.
+S005,Q03,Are 1/2 and 2/4 equivalent?,No,The numbers are different.
+S006,Q03,Are 1/2 and 2/4 equivalent?,Yes,Both represent half of the same whole.
+S007,Q04,Add 1/3 + 1/6.,3/9,I added the numerators and denominators.
+S008,Q04,Add 1/3 + 1/6.,3/6,"I changed one fraction to sixths, then added but may have made a calculation mistake."
+S009,Q05,Compare 2/3 and 3/4.,,I don't know.
+S010,Q05,Compare 2/3 and 3/4.,8/12 and 9/12,I made equivalent fractions with denominator 12.
+S011,Q01,Calculate 1/2 + 1/3.,2/5,I added the top numbers and the bottom numbers.
+S012,Q01,Calculate 1/2 + 1/3.,5/6,"I changed them to 3/6 and 2/6, then added."
+S013,Q02,"Which is larger, 1/4 or 1/8?",1/8,Eight is bigger than four.
+S014,Q02,"Which is larger, 1/4 or 1/8?",1/4,A quarter is a larger piece than an eighth.
+S015,Q03,Are 1/2 and 2/4 equivalent?,No,The numbers are different.
+S016,Q03,Are 1/2 and 2/4 equivalent?,Yes,Both represent half of the same whole.
+S017,Q04,Add 1/3 + 1/6.,3/9,I added the numerators and denominators.
+S018,Q04,Add 1/3 + 1/6.,3/6,"I changed one fraction to sixths, then added but may have made a calculation mistake."
+S019,Q05,Compare 2/3 and 3/4.,,I don't know.
+S020,Q05,Compare 2/3 and 3/4.,8/12 and 9/12,I made equivalent fractions with denominator 12.
+S021,Q01,Calculate 1/2 + 1/3.,2/5,I added the top numbers and the bottom numbers.
+S022,Q01,Calculate 1/2 + 1/3.,5/6,"I changed them to 3/6 and 2/6, then added."
+S023,Q02,"Which is larger, 1/4 or 1/8?",1/8,Eight is bigger than four.
+S024,Q02,"Which is larger, 1/4 or 1/8?",1/4,A quarter is a larger piece than an eighth.
+S025,Q03,Are 1/2 and 2/4 equivalent?,No,The numbers are different.
+S026,Q03,Are 1/2 and 2/4 equivalent?,Yes,Both represent half of the same whole.
+S027,Q04,Add 1/3 + 1/6.,3/9,I added the numerators and denominators.
+S028,Q04,Add 1/3 + 1/6.,3/6,"I changed one fraction to sixths, then added but may have made a calculation mistake."
+S029,Q05,Compare 2/3 and 3/4.,,I don't know.
+S030,Q05,Compare 2/3 and 3/4.,8/12 and 9/12,I made equivalent fractions with denominator 12.
+S031,Q01,Calculate 1/2 + 1/3.,2/5,I added the top numbers and the bottom numbers.
+S032,Q01,Calculate 1/2 + 1/3.,5/6,"I changed them to 3/6 and 2/6, then added."
+S033,Q02,"Which is larger, 1/4 or 1/8?",1/8,Eight is bigger than four.
+S034,Q02,"Which is larger, 1/4 or 1/8?",1/4,A quarter is a larger piece than an eighth.
+S035,Q03,Are 1/2 and 2/4 equivalent?,No,The numbers are different.
+S036,Q03,Are 1/2 and 2/4 equivalent?,Yes,Both represent half of the same whole.
+S037,Q04,Add 1/3 + 1/6.,3/9,I added the numerators and denominators.
+S038,Q04,Add 1/3 + 1/6.,3/6,"I changed one fraction to sixths, then added but may have made a calculation mistake."
+S039,Q05,Compare 2/3 and 3/4.,,I don't know.
+S040,Q05,Compare 2/3 and 3/4.,8/12 and 9/12,I made equivalent fractions with denominator 12.
