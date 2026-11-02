@@ -14,9 +14,10 @@ import { useDemoSession } from '../context/useDemoSession';
 import { useI18n } from '../i18n/useI18n';
 import { listDemoClasses } from '../services/classpulseApi';
 import LanguageSelector from './LanguageSelector';
+import TeacherCopilot from './TeacherCopilot';
 
 export default function AppShell({ role }) {
-  const { session, endSession } = useDemoSession();
+  const { session, startSession, endSession } = useDemoSession();
   const { t, language } = useI18n();
   const navigate = useNavigate();
   const location = useLocation();
@@ -178,6 +179,9 @@ export default function AppShell({ role }) {
           <Outlet />
         </main>
       </div>
+      {isTeacher && session && (
+        <TeacherCopilot session={session} startSession={startSession} />
+      )}
     </div>
   );
 }
