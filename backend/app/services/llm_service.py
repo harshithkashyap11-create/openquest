@@ -17,8 +17,11 @@ class OpenRouterDiagnosisProvider:
         base_url: str = "https://openrouter.ai/api/v1",
         timeout_seconds: float = 20,
         client=None,
+        chat_client=None,
+        provider_name: str = "openrouter",
     ) -> None:
-        self.client = OpenRouterChatClient(
+        self.name = provider_name
+        self.client = chat_client or OpenRouterChatClient(
             api_key=api_key,
             model=model,
             base_url=base_url,
@@ -52,7 +55,7 @@ class OpenRouterDiagnosisProvider:
             result = DiagnosisResult.model_validate_json(content)
         except ValidationError as error:
             raise ProviderError(
-                "OpenRouter returned an invalid diagnosis response"
+                f"{self.name} returned an invalid diagnosis response"
             ) from error
         return result.model_copy(
             update={"provider": self.name, "model_version": self.model_version}

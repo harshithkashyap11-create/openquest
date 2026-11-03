@@ -76,6 +76,8 @@ def detect_intent(message: str, action: str | None) -> str:
             return "content_generation"
 
     msg = message.lower()
+    if any(k in msg for k in ["analyze my class", "quiz results", "quiz report", "quiz performance"]):
+        return "classroom_intelligence"
     if any(k in msg for k in ["worksheet", "quiz", "practice question", "questions", "remedial", "exercise", "test"]):
         return "content_generation"
     if any(k in msg for k in ["how is the class", "summary", "summarize", "struggling", "misconception", "performance", "accuracy", "progress", "attention", "reassessment", "compare"]):
@@ -193,6 +195,15 @@ class MockCopilotProvider:
             f"- **{summary.groups_count}** learning group(s) proposed ({summary.approved_groups_count} approved).\n"
             f"- **{summary.assigned_interventions_count}** student intervention assignment(s) created."
         )
+
+        if summary.quiz_reports:
+            lines.append("\n#### Published quiz checkpoints (separate from baseline assessments):")
+            for quiz in summary.quiz_reports:
+                lines.append(f"- **{quiz.title}:** {quiz.submitted_students} submitted students.")
+                for question in quiz.questions:
+                    lines.append(f"  - Question {question.ordinal}: {question.wrong_answers} missed answers; "
+                                 f"{question.reflected_students} shared reasoning, {question.uncertain_students} uncertain. "
+                                 f"Tentative error themes: {', '.join(str(t['error_type']) + ': ' + str(t['students']) for t in question.themes) or 'none yet'}.")
 
         reply = "\n".join(lines)
         return CopilotChatResponse(
@@ -680,8 +691,11 @@ class OpenRouterCopilotProvider:
         timeout_seconds: float = 25,
         client=None,
         fallback_provider: MockCopilotProvider | None = None,
+        chat_client=None,
+        provider_name: str = "openrouter",
     ) -> None:
-        self.client = OpenRouterChatClient(
+        self.name = provider_name
+        self.client = chat_client or OpenRouterChatClient(
             api_key=api_key,
             model=model,
             base_url=base_url,
@@ -737,14 +751,14 @@ class OpenRouterCopilotProvider:
         except (ProviderRateLimited, ProviderConfigurationError):
             # Propagate configuration errors and explicit rate limits
             raise
-        except Exception as error:
+        except Exception:
             # Handle model timeouts, provider network hiccups, or malformed JSON via graceful fallback
             fallback_resp = self.fallback.generate(request, context_summary, grounding_text)
-            note = f"\n\n*(Note: Live OpenRouter response was unavailable ({str(error)}); generated via ClassPulse deterministic fallback engine.)*"
+            note = f"\n\n*(Live {self.name} was unavailable; this is explicitly labeled template fallback feedback.)*"
             return fallback_resp.model_copy(
                 update={
                     "reply": fallback_resp.reply + note,
-                    "provider": "openrouter_fallback",
+                    "provider": f"{self.name}_fallback",
                     "model_version": self.model_version,
                 }
             )
@@ -805,6 +819,13 @@ class OpenRouterCopilotProvider:
 
 
 def create_copilot_provider(settings, client=None) -> MockCopilotProvider | OpenRouterCopilotProvider:
+    if settings.ai_provider == "gemini":
+        from app.services.gemini_client import GeminiChatClient
+        return OpenRouterCopilotProvider(
+            api_key="", model=settings.gemini_model,
+            chat_client=GeminiChatClient.from_settings(settings, client=client),
+            provider_name="gemini",
+        )
     if settings.ai_provider == "openrouter":
         if not settings.openrouter_api_key:
             raise ProviderConfigurationError("OPENROUTER_API_KEY is required when AI_PROVIDER=openrouter")

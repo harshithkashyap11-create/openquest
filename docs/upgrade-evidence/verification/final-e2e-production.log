@@ -1,0 +1,53 @@
+
+> frontend@0.0.0 test:e2e
+> playwright test
+
+[WebServer] INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[WebServer] INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[WebServer] INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[WebServer] INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade  -> 0001_initial, Create the ClassPulse Phase 1 relational schema.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade  -> 0001_initial, Create the ClassPulse Phase 1 relational schema.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0001_initial -> 0002_milestone_3_diagnosis, Add follow-up and teacher review fields for Milestone 3.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0001_initial -> 0002_milestone_3_diagnosis, Add follow-up and teacher review fields for Milestone 3.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0002_milestone_3_diagnosis -> 0003_milestone_4_interventions, Add intervention content, assignments, and reassessments for Milestone 4.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0002_milestone_3_diagnosis -> 0003_milestone_4_interventions, Add intervention content, assignments, and reassessments for Milestone 4.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0003_milestone_4_interventions -> 0004_submission_attempts, Allow student reassessment attempts without replacing synthetic baselines.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0003_milestone_4_interventions -> 0004_submission_attempts, Allow student reassessment attempts without replacing synthetic baselines.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0004_submission_attempts -> 0005_multisubject_diagnoses, Add class topics, question subjects, and structured diagnosis context.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0004_submission_attempts -> 0005_multisubject_diagnoses, Add class topics, question subjects, and structured diagnosis context.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0005_multisubject_diagnoses -> 0006_quiz_learning_loop, Add teacher quizzes, immutable submissions, and evidence-backed reflection.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0005_multisubject_diagnoses -> 0006_quiz_learning_loop, Add teacher quizzes, immutable submissions, and evidence-backed reflection.
+[WebServer] INFO:     Started server process [2304506]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8012 (Press CTRL+C to quit)
+[WebServer] (node:2304578) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 20 tests using 1 worker
+
+(node:2304650) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node-22 --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/atelier.spec.js:27:1 › Lite preference persists and reduced motion overrides full effects without losing class context (1.9s)
+  ✓   2 tests/atelier.spec.js:50:1 › mobile navigation traps focus, closes with Escape and restores its trigger (2.1s)
+  ✓   3 tests/atelier.spec.js:89:1 › question navigation and language changes preserve answers; failed submission can retry (2.5s)
+  ✓   4 tests/atelier.spec.js:140:1 › route history preserves focus and only one active main heading during rapid navigation (1.7s)
+  ✓   5 tests/atelier.spec.js:159:1 › refresh failures retain previously loaded progress and expose a retry (1.1s)
+  ✓   6 tests/atelier.spec.js:193:1 › evidence and group review preserve backend state, confirmation is required before assigning (3.7s)
+  ✓   7 tests/atelier.spec.js:267:1 › student practice, completion and reassessment keep real scores and answers (3.9s)
+  ✓   8 tests/atelier.spec.js:349:1 › Copilot closes and reopens without losing the conversation or sending during composition (2.0s)
+  ✓   9 tests/atelier.spec.js:393:3 › automatic effects adapts to Save Data (275ms)
+  ✓  10 tests/atelier.spec.js:393:3 › automatic effects adapts to 3G (316ms)
+  ✓  11 tests/atelier.spec.js:393:3 › automatic effects adapts to low memory (319ms)
+  ✓  12 tests/atelier.spec.js:393:3 › automatic effects adapts to four cores (373ms)
+  ✓  13 tests/atelier.spec.js:393:3 › automatic effects adapts to unknown APIs (360ms)
+  ✓  14 tests/atelier.spec.js:421:1 › teacher and student role entry use the real catalog and server student resolution (2.0s)
+  ✓  15 tests/atelier.spec.js:457:1 › role guards preserve redirects and the existing deep links (1.3s)
+  ✓  16 tests/atelier.spec.js:481:1 › Copilot language changes retain its conversation and input (1.9s)
+  ✓  17 tests/quiz-workflow.spec.js:37:1 › teacher publication, student reflection and repair, live evidence, reviewed lesson (8.5s)
+  ✓  18 tests/quiz-workflow.spec.js:164:1 › invalid CSV reports its row and keeps the existing draft (952ms)
+  ✓  19 tests/quiz-workflow.spec.js:186:1 › AI outage preserves explanation and allows a retry without losing the grade (1.8s)
+  ✓  20 tests/quiz-workflow.spec.js:256:1 › teacher sidebar labels Gemini replies and template fallback distinctly (2.4s)
+
+  20 passed (47.2s)

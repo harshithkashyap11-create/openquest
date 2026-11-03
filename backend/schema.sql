@@ -237,4 +237,75 @@ ALTER TABLE submissions ADD CONSTRAINT ck_submissions_attempt_no_positive CHECK 
 
 UPDATE alembic_version SET version_num='0004_submission_attempts' WHERE alembic_version.version_num = '0003_milestone_4_interventions';
 
+-- Running upgrade 0004_submission_attempts -> 0005_multisubject_diagnoses
+
+ALTER TABLE classes ADD COLUMN topic TEXT DEFAULT 'Fractions' NOT NULL;
+
+ALTER TABLE questions ADD COLUMN subject TEXT DEFAULT 'Mathematics' NOT NULL;
+
+ALTER TABLE questions DROP CONSTRAINT uq_questions_topic_text;
+
+ALTER TABLE questions ADD CONSTRAINT uq_questions_subject_topic_text UNIQUE (subject, topic, question_text);
+
+ALTER TABLE diagnoses ADD COLUMN misconception_description TEXT;
+
+ALTER TABLE diagnoses ADD COLUMN misunderstanding_explanation TEXT;
+
+ALTER TABLE diagnoses ADD COLUMN suggested_intervention TEXT;
+
+ALTER TABLE interventions ADD COLUMN subject TEXT DEFAULT 'Mathematics' NOT NULL;
+
+UPDATE alembic_version SET version_num='0005_multisubject_diagnoses' WHERE alembic_version.version_num = '0004_submission_attempts';
+
+-- Running upgrade 0005_multisubject_diagnoses -> 0006_quiz_learning_loop
+
+CREATE TABLE quizzes (
+    id UUID NOT NULL,
+    class_id UUID NOT NULL,
+    title TEXT NOT NULL,
+    status TEXT NOT NULL,
+    questions JSON NOT NULL,
+    lesson JSON,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT ck_quiz_status CHECK (status IN ('draft', 'published')),
+    FOREIGN KEY(class_id) REFERENCES classes (id) ON DELETE CASCADE
+);
+
+CREATE INDEX ix_quizzes_class_id ON quizzes (class_id);
+
+CREATE TABLE quiz_attempts (
+    id UUID NOT NULL,
+    quiz_id UUID NOT NULL,
+    student_id UUID NOT NULL,
+    answers JSON NOT NULL,
+    score INTEGER NOT NULL,
+    submitted_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT uq_quiz_student_attempt UNIQUE (quiz_id, student_id),
+    FOREIGN KEY(quiz_id) REFERENCES quizzes (id) ON DELETE CASCADE,
+    FOREIGN KEY(student_id) REFERENCES students (id) ON DELETE CASCADE
+);
+
+CREATE INDEX ix_quiz_attempts_quiz_id ON quiz_attempts (quiz_id);
+
+CREATE INDEX ix_quiz_attempts_student_id ON quiz_attempts (student_id);
+
+CREATE TABLE quiz_reflections (
+    id UUID NOT NULL,
+    attempt_id UUID NOT NULL,
+    question_id TEXT NOT NULL,
+    messages JSON NOT NULL,
+    feedback JSON NOT NULL,
+    flagged BOOLEAN NOT NULL,
+    repair_answer INTEGER,
+    PRIMARY KEY (id),
+    CONSTRAINT uq_quiz_reflection UNIQUE (attempt_id, question_id),
+    FOREIGN KEY(attempt_id) REFERENCES quiz_attempts (id) ON DELETE CASCADE
+);
+
+CREATE INDEX ix_quiz_reflections_attempt_id ON quiz_reflections (attempt_id);
+
+UPDATE alembic_version SET version_num='0006_quiz_learning_loop' WHERE alembic_version.version_num = '0005_multisubject_diagnoses';
+
 COMMIT;

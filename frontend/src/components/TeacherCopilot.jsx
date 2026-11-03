@@ -1,3 +1,8 @@
+import LanguageSelector from './LanguageSelector';
+import { useI18n } from '../i18n/useI18n';
+import { createPortal } from 'react-dom';
+import useModalDialog from '../hooks/useModalDialog';
+import { useLiteEffects } from '../hooks/useLiteEffects';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowUpRight,
@@ -11,7 +16,6 @@ import {
   LoaderCircle,
   MessageSquareText,
   PanelRightClose,
-  PanelRightOpen,
   RefreshCw,
   Send,
   Sparkles,
@@ -31,49 +35,57 @@ import './TeacherCopilot.css';
 const QUICK_ACTIONS = [
   {
     label: 'Analyze my class',
-    prompt: 'Analyze my class using the current assessment and diagnosis data. Summarize the observed patterns and sample sizes.',
+    prompt:
+      'Analyze my class using the current assessment and diagnosis data. Summarize the observed patterns and sample sizes.',
     action: 'summarize_class',
     icon: MessageSquareText,
   },
   {
     label: 'Explain biggest misconception',
-    prompt: 'Explain the most common misconception in this class, using the recorded evidence and a clear teaching response.',
+    prompt:
+      'Explain the most common misconception in this class, using the recorded evidence and a clear teaching response.',
     action: 'summarize_class',
     icon: Lightbulb,
   },
   {
     label: 'Generate a lesson plan',
-    prompt: 'Create a differentiated 45-minute lesson plan for this class and topic.',
+    prompt:
+      'Create a differentiated 45-minute lesson plan for this class and topic.',
     action: 'lesson_plan',
     icon: BookOpenCheck,
   },
   {
     label: 'Create a targeted worksheet',
-    prompt: 'Create a targeted worksheet for this class topic and its most common observed misconception, with answers and explanations.',
+    prompt:
+      'Create a targeted worksheet for this class topic and its most common observed misconception, with answers and explanations.',
     action: 'generate_worksheet',
     icon: FileText,
   },
   {
     label: 'Recommend teaching strategies',
-    prompt: 'Recommend practical, evidence-informed teaching strategies for this class and topic.',
+    prompt:
+      'Recommend practical, evidence-informed teaching strategies for this class and topic.',
     action: null,
     icon: Lightbulb,
   },
   {
     label: 'Generate practice questions',
-    prompt: 'Generate practice questions for this class topic, including correct answers and explanations.',
+    prompt:
+      'Generate practice questions for this class topic, including correct answers and explanations.',
     action: 'generate_worksheet',
     icon: Clipboard,
   },
   {
     label: 'Identify students needing attention',
-    prompt: 'Identify students needing attention based on the recorded classroom evidence and explain why.',
+    prompt:
+      'Identify students needing attention based on the recorded classroom evidence and explain why.',
     action: 'struggling_students',
     icon: UsersRound,
   },
   {
     label: 'Compare intervention outcomes',
-    prompt: 'Compare intervention and reassessment outcomes for this class, including the sample sizes and observed score change.',
+    prompt:
+      'Compare intervention and reassessment outcomes for this class, including the sample sizes and observed score change.',
     action: 'compare_outcomes',
     icon: ArrowUpRight,
   },
@@ -82,17 +94,20 @@ const QUICK_ACTIONS = [
 const STARTER_PROMPTS = [
   {
     label: 'What is the class showing?',
-    message: 'Summarize what the current class data shows, including sample sizes and any important limitations.',
+    message:
+      'Summarize what the current class data shows, including sample sizes and any important limitations.',
     action: 'summarize_class',
   },
   {
     label: 'Plan a focused lesson',
-    message: 'Create a differentiated lesson plan focused on the most important learning need in this class.',
+    message:
+      'Create a differentiated lesson plan focused on the most important learning need in this class.',
     action: 'lesson_plan',
   },
   {
     label: 'Build a quick check',
-    message: 'Create a short set of practice questions for this topic with answers and explanations.',
+    message:
+      'Create a short set of practice questions for this topic with answers and explanations.',
     action: 'generate_worksheet',
   },
 ];
@@ -105,19 +120,21 @@ const EMPTY_CHAT_STATE = {
 };
 
 function inlineMarkdown(text, keyPrefix) {
-  return String(text).split(/(\*\*[^*]+\*\*|`[^`]+`|\*[^*]+\*)/g).map((part, index) => {
-    const key = `${keyPrefix}-${index}`;
-    if (part.startsWith('**') && part.endsWith('**')) {
-      return <strong key={key}>{part.slice(2, -2)}</strong>;
-    }
-    if (part.startsWith('`') && part.endsWith('`')) {
-      return <code key={key}>{part.slice(1, -1)}</code>;
-    }
-    if (part.startsWith('*') && part.endsWith('*')) {
-      return <em key={key}>{part.slice(1, -1)}</em>;
-    }
-    return part;
-  });
+  return String(text)
+    .split(/(\*\*[^*]+\*\*|`[^`]+`|\*[^*]+\*)/g)
+    .map((part, index) => {
+      const key = `${keyPrefix}-${index}`;
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return <strong key={key}>{part.slice(2, -2)}</strong>;
+      }
+      if (part.startsWith('`') && part.endsWith('`')) {
+        return <code key={key}>{part.slice(1, -1)}</code>;
+      }
+      if (part.startsWith('*') && part.endsWith('*')) {
+        return <em key={key}>{part.slice(1, -1)}</em>;
+      }
+      return part;
+    });
 }
 
 function MarkdownReply({ content }) {
@@ -145,7 +162,11 @@ function MarkdownReply({ content }) {
     }
     if (heading) {
       flushParagraph();
-      blocks.push({ type: 'heading', level: heading[1].length, text: heading[2] });
+      blocks.push({
+        type: 'heading',
+        level: heading[1].length,
+        text: heading[2],
+      });
       index += 1;
       continue;
     }
@@ -173,7 +194,10 @@ function MarkdownReply({ content }) {
       {blocks.map((block, blockIndex) => {
         if (block.type === 'heading') {
           return (
-            <h3 key={`heading-${blockIndex}`} className={block.level > 2 ? 'copilot-markdown-subheading' : ''}>
+            <h3
+              key={`heading-${blockIndex}`}
+              className={block.level > 2 ? 'copilot-markdown-subheading' : ''}
+            >
               {inlineMarkdown(block.text, `heading-${blockIndex}`)}
             </h3>
           );
@@ -216,19 +240,25 @@ function ClassContext({
   session,
   onSelectClass,
 }) {
+  const { t } = useI18n();
   const selectedTopic = taxonomy?.[context?.subject]?.find(
     (item) => item.topic === context?.topic,
   );
   const classOptions = classes || [];
 
   return (
-    <section className="copilot-context" aria-label="Current classroom context">
+    <section
+      className="copilot-context"
+      aria-label={t('Current classroom context')}
+    >
       <div className="copilot-context-heading">
         <span className="copilot-context-indicator" aria-hidden="true" />
-        <span>CLASS CONTEXT</span>
+        <span>{t('CLASS CONTEXT')}</span>
       </div>
       {classOptions.length > 1 && (
-        <label className="sr-only" htmlFor="copilot-class-picker">Change active class</label>
+        <label className="sr-only" htmlFor="copilot-class-picker">
+          {t('Change active class')}
+        </label>
       )}
       {classOptions.length > 1 ? (
         <select
@@ -236,7 +266,7 @@ function ClassContext({
           className="copilot-class-picker"
           value={session.classId || ''}
           onChange={(event) => onSelectClass(event.target.value)}
-          aria-label="Change active class"
+          aria-label={t('Change active class')}
         >
           {classOptions.map((item) => (
             <option key={item.id} value={item.id}>
@@ -250,44 +280,55 @@ function ClassContext({
         </strong>
       )}
       <div className="copilot-context-tags">
-        <span>{context?.subject || session.subject || 'Subject unavailable'}</span>
+        <span>
+          {context?.subject || session.subject || 'Subject unavailable'}
+        </span>
         <span aria-hidden="true">·</span>
         <span>{context?.topic || session.topic || 'Topic unavailable'}</span>
         {selectedTopic && (
           <span className="copilot-taxonomy-count">
-            {selectedTopic.misconceptions.length} patterns
+            {selectedTopic.misconceptions.length} {t('patterns')}
           </span>
         )}
       </div>
       {loading && (
         <p className="copilot-context-status" role="status">
           <LoaderCircle size={13} className="copilot-spin" aria-hidden="true" />
-          Loading verified class context…
+          {t('Loading verified class context…')}
         </p>
       )}
       {error && (
         <div className="copilot-context-error" role="alert">
           <span>{error}</span>
           {retryable && (
-            <button type="button" onClick={onRetry} aria-label="Retry loading class context">
+            <button
+              type="button"
+              onClick={onRetry}
+              aria-label={t('Retry loading class context')}
+            >
               <RefreshCw size={14} aria-hidden="true" />
             </button>
           )}
         </div>
       )}
       {context && !loading && (
-        <div className="copilot-context-metrics" aria-label="Verified class summary">
+        <div
+          className="copilot-context-metrics"
+          aria-label={t('Verified class summary')}
+        >
           <div>
             <strong>{context.total_students}</strong>
-            <span>students</span>
+            <span>{t('ui.students')}</span>
           </div>
           <div>
-            <strong>{context.submitted_students}/{context.total_students}</strong>
-            <span>submitted</span>
+            <strong>
+              {context.submitted_students}/{context.total_students}
+            </strong>
+            <span>{t('ui.submitted')}</span>
           </div>
           <div>
             <strong>{context.pending_diagnoses}</strong>
-            <span>pending</span>
+            <span>{t('pending')}</span>
           </div>
         </div>
       )}
@@ -296,64 +337,84 @@ function ClassContext({
 }
 
 function ClassSummary({ summary }) {
+  const { t } = useI18n();
   const stats = [
     { label: 'Students', value: summary.total_students },
-    { label: 'Submitted', value: `${summary.submitted_students}/${summary.total_students}` },
+    {
+      label: 'Submitted',
+      value: `${summary.submitted_students}/${summary.total_students}`,
+    },
     { label: 'Diagnosed', value: summary.diagnosed_answers },
     { label: 'Pending', value: summary.pending_diagnoses },
   ];
 
   return (
-    <section className="copilot-summary" aria-label="Verified classroom metrics">
+    <section
+      className="copilot-summary"
+      aria-label={t('Verified classroom metrics')}
+    >
       <div className="copilot-summary-grid">
         {stats.map((stat) => (
-          <div className="copilot-summary-metric" key={stat.label}>
+          <div className="copilot-summary-metric" key={t(stat.label)}>
             <strong>{stat.value}</strong>
-            <span>{stat.label}</span>
+            <span>{t(stat.label)}</span>
           </div>
         ))}
       </div>
-      {(summary.baseline_accuracy != null || summary.reassessment_accuracy != null) && (
+      {(summary.baseline_accuracy != null ||
+        summary.reassessment_accuracy != null) && (
         <div className="copilot-summary-scores">
           {summary.baseline_accuracy != null && (
             <span>
-              Initial <strong>{summary.baseline_accuracy}%</strong>
+              {t('Initial')}
+              <strong>{summary.baseline_accuracy}%</strong>
               <small>n={summary.baseline_sample_size}</small>
             </span>
           )}
           {summary.reassessment_accuracy != null && (
             <span>
-              Follow-up <strong>{summary.reassessment_accuracy}%</strong>
+              {t('Follow-up')}
+              <strong>{summary.reassessment_accuracy}%</strong>
               <small>n={summary.reassessment_sample_size}</small>
             </span>
           )}
           {summary.accuracy_delta != null && (
             <span className="copilot-score-delta">
-              {summary.accuracy_delta > 0 ? '+' : ''}{summary.accuracy_delta} pp observed
+              {summary.accuracy_delta > 0 ? '+' : ''}
+              {summary.accuracy_delta} {t('pp observed')}
             </span>
           )}
         </div>
       )}
-      {summary.baseline_sample_size <= 1 && summary.baseline_sample_size > 0 && (
-        <p className="copilot-small-note">
-          Initial accuracy reflects a small observed sample, not a measure of overall mastery.
-        </p>
-      )}
+      {summary.baseline_sample_size <= 1 &&
+        summary.baseline_sample_size > 0 && (
+          <p className="copilot-small-note">
+            {t(
+              'Initial accuracy reflects a small observed sample, not a measure of overall mastery.',
+            )}
+          </p>
+        )}
     </section>
   );
 }
 
 function MisconceptionCards({ misconceptions }) {
+  const { t } = useI18n();
   if (!misconceptions?.length) return null;
   return (
-    <section className="copilot-misconceptions" aria-label="Observed misconception patterns">
-      <h4>Observed misconception patterns</h4>
+    <section
+      className="copilot-misconceptions"
+      aria-label={t('Observed misconception patterns')}
+    >
+      <h4>{t('Observed misconception patterns')}</h4>
       {misconceptions.slice(0, 3).map((item) => (
         <article className="copilot-misconception" key={item.code}>
           <div className="copilot-misconception-heading">
             <span className="copilot-code">{item.code}</span>
             <strong>{item.category}</strong>
-            <span className="copilot-affected">{item.student_count} students</span>
+            <span className="copilot-affected">
+              {item.student_count} {t('ui.students')}
+            </span>
           </div>
           <p>{item.description}</p>
           {item.sample_evidence?.[0] && (
@@ -366,8 +427,11 @@ function MisconceptionCards({ misconceptions }) {
 }
 
 function DraftContent({ draft }) {
+  const { t } = useI18n();
   const [copied, setCopied] = useState(false);
   const [copyMessage, setCopyMessage] = useState('');
+  const copyTimer = useRef(null);
+  useEffect(() => () => window.clearTimeout(copyTimer.current), []);
 
   async function copyDraft() {
     const parts = [
@@ -382,13 +446,16 @@ function DraftContent({ draft }) {
         `${plan.subject}: ${plan.topic} · ${plan.duration_minutes} minutes`,
         ...plan.objectives.map((item) => `Objective: ${item}`),
         ...plan.phases.map(
-          (phase) => `${phase.phase_name} (${phase.duration_minutes} min)\nTeacher: ${phase.teacher_action}\nStudents: ${phase.student_action}`,
+          (phase) =>
+            `${phase.phase_name} (${phase.duration_minutes} min)\nTeacher: ${phase.teacher_action}\nStudents: ${phase.student_action}`,
         ),
         ...plan.materials_needed.map((item) => `Material: ${item}`),
         ...Object.entries(plan.differentiation || {}).map(
           ([level, detail]) => `${level}: ${detail}`,
         ),
-        plan.assessment_check ? `Assessment check: ${plan.assessment_check}` : '',
+        plan.assessment_check
+          ? `Assessment check: ${plan.assessment_check}`
+          : '',
       );
     }
     for (const [index, item] of (draft.items || []).entries()) {
@@ -413,58 +480,99 @@ function DraftContent({ draft }) {
       await navigator.clipboard.writeText(parts.filter(Boolean).join('\n\n'));
       setCopied(true);
       setCopyMessage('');
-      window.setTimeout(() => setCopied(false), 1800);
+      window.clearTimeout(copyTimer.current);
+      copyTimer.current = window.setTimeout(() => setCopied(false), 1800);
     } catch {
       setCopied(false);
-      setCopyMessage('Clipboard access is unavailable in this browser.');
+      setCopyMessage(t('Clipboard access is unavailable in this browser.'));
     }
   }
 
   return (
-    <section className="copilot-draft" aria-label="Generated educational draft">
+    <section
+      className="copilot-draft"
+      aria-label={t('Generated educational draft')}
+    >
       <div className="copilot-draft-banner">
-        <span><Sparkles size={14} aria-hidden="true" /> AI GENERATED DRAFT — TEACHER APPROVAL REQUIRED</span>
+        <span>
+          <Sparkles size={14} aria-hidden="true" />{' '}
+          {t('AI GENERATED DRAFT — TEACHER APPROVAL REQUIRED')}
+        </span>
       </div>
       <div className="copilot-draft-title-row">
         <h3>{draft.title}</h3>
-        <button type="button" className="copilot-copy-button" onClick={copyDraft}>
-          {copied ? <Check size={14} aria-hidden="true" /> : <Clipboard size={14} aria-hidden="true" />}
-          {copied ? 'Copied' : 'Copy'}
+        <button
+          type="button"
+          className="copilot-copy-button"
+          onClick={copyDraft}
+        >
+          {copied ? (
+            <Check size={14} aria-hidden="true" />
+          ) : (
+            <Clipboard size={14} aria-hidden="true" />
+          )}
+          {copied ? t('Copied') : t('Copy')}
         </button>
       </div>
-      {copyMessage && <p className="copilot-copy-error" role="status">{copyMessage}</p>}
+      <span className="sr-only" role="status">
+        {copied ? t('Copied') : ''}
+      </span>
+      {copyMessage && (
+        <p className="copilot-copy-error" role="status">
+          {copyMessage}
+        </p>
+      )}
       {draft.misconception_code && (
-        <span className="copilot-code">Targets {draft.misconception_code}</span>
+        <span className="copilot-code">
+          {t('Targets')} {draft.misconception_code}
+        </span>
       )}
       {draft.lesson_plan && <LessonPlan plan={draft.lesson_plan} />}
       {draft.items?.length > 0 && (
         <div className="copilot-question-list">
           {draft.items.map((item, index) => (
-            <article className="copilot-question-card" key={`${index}-${item.question}`}>
+            <article
+              className="copilot-question-card"
+              key={`${index}-${item.question}`}
+            >
               <div className="copilot-question-heading">
-                <span>QUESTION {String(index + 1).padStart(2, '0')}</span>
+                <span>
+                  {t('QUESTION')} {String(index + 1).padStart(2, '0')}
+                </span>
                 {item.difficulty && <small>{item.difficulty}</small>}
               </div>
               <p>{item.question}</p>
               {item.options?.length > 0 && (
                 <ul className="copilot-question-options">
-                  {item.options.map((option) => <li key={option}>{option}</li>)}
+                  {item.options.map((option) => (
+                    <li key={option}>{option}</li>
+                  ))}
                 </ul>
               )}
               {item.targeted_misconception && (
-                <span className="copilot-target-label">Focus: {item.targeted_misconception}</span>
+                <span className="copilot-target-label">
+                  {t('Focus:')} {item.targeted_misconception}
+                </span>
               )}
               {(item.correct_answer || item.explanation) && (
                 <details className="copilot-answer">
-                  <summary>Answer &amp; explanation</summary>
-                  {item.correct_answer && <p><strong>Answer:</strong> {item.correct_answer}</p>}
+                  <summary>{t('Answer & explanation')}</summary>
+                  {item.correct_answer && (
+                    <p>
+                      <strong>{t('Answer:')}</strong> {item.correct_answer}
+                    </p>
+                  )}
                   {item.explanation && <p>{item.explanation}</p>}
                 </details>
               )}
               {item.hints?.length > 0 && (
                 <details className="copilot-hints">
-                  <summary>Hints</summary>
-                  <ul>{item.hints.map((hint) => <li key={hint}>{hint}</li>)}</ul>
+                  <summary>{t('Hints')}</summary>
+                  <ul>
+                    {item.hints.map((hint) => (
+                      <li key={hint}>{hint}</li>
+                    ))}
+                  </ul>
                 </details>
               )}
             </article>
@@ -476,10 +584,16 @@ function DraftContent({ draft }) {
           <h4>{draft.activity.activity_name}</h4>
           <p>{draft.activity.instructions}</p>
           {draft.activity.materials_needed?.length > 0 && (
-            <p><strong>Materials:</strong> {draft.activity.materials_needed.join(', ')}</p>
+            <p>
+              <strong>{t('Materials:')}</strong>{' '}
+              {draft.activity.materials_needed.join(', ')}
+            </p>
           )}
           {draft.activity.expected_takeaway && (
-            <p><strong>Expected takeaway:</strong> {draft.activity.expected_takeaway}</p>
+            <p>
+              <strong>{t('Expected takeaway:')}</strong>{' '}
+              {draft.activity.expected_takeaway}
+            </p>
           )}
         </article>
       )}
@@ -488,30 +602,48 @@ function DraftContent({ draft }) {
 }
 
 function LessonPlan({ plan }) {
+  const { t } = useI18n();
   return (
     <section className="copilot-lesson-plan">
       <div className="copilot-lesson-meta">
-        <span>{plan.subject} · {plan.topic}</span>
-        <strong>{plan.duration_minutes} min</strong>
+        <span>
+          {plan.subject} · {plan.topic}
+        </span>
+        <strong>
+          {plan.duration_minutes} {t('min')}
+        </strong>
       </div>
       {plan.objectives?.length > 0 && (
         <div className="copilot-plan-section">
-          <h4>Learning objectives</h4>
-          <ul>{plan.objectives.map((item) => <li key={item}>{item}</li>)}</ul>
+          <h4>{t('Learning objectives')}</h4>
+          <ul>
+            {plan.objectives.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
         </div>
       )}
       {plan.phases?.length > 0 && (
         <div className="copilot-timeline">
           {plan.phases.map((phase, index) => (
-            <article className="copilot-phase" key={`${phase.phase_name}-${index}`}>
+            <article
+              className="copilot-phase"
+              key={`${phase.phase_name}-${index}`}
+            >
               <span className="copilot-phase-marker">{index + 1}</span>
               <div>
                 <div className="copilot-phase-title">
                   <strong>{phase.phase_name}</strong>
-                  <span>{phase.duration_minutes} min</span>
+                  <span>
+                    {phase.duration_minutes} {t('min')}
+                  </span>
                 </div>
-                <p><b>Teacher</b> {phase.teacher_action}</p>
-                <p><b>Students</b> {phase.student_action}</p>
+                <p>
+                  <b>{t('Teacher')}</b> {phase.teacher_action}
+                </p>
+                <p>
+                  <b>{t('Students')}</b> {phase.student_action}
+                </p>
               </div>
             </article>
           ))}
@@ -519,21 +651,23 @@ function LessonPlan({ plan }) {
       )}
       {plan.materials_needed?.length > 0 && (
         <div className="copilot-plan-section">
-          <h4>Materials</h4>
+          <h4>{t('Materials')}</h4>
           <p>{plan.materials_needed.join(' · ')}</p>
         </div>
       )}
       {Object.keys(plan.differentiation || {}).length > 0 && (
         <details className="copilot-differentiation">
-          <summary>Differentiation</summary>
+          <summary>{t('Differentiation')}</summary>
           {Object.entries(plan.differentiation).map(([level, detail]) => (
-            <p key={level}><strong>{level}:</strong> {detail}</p>
+            <p key={level}>
+              <strong>{level}:</strong> {detail}
+            </p>
           ))}
         </details>
       )}
       {plan.assessment_check && (
         <div className="copilot-plan-assessment">
-          <strong>Assessment check</strong>
+          <strong>{t('Assessment check')}</strong>
           <p>{plan.assessment_check}</p>
         </div>
       )}
@@ -542,26 +676,32 @@ function LessonPlan({ plan }) {
 }
 
 function AssistantResponse({ response, onFollowup }) {
-  const providerName = {
-    openrouter: 'OpenRouter',
-    mock: 'Mock provider',
-    mock_fallback: 'Mock fallback',
-    openrouter_fallback: 'OpenRouter fallback',
-  }[response.provider] || response.provider;
+  const { t } = useI18n();
+  const providerName =
+    {
+      openrouter: 'OpenRouter',
+      gemini: 'Gemini',
+      gemini_fallback: 'Gemini template fallback',
+      mock: 'Mock provider',
+      mock_fallback: 'Mock fallback',
+      openrouter_fallback: 'OpenRouter fallback',
+    }[response.provider] || response.provider;
   const reply = response.reply?.trim() || '';
   const replyRepeatsDraft = Boolean(
-    response.draft_content?.title
-    && reply.toLowerCase().includes(response.draft_content.title.toLowerCase()),
+    response.draft_content?.title &&
+    reply.toLowerCase().includes(response.draft_content.title.toLowerCase()),
   );
 
   return (
     <>
       <div className="copilot-provider-line">
         <span className="copilot-provider-dot" aria-hidden="true" />
-        {providerName || 'AI provider'}
+        {t(providerName || 'provider')}
         {response.model_version && <span>· {response.model_version}</span>}
       </div>
-      {response.draft_content && <DraftContent draft={response.draft_content} />}
+      {response.draft_content && (
+        <DraftContent draft={response.draft_content} />
+      )}
       {reply && !replyRepeatsDraft && <MarkdownReply content={reply} />}
       {response.class_context_summary && (
         <>
@@ -573,10 +713,15 @@ function AssistantResponse({ response, onFollowup }) {
       )}
       {response.suggested_followups?.length > 0 && (
         <div className="copilot-followups">
-          <span>Continue with</span>
+          <span>{t('Continue with')}</span>
           {response.suggested_followups.map((prompt) => (
-            <button type="button" key={prompt} onClick={() => onFollowup(prompt)}>
-              {prompt}<ChevronRight size={13} aria-hidden="true" />
+            <button
+              type="button"
+              key={prompt}
+              onClick={() => onFollowup(prompt)}
+            >
+              {prompt}
+              <ChevronRight size={13} aria-hidden="true" />
             </button>
           ))}
         </div>
@@ -586,16 +731,20 @@ function AssistantResponse({ response, onFollowup }) {
 }
 
 function AssistantMessage({ message, onFollowup }) {
+  const { t } = useI18n();
   return (
     <article className="copilot-message copilot-message-assistant">
       <span className="copilot-message-avatar" aria-hidden="true">
         <Sparkles size={14} />
       </span>
       <div className="copilot-message-body">
-        <div className="copilot-message-label">Teacher Copilot</div>
+        <div className="copilot-message-label">{t('Teacher Copilot')}</div>
         <div className="copilot-message-content">
           {message.response ? (
-            <AssistantResponse response={message.response} onFollowup={onFollowup} />
+            <AssistantResponse
+              response={message.response}
+              onFollowup={onFollowup}
+            />
           ) : (
             <MarkdownReply content={message.content} />
           )}
@@ -606,19 +755,27 @@ function AssistantMessage({ message, onFollowup }) {
 }
 
 function UserMessage({ content }) {
+  const { t } = useI18n();
   return (
     <article className="copilot-message copilot-message-user">
       <div className="copilot-message-body">
-        <div className="copilot-message-label">You</div>
+        <div className="copilot-message-label">{t('You')}</div>
         <div className="copilot-user-bubble">{content}</div>
       </div>
     </article>
   );
 }
 
-export default function TeacherCopilot({ session, startSession }) {
-  const [isOpen, setIsOpen] = useState(() => !window.matchMedia('(max-width: 1100px)').matches);
-  const [isCompact, setIsCompact] = useState(() => window.matchMedia('(max-width: 1100px)').matches);
+export default function TeacherCopilot({
+  session,
+  startSession,
+  open,
+  onDismiss,
+}) {
+  const { t } = useI18n();
+  const { lite } = useLiteEffects();
+  const isOpen = open;
+  const isCompact = true;
   const [classes, setClasses] = useState([]);
   const [classesLoading, setClassesLoading] = useState(true);
   const [classesError, setClassesError] = useState('');
@@ -632,22 +789,22 @@ export default function TeacherCopilot({ session, startSession }) {
   const [chatState, setChatState] = useState(EMPTY_CHAT_STATE);
   const [inputState, setInputState] = useState({ key: '', value: '' });
   const messagesEndRef = useRef(null);
-  const panelRef = useRef(null);
+  const panelRef = useModalDialog(open, onDismiss);
   const closeButtonRef = useRef(null);
-  const triggerRef = useRef(null);
-  const compactWasOpen = useRef(false);
   const chatRequestId = useRef(0);
   const contextKey = `${session.classId || ''}:${session.subject || ''}:${session.topic || ''}`;
   const contextKeyRef = useRef(contextKey);
-  const currentContextState = contextState.key === contextKey ? contextState : null;
+  const currentContextState =
+    contextState.key === contextKey ? contextState : null;
   const context = currentContextState?.data || null;
-  const contextLoading = Boolean(session.classId) && (
-    !currentContextState || currentContextState.loading
-  );
+  const contextLoading =
+    Boolean(session.classId) &&
+    (!currentContextState || currentContextState.loading);
   const contextError = session.classId
     ? currentContextState?.error || ''
-    : 'Select a class to load its verified classroom context.';
-  const currentChat = chatState.key === contextKey ? chatState : EMPTY_CHAT_STATE;
+    : t('Select a class to load its verified classroom context.');
+  const currentChat =
+    chatState.key === contextKey ? chatState : EMPTY_CHAT_STATE;
   const messages = currentChat.messages;
   const sending = currentChat.sending;
   const chatError = currentChat.error;
@@ -660,7 +817,10 @@ export default function TeacherCopilot({ session, startSession }) {
   }, [contextKey]);
 
   const activeTopic = useMemo(
-    () => taxonomy?.[context?.subject]?.find((item) => item.topic === context?.topic),
+    () =>
+      taxonomy?.[context?.subject]?.find(
+        (item) => item.topic === context?.topic,
+      ),
     [context, taxonomy],
   );
   const starterPrompts = useMemo(() => {
@@ -686,7 +846,8 @@ export default function TeacherCopilot({ session, startSession }) {
         }
       })
       .catch((error) => {
-        if (active) setClassesError(getErrorMessage(error, 'Could not load classes.'));
+        if (active)
+          setClassesError(getErrorMessage(error, 'Could not load classes.'));
       })
       .finally(() => {
         if (active) setClassesLoading(false);
@@ -712,7 +873,12 @@ export default function TeacherCopilot({ session, startSession }) {
         if (!result || result.class_id !== session.classId) {
           throw new Error('The backend returned a different class context.');
         }
-        setContextState({ key: contextKey, data: result, loading: false, error: '' });
+        setContextState({
+          key: contextKey,
+          data: result,
+          loading: false,
+          error: '',
+        });
       })
       .catch((error) => {
         if (active) {
@@ -720,7 +886,10 @@ export default function TeacherCopilot({ session, startSession }) {
             key: contextKey,
             data: null,
             loading: false,
-            error: getErrorMessage(error, error.message || 'Could not load this class context.'),
+            error: getErrorMessage(
+              error,
+              error.message || 'Could not load this class context.',
+            ),
           });
         }
       });
@@ -730,57 +899,12 @@ export default function TeacherCopilot({ session, startSession }) {
   }, [contextKey, session.classId]);
 
   useEffect(() => {
-    const media = window.matchMedia('(max-width: 1100px)');
-    const updateCompact = (event) => {
-      setIsCompact(event.matches);
-      if (event.matches) setIsOpen(false);
-      else setIsOpen(true);
-    };
-    media.addEventListener('change', updateCompact);
-    return () => media.removeEventListener('change', updateCompact);
-  }, []);
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ block: 'end', behavior: 'smooth' });
-  }, [messages, sending]);
-
-  useEffect(() => {
-    if (isCompact && isOpen) {
-      closeButtonRef.current?.focus();
-      compactWasOpen.current = true;
-      return;
-    }
-    if (isCompact && compactWasOpen.current) {
-      triggerRef.current?.focus();
-      compactWasOpen.current = false;
-    }
-  }, [isCompact, isOpen]);
-
-  useEffect(() => {
-    if (!isCompact || !isOpen) return undefined;
-    const onKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        setIsOpen(false);
-        return;
-      }
-      if (event.key === 'Tab' && panelRef.current) {
-        const focusable = panelRef.current.querySelectorAll(
-          'button:not([disabled]), select:not([disabled]), textarea:not([disabled]), summary, [href]',
-        );
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-        if (event.shiftKey && document.activeElement === first) {
-          event.preventDefault();
-          last?.focus();
-        } else if (!event.shiftKey && document.activeElement === last) {
-          event.preventDefault();
-          first?.focus();
-        }
-      }
-    };
-    document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
-  }, [isCompact, isOpen]);
+    if (open)
+      messagesEndRef.current?.scrollIntoView({
+        block: 'end',
+        behavior: lite ? 'instant' : 'smooth',
+      });
+  }, [messages, sending, open, lite]);
 
   function selectClass(classId) {
     const selected = classes.find((item) => item.id === classId);
@@ -800,7 +924,9 @@ export default function TeacherCopilot({ session, startSession }) {
       setClassesError('');
       listDemoClasses()
         .then((result) => setClasses(Array.isArray(result) ? result : []))
-        .catch((error) => setClassesError(getErrorMessage(error, 'Could not load classes.')))
+        .catch((error) =>
+          setClassesError(getErrorMessage(error, 'Could not load classes.')),
+        )
         .finally(() => setClassesLoading(false));
     }
     if (!session.classId) return;
@@ -810,14 +936,22 @@ export default function TeacherCopilot({ session, startSession }) {
         if (result?.class_id !== session.classId) {
           throw new Error('The backend returned a different class context.');
         }
-        setContextState({ key: contextKey, data: result, loading: false, error: '' });
+        setContextState({
+          key: contextKey,
+          data: result,
+          loading: false,
+          error: '',
+        });
       })
       .catch((error) => {
         setContextState({
           key: contextKey,
           data: null,
           loading: false,
-          error: getErrorMessage(error, error.message || 'Could not load this class context.'),
+          error: getErrorMessage(
+            error,
+            error.message || 'Could not load this class context.',
+          ),
         });
       });
   }
@@ -832,13 +966,21 @@ export default function TeacherCopilot({ session, startSession }) {
       history,
     };
     setChatState((current) => {
-      const base = current.key === requestKey
-        ? current
-        : { ...EMPTY_CHAT_STATE, key: requestKey };
+      const base =
+        current.key === requestKey
+          ? current
+          : { ...EMPTY_CHAT_STATE, key: requestKey };
       return {
         ...base,
         messages: appendUser
-          ? [...base.messages, { id: `user-${currentId}`, role: 'user', content: request.message }]
+          ? [
+              ...base.messages,
+              {
+                id: `user-${currentId}`,
+                role: 'user',
+                content: request.message,
+              },
+            ]
           : base.messages,
         sending: true,
         error: '',
@@ -854,44 +996,67 @@ export default function TeacherCopilot({ session, startSession }) {
         history: requestContext.history,
         action: requestContext.action,
       });
-      if (currentId !== chatRequestId.current || contextKeyRef.current !== requestKey) return;
       if (
-        !response
-        || typeof response.reply !== 'string'
-        || (!response.reply.trim() && !response.draft_content && !response.class_context_summary)
+        currentId !== chatRequestId.current ||
+        contextKeyRef.current !== requestKey
+      )
+        return;
+      if (
+        !response ||
+        typeof response.reply !== 'string' ||
+        (!response.reply.trim() &&
+          !response.draft_content &&
+          !response.class_context_summary)
       ) {
-        throw new Error('The assistant returned an empty response. Please try again.');
+        throw new Error(
+          'The assistant returned an empty response. Please try again.',
+        );
       }
-      setChatState((current) => (
+      setChatState((current) =>
         current.key === requestKey
           ? {
               ...current,
-              messages: [...current.messages, {
-                id: `assistant-${currentId}`,
-                role: 'assistant',
-                response,
-              }],
+              messages: [
+                ...current.messages,
+                {
+                  id: `assistant-${currentId}`,
+                  role: 'assistant',
+                  response,
+                },
+              ],
             }
-          : current
-      ));
+          : current,
+      );
     } catch (error) {
-      if (currentId !== chatRequestId.current || contextKeyRef.current !== requestKey) return;
-      setChatState((current) => (
+      if (
+        currentId !== chatRequestId.current ||
+        contextKeyRef.current !== requestKey
+      )
+        return;
+      setChatState((current) =>
         current.key === requestKey
           ? {
               ...current,
-              error: error.message === 'The assistant returned an empty response. Please try again.'
-                ? error.message
-                : getErrorMessage(error, 'The assistant could not respond. Please try again.'),
+              error:
+                error.message ===
+                'The assistant returned an empty response. Please try again.'
+                  ? error.message
+                  : getErrorMessage(
+                      error,
+                      'The assistant could not respond. Please try again.',
+                    ),
               retryRequest: { ...requestContext },
             }
-          : current
-      ));
+          : current,
+      );
     } finally {
-      if (currentId === chatRequestId.current && contextKeyRef.current === requestKey) {
-        setChatState((current) => (
-          current.key === requestKey ? { ...current, sending: false } : current
-        ));
+      if (
+        currentId === chatRequestId.current &&
+        contextKeyRef.current === requestKey
+      ) {
+        setChatState((current) =>
+          current.key === requestKey ? { ...current, sending: false } : current,
+        );
       }
     }
   }
@@ -903,7 +1068,10 @@ export default function TeacherCopilot({ session, startSession }) {
       .filter((item) => item.role === 'user' || item.role === 'assistant')
       .map((item) => ({
         role: item.role,
-        content: item.role === 'assistant' ? item.response?.reply || item.content || '' : item.content,
+        content:
+          item.role === 'assistant'
+            ? item.response?.reply || item.content || ''
+            : item.content,
       }))
       .filter((item) => item.content.trim());
     setInputState({ key: contextKey, value: '' });
@@ -922,265 +1090,294 @@ export default function TeacherCopilot({ session, startSession }) {
     setInputState({ key: contextKey, value: '' });
   }
 
-  function openPanel() {
-    triggerRef.current?.focus();
-    setIsOpen(true);
-  }
-
   function closePanel() {
-    setIsOpen(false);
+    onDismiss();
   }
 
   const canSend = Boolean(
-    context
-    && !contextLoading
-    && !contextError
-    && input.trim()
-    && !sending,
+    context && !contextLoading && !contextError && input.trim() && !sending,
   );
 
-  return (
-    <>
-      {isCompact && isOpen && (
-        <button
-          type="button"
-          className="copilot-backdrop"
-          aria-label="Close Teacher Copilot"
-          aria-hidden="true"
-          tabIndex={-1}
-          onClick={closePanel}
-        />
-      )}
-      <aside
-        ref={panelRef}
-        className={`copilot-panel${isOpen ? ' is-open' : ''}${isCompact ? ' is-compact' : ''}`}
-        role={isCompact && isOpen ? 'dialog' : 'complementary'}
-        aria-modal={isCompact && isOpen ? 'true' : undefined}
-        aria-label="Teacher Copilot"
-        aria-labelledby={isOpen ? 'copilot-title' : undefined}
-        aria-hidden={isCompact && !isOpen ? 'true' : undefined}
-      >
-        {isOpen ? (
-          <>
-            <header className="copilot-header">
-              <div className="copilot-brand">
-                <span className="copilot-brand-mark" aria-hidden="true">
-                  <Sparkles size={17} />
-                </span>
-                <div>
-                  <h2 id="copilot-title">Teacher Copilot</h2>
-                  <span>Classroom-grounded assistant</span>
-                </div>
+  return createPortal(
+    <dialog
+      ref={panelRef}
+      className={`copilot-panel${isOpen ? ' is-open' : ''}${isCompact ? ' is-compact' : ''}`}
+      role={isCompact && isOpen ? 'dialog' : 'complementary'}
+      aria-modal={isCompact && isOpen ? 'true' : undefined}
+      aria-label={t('Teacher Copilot')}
+      aria-labelledby={isOpen ? 'copilot-title' : undefined}
+      aria-hidden={isCompact && !isOpen ? 'true' : undefined}
+    >
+      {isOpen ? (
+        <>
+          <header className="copilot-header">
+            <div className="copilot-brand">
+              <span className="copilot-brand-mark" aria-hidden="true">
+                <Sparkles size={17} />
+              </span>
+              <div>
+                <h2 id="copilot-title">{t('Teacher Copilot')}</h2>
+                <span>{t('Classroom-grounded assistant')}</span>
               </div>
-              <div className="copilot-header-actions">
-                <button
-                  type="button"
-                  className="copilot-icon-button"
-                  onClick={clearConversation}
-                  disabled={!messages.length || sending}
-                  aria-label="Clear conversation"
-                  title="Clear conversation"
-                >
-                  <Trash2 size={16} aria-hidden="true" />
-                </button>
-                <button
-                  ref={closeButtonRef}
-                  type="button"
-                  className="copilot-icon-button"
-                  onClick={closePanel}
-                  aria-label={isCompact ? 'Close Teacher Copilot' : 'Collapse Teacher Copilot'}
-                  title={isCompact ? 'Close assistant' : 'Collapse assistant'}
-                >
-                  {isCompact
-                    ? <X size={17} aria-hidden="true" />
-                    : <PanelRightClose size={17} aria-hidden="true" />}
-                </button>
-              </div>
-            </header>
-
-            <div className="copilot-context-wrap">
-              <ClassContext
-                context={context}
-                loading={contextLoading}
-                error={contextError || classesError}
-                retryable={Boolean(session.classId || classesError)}
-                onRetry={retryContext}
-                taxonomy={taxonomy}
-                classes={classes}
-                session={session}
-                onSelectClass={selectClass}
-              />
-              {classesLoading && (
-                <span className="copilot-class-list-loading" role="status">
-                  <LoaderCircle size={12} className="copilot-spin" aria-hidden="true" />
-                  Loading classes…
-                </span>
-              )}
             </div>
-
-            <div className="copilot-conversation" aria-label="Copilot conversation">
-              {messages.length === 0 && (
-                <section className="copilot-welcome">
-                  <span className="copilot-welcome-mark" aria-hidden="true">
-                    <Sparkles size={18} />
-                  </span>
-                  <h3>What would you like to work on?</h3>
-                  <p>
-                    Responses use the selected class context. Generated resources are drafts for your review.
-                  </p>
-                  {!contextLoading && !contextError && context && (
-                    <div className="copilot-starter-prompts">
-                      {starterPrompts.map((prompt) => (
-                        <button
-                          type="button"
-                          key={prompt.label}
-                          onClick={() => submitPrompt(prompt.message, prompt.action)}
-                          disabled={!context || sending}
-                        >
-                          {prompt.label}<ChevronRight size={14} aria-hidden="true" />
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                  {contextError && !contextLoading && (
-                    <p className="copilot-empty-context">
-                      Load a valid class context to start a grounded conversation.
-                    </p>
-                  )}
-                </section>
-              )}
-              {messages.map((message) => (
-                message.role === 'user'
-                  ? <UserMessage key={message.id} content={message.content} />
-                  : (
-                    <AssistantMessage
-                      key={message.id}
-                      message={message}
-                      onFollowup={(prompt) => submitPrompt(prompt)}
-                    />
-                  )
-              ))}
-              {sending && (
-                <div className="copilot-loading" role="status" aria-live="polite">
-                  <span className="copilot-message-avatar" aria-hidden="true"><Sparkles size={14} /></span>
-                  <span className="copilot-loading-dots"><i /><i /><i /></span>
-                  <span>Working with your class context…</span>
-                </div>
-              )}
-              {chatError && (
-                <div className="copilot-chat-error" role="alert">
-                  <div>
-                    <strong>Couldn’t get a response</strong>
-                    <p>{chatError}</p>
-                  </div>
-                  <button type="button" onClick={retryLastRequest} disabled={!retryRequest || sending}>
-                    <RefreshCw size={14} aria-hidden="true" /> Retry
-                  </button>
-                </div>
-              )}
-              <div ref={messagesEndRef} />
+            <div className="copilot-header-actions">
+              <button
+                type="button"
+                className="copilot-icon-button"
+                onClick={clearConversation}
+                disabled={!messages.length || sending}
+                aria-label={t('Clear conversation')}
+                title={t('Clear conversation')}
+              >
+                <Trash2 size={16} aria-hidden="true" />
+              </button>
+              <button
+                ref={closeButtonRef}
+                type="button"
+                className="copilot-icon-button"
+                onClick={closePanel}
+                aria-label={
+                  isCompact
+                    ? t('Close Teacher Copilot')
+                    : t('Collapse Teacher Copilot')
+                }
+                title={
+                  isCompact ? t('Close assistant') : t('Collapse assistant')
+                }
+              >
+                {isCompact ? (
+                  <X size={17} aria-hidden="true" />
+                ) : (
+                  <PanelRightClose size={17} aria-hidden="true" />
+                )}
+              </button>
             </div>
+          </header>
 
-            {messages.length > 0 && (
-              <details className="copilot-quick-actions">
-                <summary>
-                  <span><Sparkles size={14} aria-hidden="true" /> Quick actions</span>
-                  <ChevronDown size={14} aria-hidden="true" />
-                </summary>
-                <div className="copilot-action-grid">
-                  {QUICK_ACTIONS.map(({ label, prompt, action, icon: Icon }) => (
-                    <button
-                      type="button"
-                      key={label}
-                      onClick={() => submitPrompt(prompt, action)}
-                      disabled={!context || contextLoading || Boolean(contextError) || sending}
-                    >
-                      <Icon size={14} aria-hidden="true" />
-                      <span>{label}</span>
-                    </button>
-                  ))}
-                </div>
-              </details>
+          <div className="copilot-context-wrap">
+            <div className="copilot-language-control">
+              <LanguageSelector compact labelKey="Assistant language" />
+            </div>
+            <ClassContext
+              context={context}
+              loading={contextLoading}
+              error={contextError || classesError}
+              retryable={Boolean(session.classId || classesError)}
+              onRetry={retryContext}
+              taxonomy={taxonomy}
+              classes={classes}
+              session={session}
+              onSelectClass={selectClass}
+            />
+            {classesLoading && (
+              <span className="copilot-class-list-loading" role="status">
+                <LoaderCircle
+                  size={12}
+                  className="copilot-spin"
+                  aria-hidden="true"
+                />
+                {t('Loading classes…')}
+              </span>
             )}
-            {messages.length === 0 && (
-              <div className="copilot-quick-actions copilot-quick-actions-initial">
-                <div className="copilot-action-grid">
-                  {QUICK_ACTIONS.map(({ label, prompt, action, icon: Icon }) => (
-                    <button
-                      type="button"
-                      key={label}
-                      onClick={() => submitPrompt(prompt, action)}
-                      disabled={!context || contextLoading || Boolean(contextError) || sending}
-                    >
-                      <Icon size={14} aria-hidden="true" />
-                      <span>{label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
+          </div>
 
-            <form
-              className="copilot-composer"
-              onSubmit={(event) => {
-                event.preventDefault();
-                submitPrompt(input);
-              }}
-            >
-              <label className="sr-only" htmlFor="copilot-message">Message Teacher Copilot</label>
-              <textarea
-                id="copilot-message"
-                value={input}
-                onChange={(event) => setInputState({ key: contextKey, value: event.target.value })}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' && !event.shiftKey) {
-                    event.preventDefault();
-                    if (canSend) submitPrompt(input);
-                  }
-                }}
-                placeholder={context ? 'Ask about this class…' : 'Select a class to begin'}
-                rows={2}
-                disabled={!context || contextLoading || Boolean(contextError) || sending}
-                aria-describedby="copilot-composer-hint"
-              />
-              <div className="copilot-composer-footer">
-                <span id="copilot-composer-hint">
-                  Enter to send · Shift + Enter for a new line
-                </span>
-                <button type="submit" disabled={!canSend} aria-label="Send message">
-                  {sending
-                    ? <LoaderCircle size={16} className="copilot-spin" aria-hidden="true" />
-                    : <Send size={16} aria-hidden="true" />}
-                </button>
-              </div>
-            </form>
-          </>
-        ) : (
-          <button
-            type="button"
-            className="copilot-rail-button"
-            onClick={() => setIsOpen(true)}
-            aria-label="Open Teacher Copilot"
-            title="Open Teacher Copilot"
-            aria-controls="copilot-title"
+          <div
+            className="copilot-conversation"
+            aria-label={t('Copilot conversation')}
           >
-            <PanelRightOpen size={18} aria-hidden="true" />
-            <span>AI</span>
-          </button>
-        )}
-      </aside>
-      {isCompact && !isOpen && (
-        <button
-          ref={triggerRef}
-          type="button"
-          className="copilot-mobile-trigger"
-          onClick={openPanel}
-          aria-label="Open Teacher Copilot"
-        >
-          <Sparkles size={18} aria-hidden="true" />
-          <span>Copilot</span>
-        </button>
-      )}
-    </>
+            {messages.length === 0 && (
+              <section className="copilot-welcome">
+                <span className="copilot-welcome-mark" aria-hidden="true">
+                  <Sparkles size={18} />
+                </span>
+                <h3>{t('What would you like to work on?')}</h3>
+                <p>
+                  {t(
+                    'Responses use the selected class context. Generated resources are drafts for your review.',
+                  )}
+                </p>
+                {!contextLoading && !contextError && context && (
+                  <div className="copilot-starter-prompts">
+                    {starterPrompts.map((prompt) => (
+                      <button
+                        type="button"
+                        key={t(prompt.label)}
+                        onClick={() =>
+                          submitPrompt(prompt.message, prompt.action)
+                        }
+                        disabled={!context || sending}
+                      >
+                        {t(prompt.label)}
+                        <ChevronRight size={14} aria-hidden="true" />
+                      </button>
+                    ))}
+                  </div>
+                )}
+                {contextError && !contextLoading && (
+                  <p className="copilot-empty-context">
+                    {t(
+                      'Load a valid class context to start a grounded conversation.',
+                    )}
+                  </p>
+                )}
+              </section>
+            )}
+            {messages.map((message) =>
+              message.role === 'user' ? (
+                <UserMessage key={message.id} content={message.content} />
+              ) : (
+                <AssistantMessage
+                  key={message.id}
+                  message={message}
+                  onFollowup={(prompt) => submitPrompt(prompt)}
+                />
+              ),
+            )}
+            {sending && (
+              <div className="copilot-loading" role="status" aria-live="polite">
+                <span className="copilot-message-avatar" aria-hidden="true">
+                  <Sparkles size={14} />
+                </span>
+                <span className="copilot-loading-dots">
+                  <i />
+                  <i />
+                  <i />
+                </span>
+                <span>{t('Working with your class context…')}</span>
+              </div>
+            )}
+            {chatError && (
+              <div className="copilot-chat-error" role="alert">
+                <div>
+                  <strong>{t('Couldn’t get a response')}</strong>
+                  <p>{chatError}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={retryLastRequest}
+                  disabled={!retryRequest || sending}
+                >
+                  <RefreshCw size={14} aria-hidden="true" />
+                  {t('Retry')}
+                </button>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+
+          {messages.length > 0 && (
+            <details className="copilot-quick-actions">
+              <summary>
+                <span>
+                  <Sparkles size={14} aria-hidden="true" /> {t('Quick actions')}
+                </span>
+                <ChevronDown size={14} aria-hidden="true" />
+              </summary>
+              <div className="copilot-action-grid">
+                {QUICK_ACTIONS.map(({ label, prompt, action, icon: Icon }) => (
+                  <button
+                    type="button"
+                    key={label}
+                    onClick={() => submitPrompt(prompt, action)}
+                    disabled={
+                      !context ||
+                      contextLoading ||
+                      Boolean(contextError) ||
+                      sending
+                    }
+                  >
+                    <Icon size={14} aria-hidden="true" />
+                    <span>{t(label)}</span>
+                  </button>
+                ))}
+              </div>
+            </details>
+          )}
+          {messages.length === 0 && (
+            <div className="copilot-quick-actions copilot-quick-actions-initial">
+              <div className="copilot-action-grid">
+                {QUICK_ACTIONS.map(({ label, prompt, action, icon: Icon }) => (
+                  <button
+                    type="button"
+                    key={label}
+                    onClick={() => submitPrompt(prompt, action)}
+                    disabled={
+                      !context ||
+                      contextLoading ||
+                      Boolean(contextError) ||
+                      sending
+                    }
+                  >
+                    <Icon size={14} aria-hidden="true" />
+                    <span>{t(label)}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <form
+            className="copilot-composer"
+            onSubmit={(event) => {
+              event.preventDefault();
+              submitPrompt(input);
+            }}
+          >
+            <label className="sr-only" htmlFor="copilot-message">
+              {t('Message Teacher Copilot')}
+            </label>
+            <textarea
+              id="copilot-message"
+              value={input}
+              onChange={(event) =>
+                setInputState({ key: contextKey, value: event.target.value })
+              }
+              onKeyDown={(event) => {
+                if (
+                  event.key === 'Enter' &&
+                  !event.shiftKey &&
+                  !event.nativeEvent.isComposing &&
+                  event.keyCode !== 229
+                ) {
+                  event.preventDefault();
+                  if (canSend) submitPrompt(input);
+                }
+              }}
+              placeholder={
+                context
+                  ? t('Ask about this class…')
+                  : t('Select a class to begin')
+              }
+              rows={2}
+              disabled={
+                !context || contextLoading || Boolean(contextError) || sending
+              }
+              aria-describedby="copilot-composer-hint"
+            />
+            <div className="copilot-composer-footer">
+              <span id="copilot-composer-hint">
+                {t('Enter to send · Shift + Enter for a new line')}
+              </span>
+              <button
+                type="submit"
+                disabled={!canSend}
+                aria-label={t('Send message')}
+              >
+                {sending ? (
+                  <LoaderCircle
+                    size={16}
+                    className="copilot-spin"
+                    aria-hidden="true"
+                  />
+                ) : (
+                  <Send size={16} aria-hidden="true" />
+                )}
+              </button>
+            </div>
+          </form>
+        </>
+      ) : null}
+    </dialog>,
+    document.body,
   );
 }

@@ -1,0 +1,57 @@
+[
+  {
+    "foreground": "#162A3A",
+    "background": "#FFFFFF",
+    "ratio": 14.72
+  },
+  {
+    "foreground": "#475569",
+    "background": "#FFFFFF",
+    "ratio": 7.58
+  },
+  {
+    "foreground": "#FFFFFF",
+    "background": "#07584F",
+    "ratio": 8.34
+  },
+  {
+    "foreground": "#0B665C",
+    "background": "#E8F5F1",
+    "ratio": 6.11
+  },
+  {
+    "foreground": "#166534",
+    "background": "#FFFFFF",
+    "ratio": 7.13
+  },
+  {
+    "foreground": "#9A3412",
+    "background": "#FFF5E3",
+    "ratio": 6.76
+  },
+  {
+    "foreground": "#9F1239",
+    "background": "#FFF0F1",
+    "ratio": 7.25
+  },
+  {
+    "foreground": "#75888F",
+    "background": "#FFFFFF",
+    "ratio": 3.7
+  },
+  {
+    "foreground": "#F8FAFC",
+    "background": "#132F34",
+    "ratio": 13.53
+  },
+  {
+    "foreground": "#DCE6E8",
+    "background": "#132F34",
+    "ratio": 11.14
+  },
+  {
+    "foreground": "#B8DCD5",
+    "background": "#132F34",
+    "ratio": 9.59
+  }
+]

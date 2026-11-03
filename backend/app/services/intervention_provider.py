@@ -14,8 +14,11 @@ class OpenRouterInterventionProvider:
         base_url: str = "https://openrouter.ai/api/v1",
         timeout_seconds: float = 20,
         client=None,
+        chat_client=None,
+        provider_name: str = "openrouter",
     ) -> None:
-        self.client = OpenRouterChatClient(
+        self.name = provider_name
+        self.client = chat_client or OpenRouterChatClient(
             api_key=api_key,
             model=model,
             base_url=base_url,
@@ -58,5 +61,24 @@ class OpenRouterInterventionProvider:
             return InterventionPersonalization.model_validate_json(content)
         except ValueError as error:
             raise ProviderError(
-                "OpenRouter returned invalid intervention personalization"
+                f"{self.name} returned invalid intervention personalization"
             ) from error
+
+
+def create_intervention_provider(settings, client=None):
+    if settings.ai_provider == "gemini":
+        from app.services.gemini_client import GeminiChatClient
+
+        return OpenRouterInterventionProvider(
+            api_key="",
+            model=settings.gemini_model,
+            chat_client=GeminiChatClient.from_settings(settings, client=client),
+            provider_name="gemini",
+        )
+    return OpenRouterInterventionProvider(
+        api_key=settings.openrouter_api_key or "",
+        model=settings.openrouter_model or "",
+        base_url=settings.openrouter_base_url,
+        timeout_seconds=settings.openrouter_timeout_seconds,
+        client=client,
+    )

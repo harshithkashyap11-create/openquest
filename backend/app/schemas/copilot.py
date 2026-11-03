@@ -29,6 +29,21 @@ class MisconceptionStat(BaseModel):
     sample_evidence: list[str] = Field(default_factory=list)
 
 
+class QuizQuestionContext(BaseModel):
+    ordinal: int
+    text: str
+    wrong_answers: int
+    reflected_students: int
+    uncertain_students: int
+    themes: list[dict[str, Any]] = Field(default_factory=list)
+
+
+class QuizContext(BaseModel):
+    title: str
+    submitted_students: int
+    questions: list[QuizQuestionContext]
+
+
 class ClassContextSummary(BaseModel):
     class_id: UUID
     class_name: str
@@ -49,6 +64,7 @@ class ClassContextSummary(BaseModel):
     groups_count: int = 0
     approved_groups_count: int = 0
     assigned_interventions_count: int = 0
+    quiz_reports: list[QuizContext] = Field(default_factory=list)
 
 
 class DraftContentItem(BaseModel):

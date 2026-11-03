@@ -1,0 +1,140 @@
+:root {
+  color-scheme: light;
+
+  --cp-bg: #f8fafc;
+  --cp-surface: #ffffff;
+  --cp-surface-muted: #f0f5f6;
+  --cp-surface-brand: #e8f5f1;
+
+  --cp-text: #162a3a;
+  --cp-text-secondary: #475569;
+  --cp-text-brand: #0b665c;
+  --cp-text-inverse: #ffffff;
+
+  --cp-brand: #07584f;
+  --cp-brand-hover: #06473f;
+  --cp-brand-active: #043a34;
+  --cp-brand-soft: #e8f5f1;
+
+  --cp-border: #dce6e8;
+  --cp-border-strong: #75888f;
+  --cp-focus: #07584f;
+
+  --cp-success: #166534;
+  --cp-warning: #9a3412;
+  --cp-danger: #9f1239;
+  --cp-info: #1d4ed8;
+
+  --cp-space-0: 0px;
+  --cp-space-1: 4px;
+  --cp-space-2: 8px;
+  --cp-space-3: 12px;
+  --cp-space-4: 16px;
+  --cp-space-5: 20px;
+  --cp-space-6: 24px;
+  --cp-space-8: 32px;
+  --cp-space-10: 40px;
+  --cp-space-12: 48px;
+  --cp-space-16: 64px;
+
+  --cp-radius-xs: 6px;
+  --cp-radius-sm: 10px;
+  --cp-radius-md: 12px;
+  --cp-radius-lg: 16px;
+  --cp-radius-xl: 20px;
+  --cp-radius-pill: 999px;
+
+  --cp-shadow-1: 0 1px 2px rgb(22 42 58 / 4%), 0 2px 8px rgb(22 42 58 / 3%);
+
+  --cp-shadow-2: 0 3px 10px rgb(22 42 58 / 5%), 0 12px 28px rgb(22 42 58 / 5%);
+
+  --cp-shadow-3: 0 8px 24px rgb(22 42 58 / 8%), 0 24px 56px rgb(22 42 58 / 8%);
+
+  --cp-font-sans: 'Inter', 'Noto Sans', system-ui, sans-serif;
+
+  --cp-font-devanagari: 'Noto Sans Devanagari', var(--cp-font-sans);
+
+  --cp-font-telugu: 'Noto Sans Telugu', var(--cp-font-sans);
+
+  --cp-font-xs: 0.75rem;
+  --cp-font-sm: 0.875rem;
+  --cp-font-md: 1rem;
+  --cp-font-lg: 1.125rem;
+  --cp-font-xl: 1.25rem;
+  --cp-font-2xl: 1.5rem;
+  --cp-font-3xl: 2rem;
+
+  --cp-line-body: 1.5;
+  --cp-line-heading: 1.35;
+  --cp-line-indic: 1.6;
+
+  --cp-layout-max: 1440px;
+  --cp-sidebar-expanded: 248px;
+  --cp-sidebar-collapsed: 72px;
+  --cp-topbar-height: 64px;
+
+  --cp-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --cp-ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --cp-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  --cp-motion-instant: 0ms;
+  --cp-motion-fast: 120ms;
+  --cp-motion-standard: 200ms;
+  --cp-motion-page: 260ms;
+  --cp-motion-drawer: 320ms;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --cp-bg: #0d1b22;
+  --cp-surface: #132f34;
+  --cp-surface-muted: #1a3a3f;
+  --cp-surface-brand: #204640;
+
+  --cp-text: #f8fafc;
+  --cp-text-secondary: #dce6e8;
+  --cp-text-brand: #b8dcd5;
+  --cp-text-inverse: #102b28;
+
+  --cp-brand: #b8dcd5;
+  --cp-brand-hover: #cbe8e1;
+  --cp-brand-active: #e1f3ed;
+  --cp-brand-soft: #204640;
+
+  --cp-border: #45616a;
+  --cp-border-strong: #78949b;
+  --cp-focus: #b8dcd5;
+
+  --cp-success: #a9e7bd;
+  --cp-warning: #ffd0a1;
+  --cp-danger: #ffb1bd;
+  --cp-info: #bfd6ff;
+
+  --cp-shadow-1: 0 2px 8px rgb(0 0 0 / 16%);
+
+  --cp-shadow-2: 0 8px 24px rgb(0 0 0 / 20%);
+
+  --cp-shadow-3: 0 16px 48px rgb(0 0 0 / 28%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --cp-motion-fast: 0ms;
+    --cp-motion-standard: 0ms;
+    --cp-motion-page: 0ms;
+    --cp-motion-drawer: 0ms;
+  }
+}
+
+:root {
+  --cp-amber: #9a5b13;
+  --cp-amber-soft: #fff5e3;
+  --cp-motion-status: 160ms;
+  --cp-motion-modal: 280ms;
+  --cp-motion-chart: 480ms;
+  --cp-motion-count: 600ms;
+  --cp-motion-shimmer: 1200ms;
+  --cp-z-topbar: 10;
+  --cp-z-overlay: 100;
+}

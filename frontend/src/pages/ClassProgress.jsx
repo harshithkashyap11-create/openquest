@@ -1,8 +1,14 @@
+import Score from '../components/ui/ScoreCard';
 import { ChartNoAxesCombined, ClipboardCheck, UsersRound } from 'lucide-react';
 import { useCallback } from 'react';
 import MetricCard from '../components/MetricCard';
 import PageHeader from '../components/PageHeader';
-import { EmptyState, ErrorState, LoadingState } from '../components/PageStates';
+import {
+  EmptyState,
+  ErrorState,
+  LoadingState,
+  RefreshNotice,
+} from '../components/PageStates';
 import { useDemoSession } from '../context/useDemoSession';
 import { useI18n } from '../i18n/useI18n';
 import useAsyncData from '../hooks/useAsyncData';
@@ -15,10 +21,13 @@ export default function ClassProgress() {
     () => getClassProgress(session.classId),
     [session.classId],
   );
-  const { data, loading, error, reload } = useAsyncData(loadProgress, session.classId);
+  const { data, loading, error, refreshing, reload } = useAsyncData(
+    loadProgress,
+    session.classId,
+  );
 
   if (loading) return <LoadingState />;
-  if (error) return <ErrorState error={error} onRetry={reload} />;
+  if (error && !data) return <ErrorState error={error} onRetry={reload} />;
 
   const initial = data.initial_assessment;
   const followup = data.followup_assessment;
@@ -26,6 +35,7 @@ export default function ClassProgress() {
 
   return (
     <div className="page-content">
+      <RefreshNotice error={error} refreshing={refreshing} onRetry={reload} />
       <PageHeader
         eyebrow={t('classProgress')}
         title={t('classProgressTitle')}
@@ -109,7 +119,9 @@ export default function ClassProgress() {
                 <div>
                   <strong>{student.student_code}</strong>
                   <span>
-                    <span className="code-pill">{student.misconception_code}</span>
+                    <span className="code-pill">
+                      {student.misconception_code}
+                    </span>
                     {student.reason}
                   </span>
                 </div>
@@ -119,7 +131,9 @@ export default function ClassProgress() {
                       ? t('notAvailable')
                       : `${student.followup_accuracy_percentage}%`}
                   </strong>
-                  <small>{student.sample_size} {t('observations')}</small>
+                  <small>
+                    {student.sample_size} {t('observations')}
+                  </small>
                 </div>
               </article>
             ))}
@@ -128,19 +142,6 @@ export default function ClassProgress() {
           <EmptyState title={t('noSupportQueue')} />
         )}
       </section>
-    </div>
-  );
-}
-
-function Score({ title, correct, sample, accuracy }) {
-  const { t } = useI18n();
-  return (
-    <div className="score-tile">
-      <span>{title}</span>
-      <strong>{accuracy == null ? t('notAvailable') : `${accuracy}%`}</strong>
-      <small>
-        {sample ? `${correct} / ${sample} ${t('observations')}` : t('notTakenYet')}
-      </small>
     </div>
   );
 }

@@ -7,14 +7,19 @@ const languages = [
   ['te', 'telugu'],
 ];
 
-export default function LanguageSelector({ compact = false }) {
+export default function LanguageSelector({
+  compact = false,
+  labelKey = 'language',
+}) {
   const { language, setLanguage, t } = useI18n();
   return (
-    <label className={`language-control ${compact ? 'language-control-compact' : ''}`}>
+    <label
+      className={`language-control ${compact ? 'language-control-compact' : ''}`}
+    >
       <Languages size={16} aria-hidden="true" />
-      <span className={compact ? 'sr-only' : ''}>{t('language')}</span>
+      <span className={compact ? 'sr-only' : ''}>{t(labelKey)}</span>
       <select
-        aria-label={t('language')}
+        aria-label={t(labelKey)}
         value={language}
         onChange={(event) => setLanguage(event.target.value)}
       >

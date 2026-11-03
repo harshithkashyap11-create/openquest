@@ -1,0 +1,83 @@
+{
+  "modified": [
+    "README.md",
+    "frontend/index.html",
+    "frontend/playwright.config.js",
+    "frontend/public/favicon.svg",
+    "frontend/src/App.css",
+    "frontend/src/App.jsx",
+    "frontend/src/components/AppShell.jsx",
+    "frontend/src/components/LanguageSelector.jsx",
+    "frontend/src/components/MetricCard.jsx",
+    "frontend/src/components/PageHeader.jsx",
+    "frontend/src/components/PageStates.jsx",
+    "frontend/src/components/TeacherCopilot.css",
+    "frontend/src/components/TeacherCopilot.jsx",
+    "frontend/src/hooks/useAsyncData.js",
+    "frontend/src/i18n/en.json",
+    "frontend/src/i18n/hi.json",
+    "frontend/src/i18n/te.json",
+    "frontend/src/index.css",
+    "frontend/src/pages/Assessment.jsx",
+    "frontend/src/pages/ClassInsights.jsx",
+    "frontend/src/pages/ClassProgress.jsx",
+    "frontend/src/pages/Intervention.jsx",
+    "frontend/src/pages/Login.jsx",
+    "frontend/src/pages/Quizzes.css",
+    "frontend/src/pages/StudentDashboard.jsx",
+    "frontend/src/pages/StudentProgress.jsx",
+    "frontend/src/pages/TeacherDashboard.jsx",
+    "frontend/src/pages/TeacherQuizzes.jsx",
+    "frontend/tests/quiz-workflow.spec.js"
+  ],
+  "created": [
+    "frontend/src/components/EffectsControl.jsx",
+    "frontend/src/components/ui/Button.jsx",
+    "frontend/src/components/ui/Card.jsx",
+    "frontend/src/components/ui/Drawer.jsx",
+    "frontend/src/components/ui/MobileDrawer.jsx",
+    "frontend/src/components/ui/ProgressBar.jsx",
+    "frontend/src/components/ui/QuestionPager.jsx",
+    "frontend/src/components/ui/ScoreCard.jsx",
+    "frontend/src/components/ui/StatusPill.jsx",
+    "frontend/src/components/ui/Tabs.jsx",
+    "frontend/src/context/EffectsProvider.jsx",
+    "frontend/src/context/effectsContext.js",
+    "frontend/src/hooks/useLiteEffects.js",
+    "frontend/src/hooks/useModalDialog.js",
+    "frontend/src/motion/ActiveIndicator.jsx",
+    "frontend/src/motion/QuestionTransition.jsx",
+    "frontend/src/motion/RouteTransition.jsx",
+    "frontend/src/motion/presets.js",
+    "frontend/src/styles/tokens.css",
+    "frontend/tests/atelier.spec.js",
+    "scripts/capture-upgrade.mjs",
+    "scripts/measure-frontend-bundle.mjs",
+    "scripts/profile-frontend.mjs"
+  ],
+  "removed": [],
+  "backendChangesSinceCheckpoint": [],
+  "packageAndLockUnchanged": true,
+  "originalTranslations": {
+    "en": {
+      "preserved": true,
+      "beforeKeys": 275,
+      "afterKeys": 498
+    },
+    "hi": {
+      "preserved": true,
+      "beforeKeys": 275,
+      "afterKeys": 498
+    },
+    "te": {
+      "preserved": true,
+      "beforeKeys": 275,
+      "afterKeys": 498
+    }
+  },
+  "documentation": [
+    "docs/upgrade-progress.md",
+    "docs/three-minute-demo.md",
+    "docs/upgrade-evidence/ (screenshots, JSON measurements, logs, recording and skills inventory)"
+  ]
+}

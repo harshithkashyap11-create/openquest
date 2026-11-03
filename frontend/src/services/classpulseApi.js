@@ -181,7 +181,7 @@ export async function chatWithCopilot({
       topic,
       history,
       action,
-    })
+    }, { timeout: 60000 })
   ).data;
 }
 

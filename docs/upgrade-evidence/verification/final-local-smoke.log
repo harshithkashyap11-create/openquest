@@ -1,0 +1,8 @@
+GET /health: 200 — ok
+GET /api/demo/classes: 200 — 6 records
+GET /api/demo/classes/1c4c3457-4e1c-56df-9b31-7d400cd00029/students: 200 — 6 records
+GET /api/classes/1c4c3457-4e1c-56df-9b31-7d400cd00029/assessment-summary: 200 — 6 students submitted
+GET /api/classes/1c4c3457-4e1c-56df-9b31-7d400cd00029/diagnoses/summary: 200 — 0 diagnoses
+GET /api/classes/1c4c3457-4e1c-56df-9b31-7d400cd00029/groups: 200 — 0 records
+GET /api/classes/1c4c3457-4e1c-56df-9b31-7d400cd00029/progress: 200 — 0 completed reassessments
+GET /api/classes/1c4c3457-4e1c-56df-9b31-7d400cd00029/intervention-assignments: 200 — 0 records

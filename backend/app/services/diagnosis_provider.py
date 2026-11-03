@@ -223,6 +223,14 @@ def create_diagnosis_provider(
 ) -> DiagnosisProvider:
     if settings.ai_provider == "mock":
         return RuleBasedDiagnosisProvider()
+    if settings.ai_provider == "gemini":
+        from app.services.gemini_client import GeminiChatClient
+        from app.services.llm_service import OpenRouterDiagnosisProvider
+        return OpenRouterDiagnosisProvider(
+            api_key="", model=settings.gemini_model,
+            chat_client=GeminiChatClient.from_settings(settings, client=client),
+            provider_name="gemini",
+        )
     if settings.ai_provider == "openrouter":
         from app.services.llm_service import OpenRouterDiagnosisProvider
 

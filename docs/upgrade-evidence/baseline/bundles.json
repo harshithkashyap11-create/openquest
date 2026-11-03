@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Assessment-f5h9a2P5.js",
+    "raw": 3040,
+    "gzip": 1230
+  },
+  {
+    "name": "ClassInsights-04MU3dkx.js",
+    "raw": 363491,
+    "gzip": 104223
+  },
+  {
+    "name": "ClassProgress-fPQCD37v.js",
+    "raw": 3646,
+    "gzip": 1227
+  },
+  {
+    "name": "Intervention-BUCeBCy0.js",
+    "raw": 15147,
+    "gzip": 3885
+  },
+  {
+    "name": "Login-r85IWLVH.js",
+    "raw": 5398,
+    "gzip": 1903
+  },
+  {
+    "name": "MetricCard-B9I7u2sg.js",
+    "raw": 432,
+    "gzip": 258
+  },
+  {
+    "name": "NotFound-Buw4ePGz.js",
+    "raw": 425,
+    "gzip": 298
+  },
+  {
+    "name": "PageHeader-Cv3Qo1VL.js",
+    "raw": 443,
+    "gzip": 254
+  },
+  {
+    "name": "Quizzes-BSxZyeiZ.js",
+    "raw": 1461,
+    "gzip": 605
+  },
+  {
+    "name": "Quizzes-BeSAztQO.css",
+    "raw": 7828,
+    "gzip": 2011
+  },
+  {
+    "name": "StudentDashboard-D1Gaxs99.js",
+    "raw": 4191,
+    "gzip": 1401
+  },
+  {
+    "name": "StudentProgress-IZHpEsWC.js",
+    "raw": 2775,
+    "gzip": 1109
+  },
+  {
+    "name": "StudentQuizzes-fqq6Bf7j.js",
+    "raw": 9227,
+    "gzip": 3005
+  },
+  {
+    "name": "TeacherDashboard-DUYKxg-J.js",
+    "raw": 8186,
+    "gzip": 2529
+  },
+  {
+    "name": "TeacherQuizzes-101CzS7G.js",
+    "raw": 15921,
+    "gzip": 4988
+  },
+  {
+    "name": "arrow-right-CCOf_DBv.js",
+    "raw": 194,
+    "gzip": 181
+  },
+  {
+    "name": "circle-check-1hE_pwkm.js",
+    "raw": 239,
+    "gzip": 208
+  },
+  {
+    "name": "clipboard-check-BRGYw7At.js",
+    "raw": 333,
+    "gzip": 257
+  },
+  {
+    "name": "index-CrOiSIs6.css",
+    "raw": 39772,
+    "gzip": 9229
+  },
+  {
+    "name": "index-DkUBOIXe.js",
+    "raw": 416502,
+    "gzip": 127420
+  },
+  {
+    "name": "jsx-runtime-DORXsfY6.js",
+    "raw": 9078,
+    "gzip": 3454
+  },
+  {
+    "name": "useAsyncData-C8kv84cQ.js",
+    "raw": 793,
+    "gzip": 374
+  }
+]

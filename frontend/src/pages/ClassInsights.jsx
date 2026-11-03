@@ -18,7 +18,16 @@ import {
 } from 'recharts';
 import MetricCard from '../components/MetricCard';
 import PageHeader from '../components/PageHeader';
-import { EmptyState, ErrorState, LoadingState } from '../components/PageStates';
+import {
+  EmptyState,
+  ErrorState,
+  LoadingState,
+  RefreshNotice,
+} from '../components/PageStates';
+import Drawer from '../components/ui/Drawer';
+import ProgressBar from '../components/ui/ProgressBar';
+import StatusPill from '../components/ui/StatusPill';
+import Tabs from '../components/ui/Tabs';
 import { useDemoSession } from '../context/useDemoSession';
 import { useI18n } from '../i18n/useI18n';
 import useAsyncData from '../hooks/useAsyncData';
@@ -33,92 +42,127 @@ function loadInsights(classId) {
     getClassDiagnoses(classId),
     getDiagnosisSummary(classId),
     getAssessmentSummary(classId),
-  ]).then(
-    ([diagnoses, summary, assessment]) => ({ diagnoses, summary, assessment }),
+  ]).then(([diagnoses, summary, assessment]) => ({
+    diagnoses,
+    summary,
+    assessment,
+  }));
+}
+function category(diagnosis) {
+  return diagnosis.misconception_code === 'CORRECT'
+    ? 'correct'
+    : diagnosis.needs_followup ||
+        diagnosis.status === 'needs_followup' ||
+        diagnosis.misconception_code === 'M06'
+      ? 'uncertain'
+      : 'likely';
+}
+function DiagnosisStatus({ diagnosis }) {
+  const { t } = useI18n();
+  const type = category(diagnosis);
+  return (
+    <StatusPill
+      variant={
+        type === 'correct'
+          ? 'success'
+          : type === 'uncertain'
+            ? 'neutral'
+            : 'warning'
+      }
+      icon={
+        type === 'correct'
+          ? CheckCircle2
+          : type === 'uncertain'
+            ? CircleHelp
+            : AlertTriangle
+      }
+    >
+      {t(
+        type === 'correct'
+          ? 'correctUnderstanding'
+          : type === 'uncertain'
+            ? 'uncertainNeedsFollowup'
+            : 'likelyDiagnosis',
+      )}
+    </StatusPill>
   );
 }
-
 export default function ClassInsights() {
   const { session } = useDemoSession();
-  const { t } = useI18n();
-  const loadInsightsData = useCallback(
+  const { t, language } = useI18n();
+  const load = useCallback(
     () => loadInsights(session.classId),
     [session.classId],
   );
-  const { data, loading, error, reload } = useAsyncData(
-    loadInsightsData,
+  const { data, loading, error, refreshing, reload } = useAsyncData(
+    load,
     session.classId,
   );
   const [studentFilter, setStudentFilter] = useState('');
-
-  const students = useMemo(() => {
-    if (!data) return [];
-    return [...new Map(data.diagnoses.map((item) => [item.student_id, item.student_code])).entries()]
-      .map(([id, code]) => ({ id, code }))
-      .sort((a, b) => a.code.localeCompare(b.code));
-  }, [data]);
-
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [selectedId, setSelectedId] = useState(null);
+  const students = useMemo(
+    () =>
+      data
+        ? [
+            ...new Map(
+              data.diagnoses.map((item) => [
+                item.student_id,
+                item.student_code,
+              ]),
+            ).entries(),
+          ]
+            .map(([id, code]) => ({ id, code }))
+            .sort((a, b) => a.code.localeCompare(b.code))
+        : [],
+    [data],
+  );
   if (loading) return <LoadingState />;
-  if (error) return <ErrorState error={error} onRetry={reload} />;
-
-  const filtered = studentFilter
-    ? data.diagnoses.filter((item) => item.student_id === studentFilter)
-    : data.diagnoses;
+  if (error && !data) return <ErrorState error={error} onRetry={reload} />;
+  const filtered = data.diagnoses.filter(
+    (item) =>
+      (!studentFilter || item.student_id === studentFilter) &&
+      (statusFilter === 'all' || category(item) === statusFilter),
+  );
+  const selected = data.diagnoses.find(
+    (item) => item.submission_id === selectedId,
+  );
   const chartData = Object.entries(data.summary.by_code || {})
     .filter(([code]) => code !== 'CORRECT')
     .map(([code, count]) => ({ code, count }));
-
+  const format = new Intl.NumberFormat(language, { maximumFractionDigits: 10 });
   return (
-    <div className="page-content">
+    <div className="page-content insights-page">
+      <RefreshNotice error={error} refreshing={refreshing} onRetry={reload} />
       <PageHeader
         eyebrow={t('classInsights')}
         title={t('insightsTitle')}
-        description={`${session.subject || 'Mathematics'} · ${session.topic || 'Fractions'} — ${t('diagnosisHelp')}`}
-        actions={<span className="observed-badge"><BarChart3 size={15} /> {t('teacherReview')}</span>}
+        context={session.className}
+        description={`${session.subject || ''} · ${session.topic || ''} — ${t('diagnosisHelp')}`}
+        actions={
+          <span className="observed-badge">
+            <BarChart3 size={15} aria-hidden="true" />
+            {t('teacherReview')}
+          </span>
+        }
       />
       <section className="metric-grid metric-grid-three">
-        <MetricCard label={t('totalDiagnoses')} value={data.summary.total_diagnoses} icon={BarChart3} />
-        <MetricCard label={t('followupNeeded')} value={data.summary.followup_count} icon={ArrowUpRight} />
-        <MetricCard label={t('learnersWithDiagnoses')} value={students.length} icon={UsersRound} />
+        <MetricCard
+          label={t('totalDiagnoses')}
+          value={data.summary.total_diagnoses}
+          icon={BarChart3}
+        />
+        <MetricCard
+          label={t('followupNeeded')}
+          value={data.summary.followup_count}
+          icon={ArrowUpRight}
+        />
+        <MetricCard
+          label={t('learnersWithDiagnoses')}
+          value={students.length}
+          icon={UsersRound}
+        />
       </section>
-
-      <section className="panel">
-        <div className="panel-heading">
-          <div>
-            <p className="eyebrow">{t('assessment')}</p>
-            <h2>{t('assessmentProgress')}</h2>
-          </div>
-        </div>
-        <div className="table-scroll">
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>{t('learner')}</th>
-                <th>{t('status')}</th>
-                <th>{t('answeredQuestions')}</th>
-                <th>{t('diagnosedAnswers')}</th>
-                <th>{t('pendingDiagnoses')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.assessment.students.map((student) => (
-                <tr key={student.student_id}>
-                  <td>{student.student_code}</td>
-                  <td>
-                    <span className={`status-pill ${student.answered_questions ? 'status-completed' : ''}`}>
-                      {student.answered_questions ? t('submitted') : t('notStarted')}
-                    </span>
-                  </td>
-                  <td>{student.answered_questions} / {data.assessment.total_questions_per_student}</td>
-                  <td>{student.diagnosed_answers}</td>
-                  <td>{student.pending_diagnoses}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
       <section className="insights-grid">
         <article className="panel chart-panel">
           <div className="panel-heading">
@@ -128,22 +172,46 @@ export default function ClassInsights() {
             </div>
           </div>
           {chartData.length ? (
-            <div className="chart-container" role="img" aria-label={t('misconceptionDistribution')}>
-              <ResponsiveContainer width="100%" height={280}>
-                <BarChart data={chartData} margin={{ top: 10, right: 12, left: -20, bottom: 0 }}>
-                  <CartesianGrid stroke="#e9edf4" vertical={false} />
-                  <XAxis dataKey="code" axisLine={false} tickLine={false} />
-                  <YAxis allowDecimals={false} axisLine={false} tickLine={false} />
-                  <Tooltip />
-                  <Bar dataKey="count" fill="#4d5bd4" radius={[6, 6, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
+            <>
+              <div className="chart-container" aria-hidden="true">
+                <ResponsiveContainer width="100%" height={240}>
+                  <BarChart
+                    data={chartData}
+                    margin={{ top: 10, right: 12, left: -20, bottom: 0 }}
+                  >
+                    <CartesianGrid stroke="var(--cp-border)" vertical={false} />
+                    <XAxis dataKey="code" axisLine={false} tickLine={false} />
+                    <YAxis
+                      allowDecimals={false}
+                      domain={[0, 'auto']}
+                      axisLine={false}
+                      tickLine={false}
+                    />
+                    <Tooltip />
+                    <Bar
+                      dataKey="count"
+                      fill="var(--cp-brand)"
+                      radius={[4, 4, 0, 0]}
+                      isAnimationActive={false}
+                    />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <dl className="chart-text-alternative">
+                {chartData.map((item) => (
+                  <div key={item.code}>
+                    <dt>{item.code}</dt>
+                    <dd>
+                      {format.format(item.count)} {t('diagnosedAnswers')}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </>
           ) : (
             <EmptyState title={t('emptyDiagnoses')} />
           )}
         </article>
-
         <article className="panel diagnosis-panel">
           <div className="panel-heading">
             <div>
@@ -152,93 +220,222 @@ export default function ClassInsights() {
             </div>
             <label className="filter-field">
               <span className="sr-only">{t('filterStudent')}</span>
-              <select value={studentFilter} onChange={(event) => setStudentFilter(event.target.value)}>
+              <select
+                value={studentFilter}
+                onChange={(event) => setStudentFilter(event.target.value)}
+              >
                 <option value="">{t('allStudents')}</option>
                 {students.map((student) => (
-                  <option value={student.id} key={student.id}>{student.code}</option>
+                  <option key={student.id} value={student.id}>
+                    {student.code}
+                  </option>
                 ))}
               </select>
             </label>
           </div>
-          {filtered.length ? (
-            <>
-              <div className="diagnosis-legend" aria-label={t('diagnosisLegend')}>
-                <span><CheckCircle2 size={15} aria-hidden="true" /> {t('correctUnderstanding')}</span>
-                <span><AlertTriangle size={15} aria-hidden="true" /> {t('likelyDiagnosis')}</span>
-                <span><CircleHelp size={15} aria-hidden="true" /> {t('uncertainNeedsFollowup')}</span>
-              </div>
-              <div className="diagnosis-list">
-                {filtered.map((diagnosis) => {
-                  const isCorrect = diagnosis.misconception_code === 'CORRECT';
-                  const isUncertain = diagnosis.needs_followup
-                    || diagnosis.status === 'needs_followup'
-                    || diagnosis.misconception_code === 'M06';
-                  const StatusIcon = isCorrect
-                    ? CheckCircle2
-                    : isUncertain
-                      ? CircleHelp
-                      : AlertTriangle;
-                  const statusLabel = isCorrect
-                    ? t('correctUnderstanding')
-                    : isUncertain
-                      ? t('uncertainNeedsFollowup')
-                      : t('likelyDiagnosis');
-                  return (
-                    <article
-                      className={`diagnosis-item ${isUncertain ? 'diagnosis-uncertain' : ''}`}
-                      key={diagnosis.submission_id}
-                    >
-                  <div className="diagnosis-item-top">
-                    <div className="diagnosis-identity">
-                      <span className="avatar">{diagnosis.student_code.slice(-2)}</span>
-                      <div><strong>{diagnosis.student_code}</strong><small>{t('studentDiagnosis')}</small></div>
+          <Tabs
+            label={t('diagnosisLegend')}
+            value={statusFilter}
+            onChange={setStatusFilter}
+            items={[
+              { value: 'all', label: t('allDiagnoses') },
+              { value: 'likely', label: t('likelyDiagnosis') },
+              { value: 'uncertain', label: t('followupNeeded') },
+              { value: 'correct', label: t('correct') },
+            ]}
+          >
+            {filtered.length ? (
+              <div className="diagnosis-records">
+                {filtered.map((diagnosis) => (
+                  <article
+                    className="diagnosis-record"
+                    key={diagnosis.submission_id}
+                  >
+                    <div className="diagnosis-record-heading">
+                      <span className="avatar" aria-hidden="true">
+                        {diagnosis.student_code.slice(-2)}
+                      </span>
+                      <strong>{diagnosis.student_code}</strong>
+                      <DiagnosisStatus diagnosis={diagnosis} />
                     </div>
-                    <span className={`status-pill ${isCorrect ? 'status-correct' : isUncertain ? 'status-uncertain' : 'status-likely'}`}>
-                      <StatusIcon size={14} aria-hidden="true" />
-                      {statusLabel}
-                    </span>
-                  </div>
-                  <div className="diagnosis-meta">
-                    <span className="code-pill">{diagnosis.misconception_code}</span>
-                    <span>
-                      {t('confidence')}: {Math.round(diagnosis.confidence * 100)}% ·{' '}
-                      {diagnosis.confidence >= 0.75
-                        ? t('confidenceHigh')
-                        : diagnosis.confidence >= 0.5
-                          ? t('confidenceModerate')
-                          : t('confidenceLow')}
-                    </span>
-                    <span>{diagnosis.provider}</span>
-                  </div>
-                  <p className="evidence-quote">{diagnosis.evidence || t('noEvidence')}</p>
-                  {diagnosis.misconception_description && (
-                    <p>{diagnosis.misconception_description}</p>
-                  )}
-                  {diagnosis.misunderstanding_explanation && (
+                    <div className="diagnosis-meta">
+                      <span className="code-pill">
+                        {diagnosis.misconception_code}
+                      </span>
+                      <span>
+                        {t('confidence')}:{' '}
+                        {diagnosis.confidence == null
+                          ? t('notAvailable')
+                          : `${format.format(Math.round(diagnosis.confidence * 100))}%`}
+                      </span>
+                      <span>{diagnosis.provider}</span>
+                      <span>
+                        {t('diagnosisState', { status: t(diagnosis.status) })}
+                      </span>
+                    </div>
                     <p>
-                      <strong>{t('misconceptionExplanation')}:</strong>{' '}
-                      {diagnosis.misunderstanding_explanation}
+                      {diagnosis.misconception_description ||
+                        diagnosis.evidence ||
+                        t('noEvidence')}
                     </p>
-                  )}
-                  {diagnosis.suggested_intervention && (
-                    <p>
-                      <strong>{t('suggestedNextStep')}:</strong>{' '}
-                      {diagnosis.suggested_intervention}
-                    </p>
-                  )}
-                  {diagnosis.followup_question && (
-                    <p className="followup-question"><strong>{t('followupQuestion')}:</strong> {diagnosis.followup_question}</p>
-                  )}
-                    </article>
-                  );
-                })}
+                    <button
+                      type="button"
+                      className="text-link evidence-button"
+                      onClick={() => setSelectedId(diagnosis.submission_id)}
+                      aria-label={t('viewLearnerEvidence', {
+                        student: diagnosis.student_code,
+                      })}
+                    >
+                      {t('viewEvidence')}
+                      <ArrowUpRight size={15} aria-hidden="true" />
+                    </button>
+                  </article>
+                ))}
               </div>
-            </>
-          ) : (
-            <EmptyState title={t('emptyDiagnoses')} />
-          )}
+            ) : (
+              <EmptyState
+                title={t(
+                  data.diagnoses.length ? 'noFilterResults' : 'emptyDiagnoses',
+                )}
+              />
+            )}
+          </Tabs>
         </article>
       </section>
+      <details className="panel roster-details">
+        <summary>
+          {t('assessmentProgress')}{' '}
+          <span className="count-badge">
+            {data.assessment.submitted_students} /{' '}
+            {data.assessment.total_students}
+          </span>
+        </summary>
+        <div className="table-scroll">
+          <table className="data-table">
+            <caption className="sr-only">{t('assessmentProgress')}</caption>
+            <thead>
+              <tr>
+                {[
+                  'learner',
+                  'status',
+                  'answeredQuestions',
+                  'diagnosedAnswers',
+                  'pendingDiagnoses',
+                ].map((key) => (
+                  <th scope="col" key={key}>
+                    {t(key)}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {data.assessment.students.map((student) => (
+                <tr key={student.student_id}>
+                  <td data-label={t('learner')}>{student.student_code}</td>
+                  <td data-label={t('status')}>
+                    <span
+                      className={`status-pill ${student.answered_questions ? 'status-completed' : ''}`}
+                    >
+                      {student.answered_questions
+                        ? t('submitted')
+                        : t('notStarted')}
+                    </span>
+                  </td>
+                  <td data-label={t('answeredQuestions')}>
+                    {student.answered_questions} /{' '}
+                    {data.assessment.total_questions_per_student}
+                  </td>
+                  <td data-label={t('diagnosedAnswers')}>
+                    {student.diagnosed_answers}
+                  </td>
+                  <td data-label={t('pendingDiagnoses')}>
+                    {student.pending_diagnoses}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </details>
+      <Drawer
+        open={Boolean(selected)}
+        onClose={() => setSelectedId(null)}
+        title={t('diagnosisEvidence')}
+      >
+        {selected && (
+          <div className="evidence-content">
+            <div className="evidence-title">
+              <span className="avatar">{selected.student_code.slice(-2)}</span>
+              <strong>{selected.student_code}</strong>
+              <span className="code-pill">{selected.misconception_code}</span>
+            </div>
+            <DiagnosisStatus diagnosis={selected} />
+            <p className="muted-note">{t('diagnosisHelp')}</p>
+            <h3>{t('confidence')}</h3>
+            <p>
+              {selected.confidence == null
+                ? t('notAvailable')
+                : `${format.format(Math.round(selected.confidence * 100))}% · ${t(selected.confidence >= 0.75 ? 'confidenceHigh' : selected.confidence >= 0.5 ? 'confidenceModerate' : 'confidenceLow')}`}
+            </p>
+            {selected.confidence != null && (
+              <ProgressBar
+                value={selected.confidence * 100}
+                label={t('confidence')}
+                animated
+              />
+            )}
+            <p className="field-help">{t('confidenceCaution')}</p>
+            <h3>{t('evidenceQuote')}</h3>
+            <blockquote className="evidence-quote">
+              {selected.evidence || t('noEvidence')}
+            </blockquote>
+            <p className="field-help">{t('responseApiLimit')}</p>
+            {selected.misconception_description && (
+              <>
+                <h3>{t('studentDiagnosis')}</h3>
+                <p>{selected.misconception_description}</p>
+              </>
+            )}
+            {selected.misunderstanding_explanation && (
+              <>
+                <h3>{t('misconceptionExplanation')}</h3>
+                <p>{selected.misunderstanding_explanation}</p>
+              </>
+            )}
+            {selected.suggested_intervention && (
+              <>
+                <h3>{t('suggestedNextStep')}</h3>
+                <p>{selected.suggested_intervention}</p>
+              </>
+            )}
+            {selected.followup_question && (
+              <div className="notice-inline">
+                <CircleHelp size={18} aria-hidden="true" />
+                <div>
+                  <h3>{t('followupQuestion')}</h3>
+                  <p>{selected.followup_question}</p>
+                </div>
+              </div>
+            )}
+            <dl className="detail-list">
+              <div>
+                <dt>{t('provider')}</dt>
+                <dd>{selected.provider}</dd>
+              </div>
+              <div>
+                <dt>{t('status')}</dt>
+                <dd>{t(selected.status)}</dd>
+              </div>
+              {selected.model_version && (
+                <div>
+                  <dt>{t('modelVersion')}</dt>
+                  <dd>{selected.model_version}</dd>
+                </div>
+              )}
+            </dl>
+          </div>
+        )}
+      </Drawer>
     </div>
   );
 }

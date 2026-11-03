@@ -8,6 +8,7 @@ from sqlalchemy.pool import StaticPool
 os.environ["DATABASE_URL"] = "sqlite+pysqlite:///:memory:"
 os.environ["AI_PROVIDER"] = "mock"
 os.environ["OPENROUTER_API_KEY"] = ""
+os.environ["GEMINI_API_KEY"] = ""
 
 from app.models import Base  # noqa: E402
 

@@ -268,3 +268,38 @@ The integration test imports the synthetic dataset into that test database and v
 - **Port already allocated:** Change the host-side port mapping in `docker-compose.yml` and use the new port in the host `DATABASE_URL`.
 
 All learner records in the included CSV are synthetic. Authentication, production privacy controls, and classroom-ready educational content review are outside this backend-foundation milestone.
+
+## Teacher quizzes, student reflection, and live reports
+
+The **Quizzes** navigation now opens teacher authoring/CSV import and student quiz access. Teachers save and review drafts before publishing; students submit answers, discuss missed questions with the learning sidebar, and attempt optional teacher-approved repair challenges. Teacher reports refresh while visible, show answer distributions and supported error themes, and allow interpretation flags and review of a next-lesson suggestion. The existing teacher copilot also receives recent quiz summaries.
+
+Apply the new migration with `python3 -m alembic upgrade head` from `backend` before starting the updated API. Rebuild the API image first if using Docker. API keys remain server-side; `AI_PROVIDER=mock` provides labeled template feedback for a network-independent demonstration. Live provider failures preserve submitted grades and expose a retry state.
+
+See [the quiz implementation and demo guide](docs/quiz_learning_loop.md) for startup, CSV columns, API contracts, architecture, verification, and limitations. Browser acceptance tests run with `npm run test:e2e` from `frontend` and use their own disposable SQLite/mock API.
+
+### Use Google Gemini directly
+
+Set `AI_PROVIDER=gemini`, `GEMINI_API_KEY`, and `GEMINI_MODEL` in the ignored repository-root `.env`. The default model is `gemini-3.5-flash-lite`; choose another available text-generation model explicitly if needed. Gemini uses the native Google API with JSON output. The student reflection sidebar, teacher copilot, lesson suggestions, and legacy diagnosis/intervention personalization share this provider choice. Restart the backend after updating the configuration. Docker Compose also forwards these settings.
+
+The key stays in backend request headers. `GEMINI_TIMEOUT_SECONDS` defaults to 45 seconds, and sidebar browser requests allow 60 seconds. Unavailable or rate-limited generation is reported clearly; template responses are labeled and do not count as verified live AI output. No Gemini key belongs in a frontend environment file.
+
+## ClassPulse Atelier interface upgrade
+
+The existing teacher, student, quiz and Copilot workflows now share botanical
+teal design tokens, responsive navigation, accessible evidence/member dialogs,
+answer-preserving question navigation and persistent Auto/Lite/Full effects.
+No new runtime dependencies are required. Reduced motion always overrides Full.
+
+See [the engineering report](docs/upgrade-progress.md) for measured results,
+known limitations and the full verification checklist, and
+[the three-minute demonstration guide](docs/three-minute-demo.md) for preparation
+against real persisted demo records. Live provider availability must be checked
+separately; the isolated browser suite uses the labeled mock/template provider.
+
+To test the production frontend against a fresh disposable backend:
+
+```bash
+cd frontend
+npm run build
+CLASSPULSE_TEST_PRODUCTION=1 npm run test:e2e
+```

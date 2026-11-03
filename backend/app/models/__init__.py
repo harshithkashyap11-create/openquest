@@ -1,3 +1,4 @@
+from app.models.quiz import Quiz, QuizAttempt, QuizReflection
 from app.models.base import Base
 from app.models.classroom import Class
 from app.models.diagnosis import Diagnosis
@@ -16,6 +17,9 @@ from app.models.teacher import Teacher
 
 __all__ = [
     "Base",
+    "Quiz",
+    "QuizAttempt",
+    "QuizReflection",
     "Class",
     "Diagnosis",
     "GroupMember",
@@ -31,3 +35,5 @@ __all__ = [
     "Submission",
     "Teacher",
 ]
+from app.models.learning import LearningEvent, LearnerState, LearningDecision, LearningSession, MutationReceipt, DiagnosisCorrection
+from app.models.access import AuthAccount, AuthSession

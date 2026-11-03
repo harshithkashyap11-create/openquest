@@ -1,0 +1,170 @@
+{
+  "cls": 0,
+  "lcp": 5084,
+  "longTasks": [
+    139,
+    73
+  ],
+  "events": [],
+  "resources": [
+    {
+      "url": "http://127.0.0.1:5179/assets/index-CgDQgmm5.js",
+      "transfer": 131016,
+      "decoded": 430509
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/useI18n-CYHzl0Yp.js",
+      "transfer": 3751,
+      "decoded": 9074
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/index-DwfqkPSN.css",
+      "transfer": 11456,
+      "decoded": 53378
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/Login-BozRUosv.js",
+      "transfer": 3020,
+      "decoded": 7960
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/book-open-check-BwD6jwRz.js",
+      "transfer": 674,
+      "decoded": 374
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/EffectsControl-DNPwYLK8.js",
+      "transfer": 1301,
+      "decoded": 2225
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/check-lvV3IP-3.js",
+      "transfer": 453,
+      "decoded": 153
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/arrow-right-BnRPeuxc.js",
+      "transfer": 494,
+      "decoded": 194
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/users-round-sIvRjdwd.js",
+      "transfer": 602,
+      "decoded": 302
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/chart-no-axes-combined-Cy2d0gKY.js",
+      "transfer": 728,
+      "decoded": 428
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/useAsyncData-CaomvXcH.js",
+      "transfer": 1141,
+      "decoded": 841
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/Button-B4_dlVXw.js",
+      "transfer": 726,
+      "decoded": 426
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/classpulseApi-DfjjCVVh.js",
+      "transfer": 1025,
+      "decoded": 2562
+    },
+    {
+      "url": "http://127.0.0.1:5179/api/demo/classes",
+      "transfer": 1270,
+      "decoded": 970
+    }
+  ],
+  "profile": "Chromium headless, 360×780,4xCPU,400ms latency,50KB/s each direction (Slow3G simulation)",
+  "js": [
+    {
+      "url": "http://127.0.0.1:5179/assets/index-CgDQgmm5.js",
+      "transfer": 131016,
+      "decoded": 430509,
+      "gzip": 130683,
+      "brotli": 109849
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/useI18n-CYHzl0Yp.js",
+      "transfer": 3751,
+      "decoded": 9074,
+      "gzip": 3475,
+      "brotli": 3102
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/Login-BozRUosv.js",
+      "transfer": 3020,
+      "decoded": 7960,
+      "gzip": 2711,
+      "brotli": 2419
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/book-open-check-BwD6jwRz.js",
+      "transfer": 674,
+      "decoded": 374,
+      "gzip": 270,
+      "brotli": 247
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/EffectsControl-DNPwYLK8.js",
+      "transfer": 1301,
+      "decoded": 2225,
+      "gzip": 994,
+      "brotli": 910
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/check-lvV3IP-3.js",
+      "transfer": 453,
+      "decoded": 153,
+      "gzip": 158,
+      "brotli": 151
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/arrow-right-BnRPeuxc.js",
+      "transfer": 494,
+      "decoded": 194,
+      "gzip": 178,
+      "brotli": 168
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/users-round-sIvRjdwd.js",
+      "transfer": 602,
+      "decoded": 302,
+      "gzip": 246,
+      "brotli": 220
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/chart-no-axes-combined-Cy2d0gKY.js",
+      "transfer": 728,
+      "decoded": 428,
+      "gzip": 279,
+      "brotli": 261
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/useAsyncData-CaomvXcH.js",
+      "transfer": 1141,
+      "decoded": 841,
+      "gzip": 391,
+      "brotli": 357
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/Button-B4_dlVXw.js",
+      "transfer": 726,
+      "decoded": 426,
+      "gzip": 294,
+      "brotli": 246
+    },
+    {
+      "url": "http://127.0.0.1:5179/assets/classpulseApi-DfjjCVVh.js",
+      "transfer": 1025,
+      "decoded": 2562,
+      "gzip": 726,
+      "brotli": 619
+    }
+  ],
+  "entryGzip": 140405,
+  "entryTransferred": 144931
+}

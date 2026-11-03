@@ -1,0 +1,2792 @@
+[
+  {
+    "name": "entry",
+    "lang": "en",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "en",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "teacher",
+    "lang": "en",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-text-zoom",
+    "lang": "en",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "insights",
+    "lang": "en",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "insights-text-zoom",
+    "lang": "en",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "groups",
+    "lang": "en",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "groups-text-zoom",
+    "lang": "en",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "class-progress",
+    "lang": "en",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "class-progress-text-zoom",
+    "lang": "en",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "teacher-quizzes",
+    "lang": "en",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-quizzes-text-zoom",
+    "lang": "en",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "student",
+    "lang": "en",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-text-zoom",
+    "lang": "en",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "assessment",
+    "lang": "en",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assessment-text-zoom",
+    "lang": "en",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "assignments",
+    "lang": "en",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assignments-text-zoom",
+    "lang": "en",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "student-progress",
+    "lang": "en",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-progress-text-zoom",
+    "lang": "en",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "student-quizzes",
+    "lang": "en",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-quizzes-text-zoom",
+    "lang": "en",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "activity",
+    "lang": "en",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "activity-text-zoom",
+    "lang": "en",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "en",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "entry",
+    "lang": "en",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "en",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "teacher",
+    "lang": "en",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-text-zoom",
+    "lang": "en",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "insights",
+    "lang": "en",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "insights-text-zoom",
+    "lang": "en",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "groups",
+    "lang": "en",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "groups-text-zoom",
+    "lang": "en",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "class-progress",
+    "lang": "en",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "class-progress-text-zoom",
+    "lang": "en",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "teacher-quizzes",
+    "lang": "en",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-quizzes-text-zoom",
+    "lang": "en",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "student",
+    "lang": "en",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-text-zoom",
+    "lang": "en",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "assessment",
+    "lang": "en",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assessment-text-zoom",
+    "lang": "en",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "assignments",
+    "lang": "en",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assignments-text-zoom",
+    "lang": "en",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "student-progress",
+    "lang": "en",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-progress-text-zoom",
+    "lang": "en",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "student-quizzes",
+    "lang": "en",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-quizzes-text-zoom",
+    "lang": "en",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "activity",
+    "lang": "en",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "activity-text-zoom",
+    "lang": "en",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "en",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "entry",
+    "lang": "en",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "en",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "teacher",
+    "lang": "en",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-text-zoom",
+    "lang": "en",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "insights",
+    "lang": "en",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "insights-text-zoom",
+    "lang": "en",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "groups",
+    "lang": "en",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "groups-text-zoom",
+    "lang": "en",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "class-progress",
+    "lang": "en",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "class-progress-text-zoom",
+    "lang": "en",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "teacher-quizzes",
+    "lang": "en",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-quizzes-text-zoom",
+    "lang": "en",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "student",
+    "lang": "en",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-text-zoom",
+    "lang": "en",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "assessment",
+    "lang": "en",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assessment-text-zoom",
+    "lang": "en",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "assignments",
+    "lang": "en",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assignments-text-zoom",
+    "lang": "en",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "student-progress",
+    "lang": "en",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-progress-text-zoom",
+    "lang": "en",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "student-quizzes",
+    "lang": "en",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-quizzes-text-zoom",
+    "lang": "en",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "activity",
+    "lang": "en",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "activity-text-zoom",
+    "lang": "en",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "en",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "entry",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "teacher",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-text-zoom",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "insights",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "insights-text-zoom",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "groups",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "groups-text-zoom",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "class-progress",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "class-progress-text-zoom",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "teacher-quizzes",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-quizzes-text-zoom",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "student",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-text-zoom",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "assessment",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assessment-text-zoom",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "assignments",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assignments-text-zoom",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "student-progress",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-progress-text-zoom",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "student-quizzes",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-quizzes-text-zoom",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "activity",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "activity-text-zoom",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "en",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "entry",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "teacher",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-text-zoom",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "insights",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "insights-text-zoom",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "groups",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "groups-text-zoom",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "class-progress",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "class-progress-text-zoom",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "teacher-quizzes",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-quizzes-text-zoom",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "student",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-text-zoom",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "assessment",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assessment-text-zoom",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "assignments",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assignments-text-zoom",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "student-progress",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-progress-text-zoom",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "student-quizzes",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-quizzes-text-zoom",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "activity",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "activity-text-zoom",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "en",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "entry",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "teacher",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-text-zoom",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "insights",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "insights-text-zoom",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "groups",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "groups-text-zoom",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "class-progress",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "class-progress-text-zoom",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "teacher-quizzes",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-quizzes-text-zoom",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "student",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-text-zoom",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "assessment",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assessment-text-zoom",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "assignments",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assignments-text-zoom",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "student-progress",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-progress-text-zoom",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "student-quizzes",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-quizzes-text-zoom",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "activity",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "activity-text-zoom",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "hi",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "entry",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "teacher",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-text-zoom",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "insights",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "insights-text-zoom",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "groups",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "groups-text-zoom",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "class-progress",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "class-progress-text-zoom",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "teacher-quizzes",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-quizzes-text-zoom",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "student",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-text-zoom",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "assessment",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assessment-text-zoom",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "assignments",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assignments-text-zoom",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "student-progress",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-progress-text-zoom",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "student-quizzes",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-quizzes-text-zoom",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "activity",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "activity-text-zoom",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "hi",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "entry",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "teacher",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-text-zoom",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "insights",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "insights-text-zoom",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "groups",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "groups-text-zoom",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "class-progress",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "class-progress-text-zoom",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "teacher-quizzes",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-quizzes-text-zoom",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "student",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-text-zoom",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "assessment",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assessment-text-zoom",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "assignments",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assignments-text-zoom",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "student-progress",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-progress-text-zoom",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "student-quizzes",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-quizzes-text-zoom",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "activity",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "activity-text-zoom",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "hi",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "entry",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "teacher",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-text-zoom",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "insights",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "insights-text-zoom",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "groups",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "groups-text-zoom",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "class-progress",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "class-progress-text-zoom",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "teacher-quizzes",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-quizzes-text-zoom",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "student",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-text-zoom",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "assessment",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assessment-text-zoom",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "assignments",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assignments-text-zoom",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "student-progress",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-progress-text-zoom",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "student-quizzes",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-quizzes-text-zoom",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "activity",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "activity-text-zoom",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "hi",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "entry",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "teacher",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-text-zoom",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "insights",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "insights-text-zoom",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "groups",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "groups-text-zoom",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "class-progress",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "class-progress-text-zoom",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "teacher-quizzes",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-quizzes-text-zoom",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "student",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-text-zoom",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "assessment",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assessment-text-zoom",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "assignments",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assignments-text-zoom",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "student-progress",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-progress-text-zoom",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "student-quizzes",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-quizzes-text-zoom",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "activity",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "activity-text-zoom",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "hi",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "entry",
+    "lang": "te",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "te",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "teacher",
+    "lang": "te",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-text-zoom",
+    "lang": "te",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "insights",
+    "lang": "te",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "insights-text-zoom",
+    "lang": "te",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "groups",
+    "lang": "te",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "groups-text-zoom",
+    "lang": "te",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "class-progress",
+    "lang": "te",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "class-progress-text-zoom",
+    "lang": "te",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "teacher-quizzes",
+    "lang": "te",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-quizzes-text-zoom",
+    "lang": "te",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "student",
+    "lang": "te",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-text-zoom",
+    "lang": "te",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "assessment",
+    "lang": "te",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assessment-text-zoom",
+    "lang": "te",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "assignments",
+    "lang": "te",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assignments-text-zoom",
+    "lang": "te",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "student-progress",
+    "lang": "te",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-progress-text-zoom",
+    "lang": "te",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "student-quizzes",
+    "lang": "te",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-quizzes-text-zoom",
+    "lang": "te",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "activity",
+    "lang": "te",
+    "width": 360,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "activity-text-zoom",
+    "lang": "te",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "te",
+    "width": 360,
+    "overflow": false
+  },
+  {
+    "name": "entry",
+    "lang": "te",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "te",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "teacher",
+    "lang": "te",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-text-zoom",
+    "lang": "te",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "insights",
+    "lang": "te",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "insights-text-zoom",
+    "lang": "te",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "groups",
+    "lang": "te",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "groups-text-zoom",
+    "lang": "te",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "class-progress",
+    "lang": "te",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "class-progress-text-zoom",
+    "lang": "te",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "teacher-quizzes",
+    "lang": "te",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-quizzes-text-zoom",
+    "lang": "te",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "student",
+    "lang": "te",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-text-zoom",
+    "lang": "te",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "assessment",
+    "lang": "te",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assessment-text-zoom",
+    "lang": "te",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "assignments",
+    "lang": "te",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assignments-text-zoom",
+    "lang": "te",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "student-progress",
+    "lang": "te",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-progress-text-zoom",
+    "lang": "te",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "student-quizzes",
+    "lang": "te",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-quizzes-text-zoom",
+    "lang": "te",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "activity",
+    "lang": "te",
+    "width": 414,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "activity-text-zoom",
+    "lang": "te",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "te",
+    "width": 414,
+    "overflow": false
+  },
+  {
+    "name": "entry",
+    "lang": "te",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "te",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "teacher",
+    "lang": "te",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-text-zoom",
+    "lang": "te",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "insights",
+    "lang": "te",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "insights-text-zoom",
+    "lang": "te",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "groups",
+    "lang": "te",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "groups-text-zoom",
+    "lang": "te",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "class-progress",
+    "lang": "te",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "class-progress-text-zoom",
+    "lang": "te",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "teacher-quizzes",
+    "lang": "te",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-quizzes-text-zoom",
+    "lang": "te",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "student",
+    "lang": "te",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-text-zoom",
+    "lang": "te",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "assessment",
+    "lang": "te",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assessment-text-zoom",
+    "lang": "te",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "assignments",
+    "lang": "te",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assignments-text-zoom",
+    "lang": "te",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "student-progress",
+    "lang": "te",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-progress-text-zoom",
+    "lang": "te",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "student-quizzes",
+    "lang": "te",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-quizzes-text-zoom",
+    "lang": "te",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "activity",
+    "lang": "te",
+    "width": 768,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "activity-text-zoom",
+    "lang": "te",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "te",
+    "width": 768,
+    "overflow": false
+  },
+  {
+    "name": "entry",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "teacher",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-text-zoom",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "insights",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "insights-text-zoom",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "groups",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "groups-text-zoom",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "class-progress",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "class-progress-text-zoom",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "teacher-quizzes",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-quizzes-text-zoom",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "student",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-text-zoom",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "assessment",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assessment-text-zoom",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "assignments",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assignments-text-zoom",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "student-progress",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-progress-text-zoom",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "student-quizzes",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-quizzes-text-zoom",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "activity",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "activity-text-zoom",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "te",
+    "width": 1024,
+    "overflow": false
+  },
+  {
+    "name": "entry",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "teacher",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-text-zoom",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "insights",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "insights-text-zoom",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "groups",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "groups-text-zoom",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "class-progress",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "class-progress-text-zoom",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "teacher-quizzes",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "teacher-quizzes-text-zoom",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "student",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-text-zoom",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "assessment",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assessment-text-zoom",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "assignments",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "assignments-text-zoom",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "student-progress",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-progress-text-zoom",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "student-quizzes",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "student-quizzes-text-zoom",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "activity",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false,
+    "headingCount": 1,
+    "mainCount": 1,
+    "smallTargets": []
+  },
+  {
+    "name": "activity-text-zoom",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "name": "entry-text-zoom",
+    "lang": "te",
+    "width": 1440,
+    "overflow": false
+  }
+]

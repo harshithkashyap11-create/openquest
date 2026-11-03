@@ -1,12 +1,16 @@
 import { useCallback, useState } from 'react';
 import { CheckCircle2, ClipboardList } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
+import QuestionPager from '../components/ui/QuestionPager';
 import { EmptyState, ErrorState, LoadingState } from '../components/PageStates';
 import { useDemoSession } from '../context/useDemoSession';
 import { useI18n } from '../i18n/useI18n';
 import useAsyncData from '../hooks/useAsyncData';
 import { getErrorMessage } from '../services/api';
-import { getClassAssessment, submitAssessment } from '../services/classpulseApi';
+import {
+  getClassAssessment,
+  submitAssessment,
+} from '../services/classpulseApi';
 
 export default function Assessment() {
   const { session } = useDemoSession();
@@ -43,7 +47,9 @@ export default function Assessment() {
       );
       setSubmitted(true);
       setAnswers({});
-      setSubmissionInfo(`${result.submitted_count} ${t('answersSubmitted').toLowerCase()}`);
+      setSubmissionInfo(
+        `${result.submitted_count} ${t('answersSubmitted').toLowerCase()}`,
+      );
     } catch (requestError) {
       setSubmitError(getErrorMessage(requestError, t('assessmentSubmitError')));
     } finally {
@@ -54,7 +60,11 @@ export default function Assessment() {
   return (
     <div className="page-content">
       <PageHeader
-        eyebrow={<><ClipboardList size={15} aria-hidden="true" /> {data.topic}</>}
+        eyebrow={
+          <>
+            <ClipboardList size={15} aria-hidden="true" /> {data.topic}
+          </>
+        }
         title={data.title || t('assessmentTitle')}
         description={t('assessmentInstructions')}
       />
@@ -67,50 +77,75 @@ export default function Assessment() {
           <CheckCircle2 size={30} aria-hidden="true" />
           <h2>{t('assessmentSubmitted')}</h2>
           <p>{submissionInfo}</p>
-          <button className="button button-secondary" onClick={() => setSubmitted(false)}>
+          <button
+            className="button button-secondary"
+            onClick={() => setSubmitted(false)}
+          >
             {t('submitAnotherAttempt')}
           </button>
         </section>
       ) : (
         <form className="assessment-form panel" onSubmit={handleSubmit}>
-          <div className="assessment-progress">
-            <span>{data.questions.length} {t('questions')}</span>
-            <span>{t('explanationOptional')}</span>
-          </div>
-          <div className="question-stack">
-            {data.questions.map((question, index) => (
-              <article className="assessment-question" key={question.id}>
-                <p className="question-count">{t('question')} {index + 1} <span>· {question.topic}</span></p>
-                <h2>{question.question_text}</h2>
+          <QuestionPager
+            questions={data.questions}
+            busy={submitting}
+            submitLabel={t('submitAssessment')}
+          >
+            {(question, index) => (
+              <article className="assessment-question">
+                <p className="question-count">
+                  {t('question')} {index + 1} <span>· {question.topic}</span>
+                </p>
+                <h2 tabIndex={-1} data-question-heading>
+                  {question.question_text}
+                </h2>
                 <label htmlFor={`answer-${question.id}`}>{t('answer')}</label>
                 <input
                   id={`answer-${question.id}`}
+                  name={`answer-${question.id}`}
+                  autoComplete="off"
                   value={answers[question.id]?.answer || ''}
-                  onChange={(event) => setAnswers((current) => ({
-                    ...current,
-                    [question.id]: { ...current[question.id], answer: event.target.value },
-                  }))}
+                  onChange={(event) =>
+                    setAnswers((current) => ({
+                      ...current,
+                      [question.id]: {
+                        ...current[question.id],
+                        answer: event.target.value,
+                      },
+                    }))
+                  }
                   placeholder={t('answerPlaceholder')}
+                  disabled={submitting}
                   required
                 />
-                <label htmlFor={`explanation-${question.id}`}>{t('explanationOptional')}</label>
+                <label htmlFor={`explanation-${question.id}`}>
+                  {t('explanationOptional')}
+                </label>
                 <textarea
                   id={`explanation-${question.id}`}
-                  rows={3}
+                  name={`explanation-${question.id}`}
+                  rows={4}
                   value={answers[question.id]?.explanation || ''}
-                  onChange={(event) => setAnswers((current) => ({
-                    ...current,
-                    [question.id]: { ...current[question.id], explanation: event.target.value },
-                  }))}
+                  onChange={(event) =>
+                    setAnswers((current) => ({
+                      ...current,
+                      [question.id]: {
+                        ...current[question.id],
+                        explanation: event.target.value,
+                      },
+                    }))
+                  }
                   placeholder={t('explanationPlaceholder')}
+                  disabled={submitting}
                 />
               </article>
-            ))}
-          </div>
-          {submitError && <p className="form-error" role="alert">{submitError}</p>}
-          <button type="submit" className="button button-primary" disabled={submitting}>
-            {submitting ? t('loadingShort') : t('submitAssessment')}
-          </button>
+            )}
+          </QuestionPager>
+          {submitError && (
+            <p className="form-error" role="alert">
+              {submitError}
+            </p>
+          )}
         </form>
       )}
     </div>

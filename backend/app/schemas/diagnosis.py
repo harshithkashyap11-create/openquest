@@ -5,7 +5,7 @@ from pydantic import AliasChoices, BaseModel, ConfigDict, Field, field_validator
 from app.subject_taxonomy import all_misconception_codes, is_follow_up_code
 
 MisconceptionCode = str
-ProviderName = Literal["mock", "openrouter"]
+ProviderName = Literal["mock", "openrouter", "gemini"]
 
 
 class DiagnosisResult(BaseModel):

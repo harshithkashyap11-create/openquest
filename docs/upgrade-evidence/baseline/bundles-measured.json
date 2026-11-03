@@ -1,0 +1,134 @@
+[
+  {
+    "file": "assets/index-DkUBOIXe.js",
+    "rawBytes": 416502,
+    "gzipBytes": 127148,
+    "brotliBytes": 110238
+  },
+  {
+    "file": "assets/ClassInsights-04MU3dkx.js",
+    "rawBytes": 363491,
+    "gzipBytes": 104144,
+    "brotliBytes": 87226
+  },
+  {
+    "file": "assets/index-CrOiSIs6.css",
+    "rawBytes": 39772,
+    "gzipBytes": 9225,
+    "brotliBytes": 8102
+  },
+  {
+    "file": "assets/TeacherQuizzes-101CzS7G.js",
+    "rawBytes": 15921,
+    "gzipBytes": 4996,
+    "brotliBytes": 4359
+  },
+  {
+    "file": "assets/Intervention-BUCeBCy0.js",
+    "rawBytes": 15147,
+    "gzipBytes": 3876,
+    "brotliBytes": 3408
+  },
+  {
+    "file": "assets/jsx-runtime-DORXsfY6.js",
+    "rawBytes": 9078,
+    "gzipBytes": 3478,
+    "brotliBytes": 3106
+  },
+  {
+    "file": "assets/StudentQuizzes-fqq6Bf7j.js",
+    "rawBytes": 9227,
+    "gzipBytes": 3002,
+    "brotliBytes": 2642
+  },
+  {
+    "file": "assets/TeacherDashboard-DUYKxg-J.js",
+    "rawBytes": 8186,
+    "gzipBytes": 2528,
+    "brotliBytes": 2199
+  },
+  {
+    "file": "assets/Quizzes-BeSAztQO.css",
+    "rawBytes": 7828,
+    "gzipBytes": 2017,
+    "brotliBytes": 1694
+  },
+  {
+    "file": "assets/Login-r85IWLVH.js",
+    "rawBytes": 5398,
+    "gzipBytes": 1899,
+    "brotliBytes": 1679
+  },
+  {
+    "file": "assets/StudentDashboard-D1Gaxs99.js",
+    "rawBytes": 4191,
+    "gzipBytes": 1403,
+    "brotliBytes": 1208
+  },
+  {
+    "file": "assets/Assessment-f5h9a2P5.js",
+    "rawBytes": 3040,
+    "gzipBytes": 1232,
+    "brotliBytes": 1067
+  },
+  {
+    "file": "assets/ClassProgress-fPQCD37v.js",
+    "rawBytes": 3646,
+    "gzipBytes": 1229,
+    "brotliBytes": 1047
+  },
+  {
+    "file": "assets/StudentProgress-IZHpEsWC.js",
+    "rawBytes": 2775,
+    "gzipBytes": 1103,
+    "brotliBytes": 950
+  },
+  {
+    "file": "assets/Quizzes-BSxZyeiZ.js",
+    "rawBytes": 1461,
+    "gzipBytes": 606,
+    "brotliBytes": 525
+  },
+  {
+    "file": "assets/useAsyncData-C8kv84cQ.js",
+    "rawBytes": 793,
+    "gzipBytes": 376,
+    "brotliBytes": 336
+  },
+  {
+    "file": "assets/NotFound-Buw4ePGz.js",
+    "rawBytes": 425,
+    "gzipBytes": 298,
+    "brotliBytes": 241
+  },
+  {
+    "file": "assets/MetricCard-B9I7u2sg.js",
+    "rawBytes": 432,
+    "gzipBytes": 256,
+    "brotliBytes": 224
+  },
+  {
+    "file": "assets/PageHeader-Cv3Qo1VL.js",
+    "rawBytes": 443,
+    "gzipBytes": 253,
+    "brotliBytes": 212
+  },
+  {
+    "file": "assets/clipboard-check-BRGYw7At.js",
+    "rawBytes": 333,
+    "gzipBytes": 253,
+    "brotliBytes": 220
+  },
+  {
+    "file": "assets/circle-check-1hE_pwkm.js",
+    "rawBytes": 239,
+    "gzipBytes": 208,
+    "brotliBytes": 186
+  },
+  {
+    "file": "assets/arrow-right-CCOf_DBv.js",
+    "rawBytes": 194,
+    "gzipBytes": 183,
+    "brotliBytes": 177
+  }
+]

@@ -10,11 +10,13 @@ from app.models import (
     InterventionAssignment,
     LearningGroup,
     Question,
+    Quiz,
     Student,
     Submission,
 )
 from app.schemas.copilot import ClassContextSummary, MisconceptionStat
 from app.services.classroom_service import get_assessment_summary
+from app.services.quiz_service import quiz_insights
 from app.services.progress_service import get_class_progress
 from app.subject_taxonomy import SUBJECT_TAXONOMY, get_taxonomy, is_follow_up_code
 
@@ -132,6 +134,17 @@ def extract_classroom_context(
         .where(Student.class_id == class_id)
     ) or 0
 
+    # Keep published quizzes distinct from legacy topic assessments. Only the
+    # three newest are sent to bound prompt size; private conversations stay out.
+    quiz_reports = []
+    for quiz in db.scalars(select(Quiz).where(Quiz.class_id == class_id, Quiz.status == 'published').order_by(Quiz.created_at.desc(), Quiz.id).limit(3)):
+        report = quiz_insights(db, quiz)
+        quiz_reports.append({'title': quiz.title, 'submitted_students': report['submitted_students'],
+            'questions': [{'ordinal': q['ordinal'], 'text': q['text'],
+                           'wrong_answers': q['answered_students'] - q['correct_students'],
+                           'reflected_students': q['reflected_students'], 'uncertain_students': q['uncertain_students'],
+                           'themes': q['themes']} for q in report['questions']]})
+
     summary = ClassContextSummary(
         class_id=classroom.id,
         class_name=classroom.class_name,
@@ -152,6 +165,7 @@ def extract_classroom_context(
         groups_count=len(groups),
         approved_groups_count=len(approved_groups),
         assigned_interventions_count=assigned_interventions_count,
+        quiz_reports=quiz_reports,
     )
 
     # Build grounded text block for model consumption
@@ -198,4 +212,8 @@ def extract_classroom_context(
         f"- Grouping & Interventions: {len(groups)} group(s) proposed, {len(approved_groups)} approved, {assigned_interventions_count} student intervention assignment(s) created."
     )
 
+    if quiz_reports:
+        import json
+        grounding_lines.append("PUBLISHED QUIZ EVIDENCE (separate from baseline assessments; themes are tentative, not diagnoses):")
+        grounding_lines.append(json.dumps(quiz_reports, ensure_ascii=False))
     return summary, "\n".join(grounding_lines)

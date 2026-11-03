@@ -1,0 +1,260 @@
+[
+  {
+    "file": "assets/index-CgDQgmm5.js",
+    "rawBytes": 430509,
+    "gzipBytes": 130683,
+    "brotliBytes": 109849
+  },
+  {
+    "file": "assets/ClassInsights-3T5FE65o.js",
+    "rawBytes": 366424,
+    "gzipBytes": 105012,
+    "brotliBytes": 88039
+  },
+  {
+    "file": "assets/index-DwfqkPSN.css",
+    "rawBytes": 53378,
+    "gzipBytes": 11124,
+    "brotliBytes": 9755
+  },
+  {
+    "file": "assets/TeacherCopilot-Br4WMBm3.js",
+    "rawBytes": 27346,
+    "gzipBytes": 8006,
+    "brotliBytes": 7019
+  },
+  {
+    "file": "assets/TeacherQuizzes-CJOnNSng.js",
+    "rawBytes": 16386,
+    "gzipBytes": 5150,
+    "brotliBytes": 4515
+  },
+  {
+    "file": "assets/Intervention-CqgLE37j.js",
+    "rawBytes": 18602,
+    "gzipBytes": 4771,
+    "brotliBytes": 4190
+  },
+  {
+    "file": "assets/TeacherCopilot-BryVydQu.css",
+    "rawBytes": 21527,
+    "gzipBytes": 4426,
+    "brotliBytes": 3857
+  },
+  {
+    "file": "assets/AppShell-CJU418M_.js",
+    "rawBytes": 10158,
+    "gzipBytes": 3714,
+    "brotliBytes": 3348
+  },
+  {
+    "file": "assets/useI18n-CYHzl0Yp.js",
+    "rawBytes": 9074,
+    "gzipBytes": 3475,
+    "brotliBytes": 3102
+  },
+  {
+    "file": "assets/StudentQuizzes-3fhe3INo.js",
+    "rawBytes": 9369,
+    "gzipBytes": 3051,
+    "brotliBytes": 2696
+  },
+  {
+    "file": "assets/TeacherDashboard-C0DcJvGc.js",
+    "rawBytes": 9284,
+    "gzipBytes": 2745,
+    "brotliBytes": 2415
+  },
+  {
+    "file": "assets/Login-BozRUosv.js",
+    "rawBytes": 7960,
+    "gzipBytes": 2711,
+    "brotliBytes": 2419
+  },
+  {
+    "file": "assets/Quizzes-Co1ii813.css",
+    "rawBytes": 9433,
+    "gzipBytes": 2296,
+    "brotliBytes": 1935
+  },
+  {
+    "file": "assets/Drawer-DfMNSh8I.js",
+    "rawBytes": 3114,
+    "gzipBytes": 1478,
+    "brotliBytes": 1316
+  },
+  {
+    "file": "assets/StudentDashboard-DUxxToWl.js",
+    "rawBytes": 4373,
+    "gzipBytes": 1475,
+    "brotliBytes": 1284
+  },
+  {
+    "file": "assets/Assessment-BghK4WWa.js",
+    "rawBytes": 2988,
+    "gzipBytes": 1268,
+    "brotliBytes": 1100
+  },
+  {
+    "file": "assets/ClassProgress-DG6mEbCQ.js",
+    "rawBytes": 3571,
+    "gzipBytes": 1242,
+    "brotliBytes": 1074
+  },
+  {
+    "file": "assets/StudentProgress-wPaNyd5G.js",
+    "rawBytes": 2708,
+    "gzipBytes": 1108,
+    "brotliBytes": 965
+  },
+  {
+    "file": "assets/QuestionPager-gpIFyos_.js",
+    "rawBytes": 2183,
+    "gzipBytes": 1064,
+    "brotliBytes": 929
+  },
+  {
+    "file": "assets/EffectsControl-DNPwYLK8.js",
+    "rawBytes": 2225,
+    "gzipBytes": 994,
+    "brotliBytes": 910
+  },
+  {
+    "file": "assets/MetricCard-CiOuy9Pa.js",
+    "rawBytes": 1449,
+    "gzipBytes": 738,
+    "brotliBytes": 643
+  },
+  {
+    "file": "assets/classpulseApi-DfjjCVVh.js",
+    "rawBytes": 2562,
+    "gzipBytes": 726,
+    "brotliBytes": 619
+  },
+  {
+    "file": "assets/presets-BVw6zaAx.js",
+    "rawBytes": 1061,
+    "gzipBytes": 557,
+    "brotliBytes": 499
+  },
+  {
+    "file": "assets/Tabs-HC79WImi.js",
+    "rawBytes": 937,
+    "gzipBytes": 556,
+    "brotliBytes": 473
+  },
+  {
+    "file": "assets/ProgressBar-DdQREMu9.js",
+    "rawBytes": 843,
+    "gzipBytes": 530,
+    "brotliBytes": 456
+  },
+  {
+    "file": "assets/Quizzes-Cf6pQMK_.js",
+    "rawBytes": 1297,
+    "gzipBytes": 501,
+    "brotliBytes": 434
+  },
+  {
+    "file": "assets/useAsyncData-CaomvXcH.js",
+    "rawBytes": 841,
+    "gzipBytes": 391,
+    "brotliBytes": 357
+  },
+  {
+    "file": "assets/ScoreCard-CmkRlC9T.js",
+    "rawBytes": 554,
+    "gzipBytes": 377,
+    "brotliBytes": 320
+  },
+  {
+    "file": "assets/NotFound-C9ZuBMCh.js",
+    "rawBytes": 426,
+    "gzipBytes": 298,
+    "brotliBytes": 241
+  },
+  {
+    "file": "assets/Button-B4_dlVXw.js",
+    "rawBytes": 426,
+    "gzipBytes": 294,
+    "brotliBytes": 246
+  },
+  {
+    "file": "assets/chart-no-axes-combined-Cy2d0gKY.js",
+    "rawBytes": 428,
+    "gzipBytes": 279,
+    "brotliBytes": 261
+  },
+  {
+    "file": "assets/clipboard-list-BOMW80bY.js",
+    "rawBytes": 440,
+    "gzipBytes": 277,
+    "brotliBytes": 249
+  },
+  {
+    "file": "assets/book-open-check-BwD6jwRz.js",
+    "rawBytes": 374,
+    "gzipBytes": 270,
+    "brotliBytes": 247
+  },
+  {
+    "file": "assets/PageHeader-kxSH4P5q.js",
+    "rawBytes": 505,
+    "gzipBytes": 265,
+    "brotliBytes": 224
+  },
+  {
+    "file": "assets/clipboard-check-4fuhKpkM.js",
+    "rawBytes": 333,
+    "gzipBytes": 252,
+    "brotliBytes": 222
+  },
+  {
+    "file": "assets/trash-DbWG2N7e.js",
+    "rawBytes": 375,
+    "gzipBytes": 247,
+    "brotliBytes": 231
+  },
+  {
+    "file": "assets/users-round-sIvRjdwd.js",
+    "rawBytes": 302,
+    "gzipBytes": 246,
+    "brotliBytes": 220
+  },
+  {
+    "file": "assets/send-kyyTD9ji.js",
+    "rawBytes": 319,
+    "gzipBytes": 245,
+    "brotliBytes": 228
+  },
+  {
+    "file": "assets/circle-check-BzjQVaRB.js",
+    "rawBytes": 239,
+    "gzipBytes": 204,
+    "brotliBytes": 184
+  },
+  {
+    "file": "assets/arrow-left-4b5FHELd.js",
+    "rawBytes": 194,
+    "gzipBytes": 179,
+    "brotliBytes": 173
+  },
+  {
+    "file": "assets/arrow-right-BnRPeuxc.js",
+    "rawBytes": 194,
+    "gzipBytes": 178,
+    "brotliBytes": 168
+  },
+  {
+    "file": "assets/arrow-up-right-CR1cixOQ.js",
+    "rawBytes": 196,
+    "gzipBytes": 175,
+    "brotliBytes": 163
+  },
+  {
+    "file": "assets/check-lvV3IP-3.js",
+    "rawBytes": 153,
+    "gzipBytes": 158,
+    "brotliBytes": 151
+  }
+]

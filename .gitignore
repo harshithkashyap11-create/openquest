@@ -26,3 +26,7 @@ htmlcov/
 # Local environment and editor files
 .vscode/
 .idea/
+
+# Browser test artifacts
+**/test-results/
+**/playwright-report/

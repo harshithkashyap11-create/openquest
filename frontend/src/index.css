@@ -1,7 +1,9 @@
+@import './styles/tokens.css';
+
 :root {
-  font-family: 'Segoe UI', 'Noto Sans Devanagari', 'Noto Sans Telugu', sans-serif;
-  color: #20283a;
-  background: #f5f7fb;
+  font-family: var(--cp-font-sans);
+  color: var(--cp-text);
+  background: var(--cp-bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -44,8 +46,8 @@ a:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 3px solid #8b95f4;
-  outline-offset: 2px;
+  outline: 2px solid var(--cp-focus);
+  outline-offset: 3px;
 }
 
 a {
@@ -59,5 +61,20 @@ button {
 
 ::selection {
   color: #fff;
-  background: #4656c9;
+  background: var(--cp-brand);
+}
+
+:lang(hi) {
+  font-family: var(--cp-font-devanagari);
+  line-height: 1.6;
+}
+:lang(te) {
+  font-family: var(--cp-font-telugu);
+  line-height: 1.65;
+}
+button,
+a,
+select,
+summary {
+  touch-action: manipulation;
 }

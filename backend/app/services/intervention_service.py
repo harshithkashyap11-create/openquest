@@ -22,7 +22,7 @@ from app.services.diagnosis_provider import (
     ProviderError,
     ProviderRateLimited,
 )
-from app.services.intervention_provider import OpenRouterInterventionProvider
+from app.services.intervention_provider import create_intervention_provider
 from app.subject_taxonomy import get_taxonomy, is_follow_up_code
 
 logger = logging.getLogger(__name__)
@@ -458,19 +458,15 @@ def generate_intervention_for_group(
         hints = list(template.hints)
         settings = get_settings()
 
-        if personalizer is None and settings.ai_provider == "openrouter":
+        if personalizer is None and settings.ai_provider in {"openrouter", "gemini"}:
             try:
-                personalizer = OpenRouterInterventionProvider(
-                    api_key=settings.openrouter_api_key or "",
-                    model=settings.openrouter_model or "",
-                    base_url=settings.openrouter_base_url,
-                    timeout_seconds=settings.openrouter_timeout_seconds,
-                )
+                personalizer = create_intervention_provider(settings)
             except ProviderConfigurationError:
                 raise
             except ProviderError:
-                generation_note = "OpenRouter unavailable; predefined template used."
+                generation_note = f"{settings.ai_provider} unavailable; predefined template used."
 
+        provider_label = "Gemini" if settings.ai_provider == "gemini" else "OpenRouter"
         if personalizer is not None:
             try:
                 personalized = _personalize(
@@ -485,14 +481,14 @@ def generate_intervention_for_group(
                 raise
             except ProviderRateLimited:
                 generation_note = (
-                    "OpenRouter rate limit exceeded; predefined template used."
+                    f"{provider_label} rate limit exceeded; predefined template used."
                 )
             except (ProviderError, ValidationError, ValueError):
                 logger.warning(
                     "OpenRouter intervention personalization failed; using template fallback"
                 )
                 generation_note = (
-                    "OpenRouter failed validation or was unavailable; "
+                    f"{provider_label} failed validation or was unavailable; "
                     "predefined template used."
                 )
             else:
@@ -500,7 +496,7 @@ def generate_intervention_for_group(
                 instructions = personalized.instructions.strip()
                 introduction = personalized.introduction.strip()
                 hints = [hint.strip() for hint in personalized.hints]
-                provider_name = "openrouter"
+                provider_name = getattr(personalizer, "name", "openrouter")
                 generation_note = None
 
         intervention = Intervention(

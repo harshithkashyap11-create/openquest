@@ -1,0 +1,68 @@
+[
+  {
+    "class_name": "Basic algebra Synthetic Demo Class",
+    "id": "1c4c3457-4e1c-56df-9b31-7d400cd00029",
+    "subject": "Mathematics",
+    "topic": "Basic algebra",
+    "students": 6,
+    "diagnoses": 0,
+    "groups": 0,
+    "assignments": 0,
+    "reassessments": 0
+  },
+  {
+    "class_name": "Basic electricity Synthetic Demo Class",
+    "id": "d32de68d-3a82-5462-8439-9edd1e871709",
+    "subject": "Science",
+    "topic": "Basic electricity",
+    "students": 6,
+    "diagnoses": 0,
+    "groups": 0,
+    "assignments": 0,
+    "reassessments": 0
+  },
+  {
+    "class_name": "Force and motion Synthetic Demo Class",
+    "id": "3c873f64-bf97-5d1d-bb95-f413eb1c83dc",
+    "subject": "Science",
+    "topic": "Force and motion",
+    "students": 6,
+    "diagnoses": 0,
+    "groups": 0,
+    "assignments": 0,
+    "reassessments": 0
+  },
+  {
+    "class_name": "Fractions Synthetic Demo Class",
+    "id": "f1ba9db4-e9e2-5575-b857-343d5ffe3a02",
+    "subject": "Mathematics",
+    "topic": "Fractions",
+    "students": 40,
+    "diagnoses": 0,
+    "groups": 0,
+    "assignments": 0,
+    "reassessments": 0
+  },
+  {
+    "class_name": "Grammar Synthetic Demo Class",
+    "id": "508e0745-3c02-598a-833e-879200f42914",
+    "subject": "English",
+    "topic": "Grammar",
+    "students": 6,
+    "diagnoses": 0,
+    "groups": 0,
+    "assignments": 0,
+    "reassessments": 0
+  },
+  {
+    "class_name": "Subject-verb agreement Synthetic Demo Class",
+    "id": "d1c8b087-bc3e-5ee5-b2db-29ca48b4acd6",
+    "subject": "English",
+    "topic": "Subject-verb agreement",
+    "students": 6,
+    "diagnoses": 0,
+    "groups": 0,
+    "assignments": 0,
+    "reassessments": 0
+  }
+]

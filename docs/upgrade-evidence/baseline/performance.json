@@ -1,0 +1,73 @@
+{
+  "cls": 0,
+  "lcp": 4340,
+  "longTasks": [
+    82
+  ],
+  "events": [],
+  "resources": [
+    {
+      "url": "http://127.0.0.1:5177/assets/index-DkUBOIXe.js",
+      "transfer": 127720,
+      "decoded": 416502
+    },
+    {
+      "url": "http://127.0.0.1:5177/assets/jsx-runtime-DORXsfY6.js",
+      "transfer": 3754,
+      "decoded": 9078
+    },
+    {
+      "url": "http://127.0.0.1:5177/assets/index-CrOiSIs6.css",
+      "transfer": 9529,
+      "decoded": 39772
+    },
+    {
+      "url": "http://127.0.0.1:5177/assets/Login-r85IWLVH.js",
+      "transfer": 2203,
+      "decoded": 5398
+    },
+    {
+      "url": "http://127.0.0.1:5177/assets/useAsyncData-C8kv84cQ.js",
+      "transfer": 1093,
+      "decoded": 793
+    },
+    {
+      "url": "http://127.0.0.1:5177/api/demo/classes",
+      "transfer": 1270,
+      "decoded": 970
+    }
+  ],
+  "profile": "Chromium headless, 360×780,4xCPU,400ms latency,50KB/s each direction (Slow3G simulation)",
+  "js": [
+    {
+      "url": "http://127.0.0.1:5177/assets/index-DkUBOIXe.js",
+      "transfer": 127720,
+      "decoded": 416502,
+      "gzip": 127148,
+      "brotli": 110238
+    },
+    {
+      "url": "http://127.0.0.1:5177/assets/jsx-runtime-DORXsfY6.js",
+      "transfer": 3754,
+      "decoded": 9078,
+      "gzip": 3478,
+      "brotli": 3106
+    },
+    {
+      "url": "http://127.0.0.1:5177/assets/Login-r85IWLVH.js",
+      "transfer": 2203,
+      "decoded": 5398,
+      "gzip": 1899,
+      "brotli": 1679
+    },
+    {
+      "url": "http://127.0.0.1:5177/assets/useAsyncData-C8kv84cQ.js",
+      "transfer": 1093,
+      "decoded": 793,
+      "gzip": 376,
+      "brotli": 336
+    }
+  ],
+  "entryGzip": 132901,
+  "entryTransferred": 134770
+}

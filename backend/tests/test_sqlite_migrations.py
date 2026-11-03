@@ -12,6 +12,9 @@ from app.models import Teacher
 BACKEND_DIR = Path(__file__).resolve().parents[1]
 EXPECTED_TABLES = {
     "teachers",
+    "quizzes",
+    "quiz_attempts",
+    "quiz_reflections",
     "classes",
     "students",
     "questions",
@@ -56,7 +59,7 @@ def test_all_migrations_apply_to_empty_sqlite_and_models_can_query(tmp_path):
     current = _run_alembic(database_url, "current")
     _run_alembic(database_url, "check")
 
-    assert "0005_multisubject_diagnoses (head)" in current.stdout
+    assert "0006_quiz_learning_loop (head)" in current.stdout
 
     engine = create_engine(database_url)
     try:

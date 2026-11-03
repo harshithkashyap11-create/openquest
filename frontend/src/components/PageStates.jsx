@@ -41,3 +41,25 @@ export function EmptyState({ title, children }) {
     </div>
   );
 }
+
+export function RefreshNotice({ error, refreshing, onRetry }) {
+  const { t } = useI18n();
+  if (error)
+    return (
+      <div className="form-error refresh-notice" role="alert">
+        <span>{t('refreshFailed')}</span>
+        <button
+          className="button button-secondary"
+          type="button"
+          onClick={onRetry}
+        >
+          {t('retry')}
+        </button>
+      </div>
+    );
+  return refreshing ? (
+    <p className="refresh-status" role="status">
+      {t('refreshingData')}
+    </p>
+  ) : null;
+}

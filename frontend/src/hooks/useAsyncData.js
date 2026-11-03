@@ -57,7 +57,8 @@ export default function useAsyncData(loader, key = '') {
   const current = result.key === key;
   return {
     data: current ? result.data : null,
-    loading: !current || result.loading,
+    loading: !current || (result.data == null && result.loading),
+    refreshing: current && result.data != null && result.loading,
     error: current ? result.error : null,
     reload,
   };
