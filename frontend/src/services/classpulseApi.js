@@ -23,11 +23,11 @@ export async function getClassAssessment(classId, studentId) {
   ).data;
 }
 
-export async function submitAssessment(studentId, answers) {
+export async function submitAssessment(studentId, answers, requestId) {
   return (
     await api.post(
       `/students/${studentId}/assessment-submissions`,
-      { answers },
+      { answers, request_id: requestId },
       getStudentConfig(studentId),
     )
   ).data;
@@ -58,7 +58,7 @@ export async function getClassDiagnoses(classId) {
 }
 
 export async function runDiagnosis(classId) {
-  return (await api.post(`/classes/${classId}/diagnose`)).data;
+  return (await api.post(`/classes/${classId}/diagnose`, null, { timeout: 60000 })).data;
 }
 
 export async function getGroups(classId) {
@@ -69,8 +69,8 @@ export async function generateGroups(classId) {
   return (await api.post(`/classes/${classId}/groups/generate`)).data;
 }
 
-export async function reviewGroup(groupId, status) {
-  return (await api.patch(`/groups/${groupId}/review`, { status })).data;
+export async function reviewGroup(groupId, status, revision) {
+  return (await api.patch(`/groups/${groupId}/review`, { status, expected_revision: revision })).data;
 }
 
 export async function generateIntervention(groupId) {

@@ -30,7 +30,9 @@ def account_view(db, account, csrf):
         'classes': [{'id': str(c.id), 'class_name': c.class_name, 'subject': c.subject, 'topic': c.topic} for c in classes]}
 
 @router.post('/login')
-def login(payload: LoginInput, response: Response, db=Depends(get_db)):
+def login(payload: LoginInput, request: Request, response: Response, db=Depends(get_db)):
+    from app.services.rate_limit_service import check_rate
+    check_rate(('login', request.client.host if request.client else 'unknown'), 10)
     account = db.scalar(select(AuthAccount).where(AuthAccount.username == payload.username))
     stored = account.password_hash if account else password_hash('invalid-credentials', 'constant-time-salt')
     _, salt, _ = stored.split('$')

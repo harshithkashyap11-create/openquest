@@ -9,6 +9,7 @@ from app.models import (
     Question,
     Student,
     Submission,
+    ReassessmentQuestion,
 )
 from app.schemas.classroom import (
     AssessmentSubmissionRequest,
@@ -20,6 +21,8 @@ from app.schemas.classroom import (
     DemoStudentResolutionResponse,
     StudentAssessmentStatus,
 )
+from app.services.learning_service import record_evidence
+from app.services.mutation_service import replay, receipt
 
 
 def list_demo_classes(db: Session) -> list[DemoClassResponse]:
@@ -84,6 +87,7 @@ def get_class_assessment(
         .where(
             Question.subject == classroom.subject,
             Question.topic == classroom.topic,
+            ~Question.id.in_(select(ReassessmentQuestion.question_id)),
         )
         .order_by(Question.created_at, Question.id)
     )
@@ -139,12 +143,17 @@ def submit_student_assessment(
     student = db.get(Student, student_id)
     if student is None:
         raise LookupError("Student not found")
+    receipt_key = f"assessment:{student_id}:{payload.request_id}" if payload.request_id else None
+    data = payload.model_dump(mode="json")
+    if receipt_key and (previous := replay(db, receipt_key, data)):
+        return AssessmentSubmissionResponse(**previous)
     expected_questions = list(
         db.scalars(
             select(Question.id)
             .where(
                 Question.subject == student.classroom.subject,
                 Question.topic == student.classroom.topic,
+                ~Question.id.in_(select(ReassessmentQuestion.question_id)),
             )
             .order_by(Question.created_at, Question.id)
         )
@@ -174,12 +183,19 @@ def submit_student_assessment(
         for answer in payload.answers
     ]
     db.add_all(submissions)
-    db.commit()
-    return AssessmentSubmissionResponse(
+    db.flush()
+    record_evidence(db, student, student.classroom.subject, student.classroom.topic,
+        "assessment", f"assessment:{student_id}:{attempt_no}", {
+            "attempt": f"baseline:{attempt_no}", "submission_ids": [str(s.id) for s in submissions]})
+    result = AssessmentSubmissionResponse(
         student_id=student_id,
         attempt_no=attempt_no,
         submitted_count=len(submissions),
     )
+    if receipt_key:
+        receipt(db, receipt_key, data, result.model_dump(mode="json"))
+    db.commit()
+    return result
 
 
 def get_assessment_summary(db: Session, class_id: UUID) -> AssessmentSummaryResponse:
@@ -197,6 +213,7 @@ def get_assessment_summary(db: Session, class_id: UUID) -> AssessmentSummaryResp
         select(func.count(Question.id)).where(
             Question.subject == classroom.subject,
             Question.topic == classroom.topic,
+            ~Question.id.in_(select(ReassessmentQuestion.question_id)),
         )
     ) or 0
     student_statuses: list[StudentAssessmentStatus] = []

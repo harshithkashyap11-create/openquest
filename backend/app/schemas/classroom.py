@@ -54,6 +54,7 @@ class AssessmentAnswerRequest(BaseModel):
 
 
 class AssessmentSubmissionRequest(BaseModel):
+    request_id: str | None = Field(default=None, min_length=8, max_length=100)
     answers: list[AssessmentAnswerRequest] = Field(min_length=1, max_length=20)
 
 

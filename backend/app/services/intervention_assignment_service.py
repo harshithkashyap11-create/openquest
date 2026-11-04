@@ -10,6 +10,8 @@ from app.models import (
 )
 from app.schemas.interventions import PracticeAnswer
 from app.services.answer_evaluation import answers_match
+from app.services.learning_service import record_evidence
+from app.services.mutation_service import fingerprint
 
 
 def get_owned_assignment(
@@ -35,6 +37,8 @@ def submit_practice_answers(
     assignment_id: UUID,
     student_id: UUID,
     answers: list[PracticeAnswer],
+    *,
+    commit: bool = True,
 ) -> tuple[InterventionAssignment, list[tuple[int, bool]]]:
     assignment = get_owned_assignment(db, assignment_id, student_id)
     if assignment.status == "completed":
@@ -77,7 +81,14 @@ def submit_practice_answers(
         existing.is_correct = is_correct
         existing.submitted_at = now
         results.append((submitted.question_index, is_correct))
+        record_evidence(db, assignment.student, assignment.intervention.subject, assignment.intervention.topic,
+            "practice", f"practice:{assignment.id}:{submitted.question_index}:{fingerprint(submitted.answer)}", {
+                "assignment_id": str(assignment.id), "question_index": submitted.question_index,
+                "correct": is_correct, "assisted": True})
 
-    db.commit()
-    db.refresh(assignment)
+    if commit:
+        db.commit()
+        db.refresh(assignment)
+    else:
+        db.flush()
     return assignment, results

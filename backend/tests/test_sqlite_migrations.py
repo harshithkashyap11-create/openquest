@@ -59,7 +59,7 @@ def test_all_migrations_apply_to_empty_sqlite_and_models_can_query(tmp_path):
     current = _run_alembic(database_url, "current")
     _run_alembic(database_url, "check")
 
-    assert "0006_quiz_learning_loop (head)" in current.stdout
+    assert "0007_learning_intelligence (head)" in current.stdout
 
     engine = create_engine(database_url)
     try:
@@ -197,3 +197,23 @@ def test_multisubject_migration_preserves_existing_rows_and_adds_defaults(tmp_pa
             ) is None
     finally:
         engine.dispose()
+
+
+def test_learning_upgrade_and_downgrade_preserve_legacy_data(tmp_path):
+    url = f'sqlite:///{tmp_path / "rollback.sqlite"}'
+    _run_alembic(url, 'upgrade', '0006_quiz_learning_loop')
+    engine = create_engine(url)
+    with engine.begin() as connection:
+        connection.execute(text("INSERT INTO teachers (id,name,email) VALUES ('teacher-safe','Keep me','keep@test.invalid')"))
+    engine.dispose()
+    _run_alembic(url, 'upgrade', 'head')
+    _run_alembic(url, 'downgrade', '0006_quiz_learning_loop')
+    engine = create_engine(url)
+    try:
+        with engine.connect() as connection:
+            assert connection.scalar(text("SELECT name FROM teachers WHERE id='teacher-safe'")) == 'Keep me'
+        assert 'learning_events' not in inspect(engine).get_table_names()
+    finally:
+        engine.dispose()
+    _run_alembic(url, 'upgrade', 'head')
+    _run_alembic(url, 'check')

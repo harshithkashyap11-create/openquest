@@ -1,0 +1,175 @@
+{
+  "cls": 0,
+  "lcp": 5568,
+  "longTasks": [
+    97,
+    52
+  ],
+  "events": [],
+  "resources": [
+    {
+      "url": "http://127.0.0.1:5188/assets/index-BZHcQjjk.js",
+      "transfer": 136770,
+      "decoded": 453118
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/useI18n-CYHzl0Yp.js",
+      "transfer": 3751,
+      "decoded": 9074
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/index-DRVMoItL.css",
+      "transfer": 11463,
+      "decoded": 53394
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/Login-DnpHg-TR.js",
+      "transfer": 3399,
+      "decoded": 9301
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/book-open-check-C72T-eGw.js",
+      "transfer": 674,
+      "decoded": 374
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/EffectsControl-DNHyE4xN.js",
+      "transfer": 1408,
+      "decoded": 2506
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/check-7PhAtJIn.js",
+      "transfer": 453,
+      "decoded": 153
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/arrow-right-gqgUzSS4.js",
+      "transfer": 494,
+      "decoded": 194
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/users-round-D5FyOLHp.js",
+      "transfer": 602,
+      "decoded": 302
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/chart-no-axes-combined-sCRIk6aq.js",
+      "transfer": 728,
+      "decoded": 428
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/useAsyncData-CaomvXcH.js",
+      "transfer": 1141,
+      "decoded": 841
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/Button-BQwF7Idq.js",
+      "transfer": 726,
+      "decoded": 426
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/classpulseApi-DhsgJM8H.js",
+      "transfer": 1052,
+      "decoded": 2618
+    },
+    {
+      "url": "http://127.0.0.1:5188/api/auth/config",
+      "transfer": 336,
+      "decoded": 36
+    },
+    {
+      "url": "http://127.0.0.1:5188/api/demo/classes",
+      "transfer": 782,
+      "decoded": 482
+    }
+  ],
+  "profile": "Chromium headless, 360×780,4xCPU,400ms latency,50KB/s each direction (Slow3G simulation)",
+  "js": [
+    {
+      "url": "http://127.0.0.1:5188/assets/index-BZHcQjjk.js",
+      "transfer": 136770,
+      "decoded": 453118,
+      "gzip": 136194,
+      "brotli": 114022
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/useI18n-CYHzl0Yp.js",
+      "transfer": 3751,
+      "decoded": 9074,
+      "gzip": 3475,
+      "brotli": 3102
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/Login-DnpHg-TR.js",
+      "transfer": 3399,
+      "decoded": 9301,
+      "gzip": 3090,
+      "brotli": 2728
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/book-open-check-C72T-eGw.js",
+      "transfer": 674,
+      "decoded": 374,
+      "gzip": 269,
+      "brotli": 248
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/EffectsControl-DNHyE4xN.js",
+      "transfer": 1408,
+      "decoded": 2506,
+      "gzip": 1102,
+      "brotli": 992
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/check-7PhAtJIn.js",
+      "transfer": 453,
+      "decoded": 153,
+      "gzip": 159,
+      "brotli": 136
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/arrow-right-gqgUzSS4.js",
+      "transfer": 494,
+      "decoded": 194,
+      "gzip": 180,
+      "brotli": 179
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/users-round-D5FyOLHp.js",
+      "transfer": 602,
+      "decoded": 302,
+      "gzip": 247,
+      "brotli": 222
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/chart-no-axes-combined-sCRIk6aq.js",
+      "transfer": 728,
+      "decoded": 428,
+      "gzip": 281,
+      "brotli": 264
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/useAsyncData-CaomvXcH.js",
+      "transfer": 1141,
+      "decoded": 841,
+      "gzip": 391,
+      "brotli": 357
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/Button-BQwF7Idq.js",
+      "transfer": 726,
+      "decoded": 426,
+      "gzip": 294,
+      "brotli": 253
+    },
+    {
+      "url": "http://127.0.0.1:5188/assets/classpulseApi-DhsgJM8H.js",
+      "transfer": 1052,
+      "decoded": 2618,
+      "gzip": 754,
+      "brotli": 634
+    }
+  ],
+  "entryGzip": 146436,
+  "entryTransferred": 151198
+}

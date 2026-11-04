@@ -57,11 +57,11 @@ def project(events):
             observations[event.data.get('observation_id', event.source_key)] = {**event.data, 'event_id': str(event.id)}
         if event.kind == 'hint':
             hints += 1
-    known = [x for x in observations.values() if isinstance(x.get('correct'), bool)]
+    known = [x for x in observations.values() if isinstance(x.get('correct'), bool) and not x.get('uncertain')]
     recent = known[-10:]
     score = round(100 * sum(x['correct'] for x in recent) / len(recent)) if recent else None
     attempts = {x.get('attempt', x['event_id']) for x in known}
-    gaps = {x['code'] for x in observations.values() if x.get('code') and x['code'] not in {'CORRECT', 'FOLLOW_UP'} and not is_follow_up_code(x['code'])}
+    gaps = {x['code'] for x in observations.values() if x.get('code') and x['code'] not in {'CORRECT', 'FOLLOW_UP'} and not is_follow_up_code(x['code']) and not x.get('uncertain')}
     for code in list(gaps):
         checks = [x for x in observations.values() if x.get('target_code') == code]
         if len(checks) >= 3 and all(x.get('correct') is True for x in checks[-3:]):
@@ -79,7 +79,7 @@ def project(events):
 def choose_action(state, kind, data):
     if kind == 'hint':
         return 'OFFER_HINT', 'Guided practice hint requested; independent mastery is unchanged.'
-    if kind == 'assessment':
+    if kind in {'assessment', 'diagnosis_failure'}:
         return 'REQUEST_TEACHER_REVIEW', 'Response saved; validated diagnosis pending.'
     if data.get('uncertain') or is_follow_up_code(data.get('code', '')) or data.get('code') == 'FOLLOW_UP':
         return 'ASK_DIAGNOSTIC_FOLLOWUP', 'Insufficient reasoning evidence; clarify before assigning support.'
@@ -95,11 +95,13 @@ def choose_action(state, kind, data):
 def record_evidence(db, student, subject, topic, kind, source_key, data):
     old = db.scalar(select(LearningEvent).where(LearningEvent.source_key == source_key))
     if old:
-        if (old.student_id, old.subject, old.topic, old.kind, old.data) != (student.id, subject, topic, kind, data):
+        comparable = {k: v for k, v in old.data.items() if k != 'request_id'}
+        if (old.student_id, old.subject, old.topic, old.kind, comparable) != (student.id, subject, topic, kind, data):
             raise ValueError('IDEMPOTENCY_CONFLICT: event key already represents another response')
         return old
+    correlation = {'request_id': db.info['request_id']} if db.info.get('request_id') else {}
     item = LearningEvent(student_id=student.id, subject=subject, topic=topic, kind=kind,
-        source_key=source_key, data=data, created_at=datetime.now(timezone.utc))
+        source_key=source_key, data={**data, **correlation}, created_at=datetime.now(timezone.utc))
     db.add(item)
     db.flush()
     session = topic_session(db, student.id, subject, topic)
@@ -120,6 +122,8 @@ def record_evidence(db, student, subject, topic, kind, source_key, data):
         transition(db, session.id, target, 'policy', source_key, **kw)
     if kind == 'assessment':
         move('DIAGNOSIS_PENDING')
+    elif kind == 'diagnosis_failure' and session.state == 'DIAGNOSIS_PENDING':
+        move('NEEDS_REVIEW')
     elif kind in {'diagnosis', 'correction'}:
         if session.state in {'CREATED', 'AWAITING_ASSESSMENT', 'DIAGNOSIS_PENDING', 'NEEDS_REVIEW'}:
             move('DIAGNOSIS_READY')

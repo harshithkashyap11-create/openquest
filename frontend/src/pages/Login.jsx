@@ -20,6 +20,7 @@ import EffectsControl from '../components/EffectsControl';
 import Button from '../components/ui/Button';
 import { ErrorState, LoadingState } from '../components/PageStates';
 import { getErrorMessage } from '../services/api';
+import api from '../services/api';
 import {
   listDemoClasses,
   listDemoStudents,
@@ -27,6 +28,44 @@ import {
 } from '../services/classpulseApi';
 
 export default function Login() {
+  const { data, loading, error, reload } = useAsyncData(loadAuthConfig, 'auth-config');
+  if (loading) return <LoadingState />;
+  if (error) return <ErrorState error={error} onRetry={reload} />;
+  return data.mode === 'required' ? <AccountLogin /> : <DemoLogin />;
+}
+
+async function loadAuthConfig() { return (await api.get('/auth/config')).data; }
+
+function AccountLogin() {
+  const { t } = useI18n();
+  const { startSession } = useDemoSession();
+  const navigate = useNavigate();
+  const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
+  async function submit(event) {
+    event.preventDefault();
+    setBusy(true); setError('');
+    const form = new FormData(event.currentTarget);
+    try {
+      const result = (await api.post('/auth/login', { username: form.get('username'), password: form.get('password') })).data;
+      const classroom = result.classes[0];
+      if (!classroom) throw new Error(t('noClasses'));
+      startSession({ ...result, classId: classroom.id, className: classroom.class_name, subject: classroom.subject, topic: classroom.topic });
+      navigate(result.role === 'teacher' ? '/teacher/overview' : '/student/dashboard', { replace: true });
+    } catch (e) { setError(e.response ? getErrorMessage(e) : e.message); }
+    finally { setBusy(false); }
+  }
+  return <main className="entry-page"><section className="entry-card" style={{ margin: '4rem auto', maxWidth: '28rem' }}>
+    <LanguageSelector /><h1>{t('brand')} · {t('accountSignIn')}</h1>
+    <form className="entry-form" onSubmit={submit}>
+      <label htmlFor="account-user">{t('username')}</label><input id="account-user" name="username" autoComplete="username" required maxLength={100} />
+      <label htmlFor="account-password">{t('password')}</label><input id="account-password" name="password" type="password" autoComplete="current-password" required maxLength={256} />
+      {error && <p role="alert" className="form-error">{error}</p>}
+      <Button type="submit" busy={busy}>{t('accountSignIn')}</Button>
+    </form></section></main>;
+}
+
+function DemoLogin() {
   const { t } = useI18n();
   const navigate = useNavigate();
   const { startSession } = useDemoSession();

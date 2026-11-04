@@ -539,6 +539,14 @@ def generate_intervention_for_group(
         else:
             assignments.append(assignment)
     try:
+        db.flush()
+        from app.services.learning_service import record_evidence
+        for assignment in assignments:
+            record_evidence(db, assignment.student, intervention.subject, intervention.topic,
+                "approved_assignment", f"approved-assignment:{assignment.id}", {
+                    "assignment_id": str(assignment.id), "group_id": str(group.id),
+                    "teacher_id": str(group.classroom.teacher_id), "code": code,
+                    "review_status": group.review_status})
         db.commit()
     except IntegrityError:
         db.rollback()

@@ -58,5 +58,5 @@ class OpenRouterDiagnosisProvider:
                 f"{self.name} returned an invalid diagnosis response"
             ) from error
         return result.model_copy(
-            update={"provider": self.name, "model_version": self.model_version}
+            update={"provider": self.name, "model_version": getattr(self.client, "reported_model", None) or self.model_version}
         )

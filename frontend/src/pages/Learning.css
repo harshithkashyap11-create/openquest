@@ -1,0 +1,19 @@
+.learning-page { overflow-wrap: anywhere; }
+.learning-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 1rem; }
+.learning-form { display: grid; gap: .65rem; margin-block: 1rem; }
+.learning-form input:not([type=checkbox]), .learning-form select, .learning-form textarea { width: 100%; min-width: 0; max-width: 100%; padding: .75rem; border: 1px solid var(--border-color, #b9b5ad); border-radius: .6rem; background: var(--surface, #fff); color: var(--text-primary, #25251f); font: inherit; }
+.learning-form select { text-overflow: ellipsis; }
+.learning-form fieldset { min-width: 0; border: 1px solid var(--border-color, #b9b5ad); padding: .8rem; border-radius: .6rem; }
+.learning-form button, .learning-actions button { min-height: 44px; white-space: normal; }
+.learning-check { display: flex; align-items: center; gap: .75rem; min-height: 44px; }
+.learning-check input { width: 20px; height: 20px; flex-shrink: 0; }
+.learning-actions { display: flex; flex-wrap: wrap; gap: .6rem; }
+.learning-evidence blockquote { margin: 1rem 0; padding: 1rem; border-inline-start: 3px solid var(--accent, #6c7457); background: #f6f6f1; }
+.learning-evidence details, .learning-page summary { padding-block: .75rem; }
+.learning-page summary { cursor: pointer; min-height: 44px; }
+.learning-evidence li, .learning-lesson li { margin-block: .7rem; }
+.learning-lesson { line-height: 1.7; }
+.lesson-prose { white-space: pre-wrap; }
+.hint-ladder { padding-inline-start: 1.5rem; }
+.hint-ladder li { padding: .5rem; margin-block: .5rem; background: #f6f6f1; border-radius: .5rem; }
+.learning-page :focus-visible { outline: 3px solid #596e42; outline-offset: 3px; }

@@ -223,7 +223,7 @@ function TeacherInterventions({ classId }) {
                           disabled={Boolean(working)}
                           onClick={() =>
                             perform(group.id, 'review', () =>
-                              reviewGroup(group.id, 'rejected'),
+                              reviewGroup(group.id, 'rejected', group.revision),
                             )
                           }
                         >
@@ -234,7 +234,7 @@ function TeacherInterventions({ classId }) {
                           disabled={Boolean(working)}
                           onClick={() =>
                             perform(group.id, 'review', () =>
-                              reviewGroup(group.id, 'approved'),
+                              reviewGroup(group.id, 'approved', group.revision),
                             )
                           }
                         >

@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 class GroupReviewRequest(BaseModel):
     status: Literal["approved", "rejected"]
+    expected_revision: str | None = None
 
 
 class GroupMemberResponse(BaseModel):
@@ -14,6 +15,7 @@ class GroupMemberResponse(BaseModel):
 
 class LearningGroupResponse(BaseModel):
     id: str
+    revision: str = ""
     class_id: str
     topic: str
     misconception_code: str

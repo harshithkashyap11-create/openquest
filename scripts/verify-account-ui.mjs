@@ -1,0 +1,42 @@
+// Uses generated synthetic credentials privately; never logs them.
+import { chromium } from '../frontend/node_modules/playwright/index.mjs';
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+const credentials = JSON.parse(await fs.readFile(new URL('../.classpulse-demo/credentials.json', import.meta.url), 'utf8'));
+const browser = await chromium.launch({ headless: true });
+const page = await browser.newPage();
+const errors = [];
+page.on('pageerror', e => errors.push(e.message));
+const report = {};
+try {
+  await page.goto('http://127.0.0.1:5190/login');
+  await page.waitForLoadState('networkidle');
+  assert(await page.getByLabel('Username', { exact: true }).isVisible());
+  await page.getByLabel('Username', { exact: true }).fill('demo-teacher');
+  await page.getByLabel('Password', { exact: true }).fill(credentials['demo-teacher']);
+  await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+  await page.waitForURL('**/teacher/overview');
+  await page.getByText('Signed in with a verified local account', { exact: true }).waitFor();
+  await page.screenshot({ path: 'docs/upgrade-evidence/agentic/teacher-account-1440.png', fullPage: true });
+  await page.getByRole('button', { name: 'Sign out', exact: true }).click();
+  await page.waitForURL('**/login');
+  assert.equal((await page.request.get('http://127.0.0.1:5190/api/auth/me')).status(), 401);
+  report.teacherLoginAndLogout = 'PASS';
+  await page.getByLabel('Username', { exact: true }).fill('demo-student-mathematics');
+  await page.getByLabel('Password', { exact: true }).fill(credentials['demo-student-mathematics']);
+  await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+  await page.waitForURL('**/student/dashboard');
+  const session = await page.evaluate(() => { const s = JSON.parse(sessionStorage.getItem('classpulse.demo-session')); return { classId: s.classId, studentId: s.studentId }; });
+  assert.equal((await page.request.get(`http://127.0.0.1:5190/api/classes/${session.classId}/diagnoses`)).status(), 403);
+  assert.equal((await page.request.get(`http://127.0.0.1:5190/api/students/${session.studentId}/learning-state`)).status(), 200);
+  report.studentLoginAndTeacherEndpointDenial = 'PASS';
+  await page.context().clearCookies();
+  await page.goto('http://127.0.0.1:5190/student/progress');
+  await page.waitForURL('**/login');
+  await page.getByLabel('Username', { exact: true }).waitFor();
+  report.expiredSessionReturnsToLogin = 'PASS';
+  assert.deepEqual(errors, []);
+  report.pageErrors = errors;
+} finally { await browser.close(); }
+await fs.writeFile('docs/upgrade-evidence/agentic/account-ui.json', JSON.stringify(report, null, 2));
+console.log(JSON.stringify(report));

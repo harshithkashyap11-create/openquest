@@ -11,6 +11,7 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   Sparkles,
+  Sprout,
   RefreshCw,
   UsersRound,
 } from 'lucide-react';
@@ -29,6 +30,7 @@ export default function AppShell({ role }) {
   const { session, startSession, endSession } = useDemoSession();
   const { t } = useI18n();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [signOutError, setSignOutError] = useState('');
   const [copilotOpen, setCopilotOpen] = useState(false);
   const [copilotLoaded, setCopilotLoaded] = useState(false);
   const [collapsed, setCollapsed] = useState(() => {
@@ -65,6 +67,8 @@ export default function AppShell({ role }) {
           icon: Activity,
         },
         { to: '/teacher/quizzes', label: t('quizzes'), icon: BookOpenCheck },
+        { to: '/teacher/learning', label: t('learningEvidence'), icon: Sprout },
+        { to: '/teacher/lessons', label: t('lessonStudio'), icon: BookOpenCheck },
         {
           to: '/teacher/insights',
           label: t('classInsights'),
@@ -93,6 +97,7 @@ export default function AppShell({ role }) {
           icon: GraduationCap,
         },
         { to: '/student/quizzes', label: t('quizzes'), icon: BookOpenCheck },
+        { to: '/student/learning', label: t('learningLab'), icon: Sprout },
         {
           to: '/student/assessment',
           label: t('assessment'),
@@ -111,13 +116,17 @@ export default function AppShell({ role }) {
       ];
 
   const checkBackend = useCallback(async () => {
+    if (!navigator.onLine) {
+      if (mounted.current) setBackendStatus('offline');
+      return;
+    }
     try {
       await listDemoClasses();
       if (!mounted.current) return;
       setBackendStatus('connected');
     } catch {
       if (!mounted.current) return;
-      setBackendStatus('unreachable');
+      setBackendStatus(navigator.onLine ? 'unreachable' : 'offline');
     }
   }, []);
 
@@ -129,11 +138,15 @@ export default function AppShell({ role }) {
     };
     const timer = window.setInterval(checkWhileVisible, 45000);
     document.addEventListener('visibilitychange', checkWhileVisible);
+    window.addEventListener('online', checkWhileVisible);
+    window.addEventListener('offline', checkWhileVisible);
     return () => {
       mounted.current = false;
       window.clearTimeout(initialCheck);
       window.clearInterval(timer);
       document.removeEventListener('visibilitychange', checkWhileVisible);
+      window.removeEventListener('online', checkWhileVisible);
+      window.removeEventListener('offline', checkWhileVisible);
     };
   }, [checkBackend, retryHealth]);
 
@@ -198,14 +211,14 @@ export default function AppShell({ role }) {
           })}
         </nav>
         <div className="sidebar-bottom">
-          <div className="demo-chip">{t('demoNotice')}</div>
+          <div className="demo-chip">{t(session.authenticated ? 'accountAccess' : 'demoNotice')}</div>
           <button
             className="nav-link signout-button"
             onClick={signOut}
             title={collapsed && !mobile ? t('signOut') : undefined}
           >
             <LogOut size={20} aria-hidden="true" />
-            <span className="nav-label">{t('signOut')}</span>
+            <span className="nav-label">{t(session.authenticated ? 'accountSignOut' : 'signOut')}</span>
           </button>
           {!mobile && (
             <button
@@ -232,9 +245,13 @@ export default function AppShell({ role }) {
     );
   }
 
-  function signOut() {
-    endSession();
-    navigate('/login', { replace: true });
+  async function signOut() {
+    try {
+      await endSession();
+      navigate('/login', { replace: true });
+    } catch (error) {
+      setSignOutError(error.message === 'PENDING_OFFLINE_RESPONSES' ? t('pendingBeforeLogout') : t('connectionError'));
+    }
   }
 
   return (
@@ -284,6 +301,8 @@ export default function AppShell({ role }) {
             <span className="backend-status-dot" aria-hidden="true" />
             {backendStatus === 'connected'
               ? t('backendConnected')
+              : backendStatus === 'offline'
+                ? t('offlineLearning')
               : backendStatus === 'unreachable'
                 ? t('backendUnreachable')
                 : t('backendConnecting')}
@@ -319,6 +338,7 @@ export default function AppShell({ role }) {
           </div>
         )}
         <main className="main-panel" id="main-content" tabIndex={-1}>
+          {signOutError && <p className="form-error" role="alert">{signOutError}</p>}
           {routeNotice && (
             <p className="status-message" role="status">
               {routeNotice === 'teacher'

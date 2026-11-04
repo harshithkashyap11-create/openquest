@@ -759,7 +759,7 @@ class OpenRouterCopilotProvider:
                 update={
                     "reply": fallback_resp.reply + note,
                     "provider": f"{self.name}_fallback",
-                    "model_version": self.model_version,
+                    "model_version": None,
                 }
             )
 
@@ -779,7 +779,7 @@ class OpenRouterCopilotProvider:
             f"Detected Intent: {intent}",
             "",
             "CRITICAL ARCHITECTURAL CONSTRAINTS:",
-            "1. GROUNDING: If classroom ground truth is provided below, you MUST cite its exact counts, baseline/reassessment numbers, and student codes. NEVER invent or hallucinate student counts, test scores, or diagnoses.",
+            "1. GROUNDING: Cite only supplied classroom counts and baseline/reassessment evidence. Student identifiers are intentionally withheld; never invent or request them. Never invent counts, scores, diagnoses or causal learning claims.",
             "2. DRAFTS: Any generated educational material (worksheets, quizzes, lesson plans) MUST be marked as a draft and cannot autonomously modify student records or grades.",
             "3. PEDAGOGICAL TONE: Professional, encouraging, evidence-driven, and supportive for educators.",
             "",

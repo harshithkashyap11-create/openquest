@@ -242,7 +242,12 @@ def submit_reassessment(
     if reassessment.intervention_assignment.student_id != student_id:
         raise PermissionError("This reassessment does not belong to this student")
     if reassessment.status == "completed":
-        raise PermissionError("This reassessment has already been submitted")
+        saved = list(db.scalars(select(ReassessmentResult).where(ReassessmentResult.reassessment_id == reassessment.id)))
+        saved_answers = {item.question_id: item.answer for item in saved}
+        normalized = {item.question_id: answers.get(item.question_id) for item in reassessment.questions}
+        if not set(answers).issubset(saved_answers) or saved_answers != normalized:
+            raise PermissionError("This reassessment was already submitted with different answers")
+        return reassessment, saved
 
     question_ids = {item.question_id for item in reassessment.questions}
     if not set(answers).issubset(question_ids):
@@ -273,6 +278,18 @@ def submit_reassessment(
     reassessment.accuracy_percentage = round(correct_count * 100 / total, 1)
     reassessment.status = "completed"
     reassessment.submitted_at = datetime.now(timezone.utc)
+    db.flush()
+    from app.services.learning_service import record_evidence, finish_reassessment
+    intervention = reassessment.intervention_assignment.intervention
+    for result in results:
+        record_evidence(db, reassessment.intervention_assignment.student, intervention.subject,
+            intervention.topic, "reassessment", f"reassessment:{reassessment.id}:{result.question_id}", {
+                "question_id": str(result.question_id), "attempt": f"reassessment:{reassessment.id}",
+                "correct": result.is_correct, "target_code": reassessment.misconception_code,
+                "assignment_id": str(reassessment.assignment_id), "assisted": False})
+    finish_reassessment(db, student_id, intervention.subject, intervention.topic, str(reassessment.id))
+    from app.services.mutation_service import receipt
+    receipt(db, f"reassessment-complete:{reassessment.id}", {str(k): v for k, v in answers.items()}, {"id": str(reassessment.id)})
     db.commit()
     for result in results:
         db.refresh(result)

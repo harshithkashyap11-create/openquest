@@ -1,0 +1,12 @@
+import api from './api';
+export const learnerState = async (id) => (await api.get(`/students/${id}/learning-state`)).data;
+export const classStates = async (id) => (await api.get(`/classes/${id}/learning-states`)).data;
+export const listLessons = async (id) => (await api.get(`/classes/${id}/lessons`)).data;
+export const studentLessons = async (id) => (await api.get(`/students/${id}/lessons`)).data;
+export const generateLesson = async (id, payload) => (await api.post(`/classes/${id}/lessons/generate`, payload, { timeout: 65000 })).data;
+export const editLesson = async (id, payload) => (await api.patch(`/lessons/${id}`, payload)).data;
+export const reviewLesson = async (id, payload) => (await api.post(`/lessons/${id}/review`, payload)).data;
+export const corrections = async (id) => (await api.get(`/diagnoses/${id}/corrections`)).data;
+export const correctDiagnosis = async (id, payload) => (await api.post(`/diagnoses/${id}/corrections`, payload)).data;
+export const tutorHistory = async (id) => (await api.get(`/intervention-assignments/${id}/tutor`)).data;
+export const requestHint = async (id, payload) => (await api.post(`/intervention-assignments/${id}/tutor/hints`, payload, { timeout: 65000 })).data;

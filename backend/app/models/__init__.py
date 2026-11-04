@@ -37,3 +37,4 @@ __all__ = [
 ]
 from app.models.learning import LearningEvent, LearnerState, LearningDecision, LearningSession, MutationReceipt, DiagnosisCorrection
 from app.models.access import AuthAccount, AuthSession
+from app.models.lesson import Lesson, LessonRevision, LessonReview, AssignedLesson

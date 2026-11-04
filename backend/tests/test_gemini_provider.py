@@ -156,6 +156,7 @@ def test_teacher_fallback_is_explicitly_labeled_gemini():
         provider = create_copilot_provider(settings(), client=http)
         response = provider.generate(CopilotChatRequest(message="Explain fractions"))
     assert response.provider == "gemini_fallback"
+    assert response.model_version is None
     assert "private" not in response.reply
 
 
@@ -276,3 +277,12 @@ def test_intervention_personalization_uses_gemini_without_changing_keys():
     assert provider.name == "gemini"
     assert output.explanation == "Use a common denominator."
     assert not hasattr(output, "correct_answer")
+
+
+def test_actual_provider_model_is_preserved_in_diagnosis():
+    payload = completion({'misconception_code':'M01','confidence':.9,'evidence':'I added both.'})
+    payload['modelVersion'] = 'gemini-concrete-version'
+    with httpx.Client(transport=httpx.MockTransport(lambda request: httpx.Response(200,json=payload))) as http:
+        provider = create_diagnosis_provider(settings(), client=http)
+        result = provider.diagnose(question='Add 1/2 + 1/3.', answer='2/5', explanation='I added both.', correct_answer='5/6')
+    assert result.model_version == 'gemini-concrete-version'

@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session, joinedload, selectinload
 from app.models import Class, Diagnosis, GroupMember, LearningGroup, Submission
 from app.services.diagnosis_service import GROUP_CONFIDENCE_THRESHOLD
 from app.subject_taxonomy import get_taxonomy, is_follow_up_code
+from app.services.diagnosis_review_service import latest_correction
 
 
 def generate_proposed_groups(
@@ -62,12 +63,13 @@ def generate_proposed_groups(
     for student_id, diagnosis in primary_by_student.items():
         if student_id in approved_members:
             continue
-        code = diagnosis.misconception_code
+        correction = latest_correction(db, diagnosis.id)
+        code = correction.code if correction else diagnosis.misconception_code
         if code == "CORRECT":
             continue
-        if is_follow_up_code(code) or Decimal(diagnosis.confidence) < Decimal(
+        if is_follow_up_code(code) or (not correction and (diagnosis.status == "needs_followup" or Decimal(diagnosis.confidence) < Decimal(
             str(GROUP_CONFIDENCE_THRESHOLD)
-        ):
+        ))):
             followup_student_ids.add(student_id)
             continue
         if code in valid_codes:

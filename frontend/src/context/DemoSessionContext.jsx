@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import DemoSessionContext from './demoSessionContext';
+import api from '../services/api';
 
 const STORAGE_KEY = 'classpulse.demo-session';
 
@@ -29,6 +30,11 @@ function clearStoredSession() {
 
 export function DemoSessionProvider({ children }) {
   const [session, setSession] = useState(readSession);
+  useEffect(() => {
+    const expired = () => setSession(null);
+    window.addEventListener('classpulse:session-expired', expired);
+    return () => window.removeEventListener('classpulse:session-expired', expired);
+  }, []);
   const value = useMemo(
     () => ({
       session,
@@ -36,7 +42,11 @@ export function DemoSessionProvider({ children }) {
         writeSession(nextSession);
         setSession(nextSession);
       },
-      endSession() {
+      async endSession() {
+        const { assertOfflineCanLogout, clearOfflineData } = await import('../services/offlineLearning');
+        await assertOfflineCanLogout();
+        if (session?.authenticated) await api.post('/auth/logout');
+        await clearOfflineData();
         clearStoredSession();
         setSession(null);
       },

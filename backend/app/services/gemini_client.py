@@ -1,6 +1,8 @@
 """Native Gemini JSON generation with credentials confined to request headers."""
 
 import re
+from threading import local
+from time import perf_counter
 
 import httpx
 
@@ -34,6 +36,15 @@ class GeminiChatClient:
         self.base_url = base_url.rstrip("/")
         self.timeout_seconds = timeout_seconds
         self.client = client
+        self._metadata = local()
+
+    @property
+    def reported_model(self):
+        return getattr(self._metadata, "model", None)
+
+    @property
+    def latency_ms(self):
+        return getattr(self._metadata, "latency_ms", None)
 
     @classmethod
     def from_settings(cls, settings, client=None):
@@ -46,6 +57,7 @@ class GeminiChatClient:
         )
 
     def complete_json(self, *, prompt: str, temperature: float) -> str:
+        started = perf_counter()
         url = f"{self.base_url}/models/{self.model}:generateContent"
         headers = {"x-goog-api-key": self.api_key, "Content-Type": "application/json"}
         payload = {
@@ -83,7 +95,10 @@ class GeminiChatClient:
                 f"Gemini request failed with HTTP {response.status_code}. Please retry."
             )
         try:
-            parts = response.json()["candidates"][0]["content"]["parts"]
+            data = response.json()
+            self._metadata.model = data.get("modelVersion") if isinstance(data.get("modelVersion"), str) else None
+            self._metadata.latency_ms = round((perf_counter() - started) * 1000)
+            parts = data["candidates"][0]["content"]["parts"]
             text = "".join(
                 part["text"]
                 for part in parts

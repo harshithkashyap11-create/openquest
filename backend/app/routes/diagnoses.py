@@ -2,7 +2,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import func, select
-from sqlalchemy.orm import Session, joinedload
+from sqlalchemy.orm import Session, joinedload, object_session
 
 from app.core.database import get_db
 from app.models import Diagnosis, Submission
@@ -22,7 +22,12 @@ router = APIRouter(prefix="/api", tags=["diagnoses"])
 
 def _diagnosis_item(diagnosis: Diagnosis) -> DiagnosisItem:
     submission = diagnosis.submission
+    from app.services.diagnosis_review_service import latest_correction
+    correction = latest_correction(object_session(diagnosis), diagnosis.id)
     return DiagnosisItem(
+        id=str(diagnosis.id),
+        effective_code=correction.code if correction else diagnosis.misconception_code,
+        correction_version=correction.version if correction else 0,
         submission_id=str(submission.id),
         student_id=str(submission.student_id),
         student_code=submission.student.student_code,

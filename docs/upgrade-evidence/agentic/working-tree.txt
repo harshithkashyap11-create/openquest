@@ -1,0 +1,103 @@
+ M .env.example
+ M .gitignore
+ M README.md
+ M backend/app/core/database.py
+ M backend/app/main.py
+ M backend/app/models/__init__.py
+ M backend/app/routes/auth.py
+ M backend/app/routes/classroom.py
+ M backend/app/routes/diagnoses.py
+ M backend/app/routes/groups.py
+ M backend/app/routes/health.py
+ M backend/app/routes/interventions.py
+ M backend/app/schemas/classroom.py
+ M backend/app/schemas/diagnosis.py
+ M backend/app/schemas/groups.py
+ M backend/app/services/auth_service.py
+ M backend/app/services/classroom_service.py
+ M backend/app/services/copilot_context.py
+ M backend/app/services/copilot_provider.py
+ M backend/app/services/diagnosis_service.py
+ M backend/app/services/gemini_client.py
+ M backend/app/services/grouping_service.py
+ M backend/app/services/intervention_assignment_service.py
+ M backend/app/services/intervention_service.py
+ M backend/app/services/learning_service.py
+ M backend/app/services/llm_service.py
+ M backend/app/services/openrouter_client.py
+ M backend/app/services/reassessment_service.py
+ M backend/schema.sql
+ M backend/tests/test_gemini_provider.py
+ M backend/tests/test_intervention_workflow.py
+ M backend/tests/test_secure_learning_api.py
+ M backend/tests/test_sqlite_migrations.py
+ M docs/IMPLEMENTATION_LOG.md
+ M frontend/index.html
+ M frontend/src/App.css
+ M frontend/src/App.jsx
+ M frontend/src/components/AppShell.jsx
+ M frontend/src/context/DemoSessionContext.jsx
+ M frontend/src/i18n/en.json
+ M frontend/src/i18n/hi.json
+ M frontend/src/i18n/te.json
+ M frontend/src/main.jsx
+ M frontend/src/pages/Assessment.jsx
+ M frontend/src/pages/ClassInsights.jsx
+ M frontend/src/pages/Intervention.jsx
+ M frontend/src/pages/Login.jsx
+ M frontend/src/services/api.js
+ M frontend/src/services/classpulseApi.js
+ M scripts/check-i18n.mjs
+?? backend/alembic/versions/0007_learning_intelligence.py
+?? backend/app/models/lesson.py
+?? backend/app/routes/learning.py
+?? backend/app/routes/tutoring.py
+?? backend/app/schemas/learning.py
+?? backend/app/services/adaptive_tutor_service.py
+?? backend/app/services/diagnosis_review_service.py
+?? backend/app/services/lesson_service.py
+?? backend/app/services/mutation_service.py
+?? backend/app/services/rate_limit_service.py
+?? backend/scripts/check_health.py
+?? backend/scripts/evaluation_metrics.py
+?? backend/scripts/export_contract.py
+?? backend/scripts/prepare_demo.py
+?? backend/scripts/probe_ai.py
+?? backend/scripts/provision_account.py
+?? backend/scripts/verify_live_lessons.py
+?? backend/scripts/verify_live_tutor.py
+?? backend/tests/test_adaptive_tutor.py
+?? backend/tests/test_demo_preparation.py
+?? backend/tests/test_diagnosis_corrections.py
+?? backend/tests/test_evaluation_metrics.py
+?? backend/tests/test_intelligence_workflow.py
+?? backend/tests/test_learning_regressions.py
+?? backend/tests/test_lesson_studio.py
+?? backend/tests/test_offline_sync.py
+?? docs/AGENT_ORCHESTRATION.md
+?? docs/API_CONTRACT.json
+?? docs/API_INVENTORY.md
+?? docs/ARCHITECTURE.md
+?? docs/DATABASE_INVENTORY.md
+?? docs/DEMO_GUIDE.md
+?? docs/EVALUATION_METHODOLOGY.md
+?? docs/FRONTEND_API_MATRIX.md
+?? docs/INSTALLATION.md
+?? docs/KNOWN_LIMITATIONS.md
+?? docs/LEARNER_MODEL.md
+?? docs/MISCONCEPTION_TAXONOMY.md
+?? docs/MULTILINGUAL_SUPPORT.md
+?? docs/PRIVACY_AND_SAFETY.md
+?? docs/TUTORING_STRATEGY.md
+?? docs/upgrade-evidence/agentic/
+?? frontend/public/manifest.webmanifest
+?? frontend/public/sw.js
+?? frontend/src/components/LearningParts.jsx
+?? frontend/src/pages/Learning.css
+?? frontend/src/pages/LearningEvidence.jsx
+?? frontend/src/pages/LearningLab.jsx
+?? frontend/src/pages/LessonStudio.jsx
+?? frontend/src/services/learningApi.js
+?? frontend/src/services/offlineLearning.js
+?? frontend/tests/learning-intelligence.spec.js
+?? scripts/verify-account-ui.mjs

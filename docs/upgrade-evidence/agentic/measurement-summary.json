@@ -1,0 +1,57 @@
+{
+  "diagnosis_smoke": {
+    "calls": 4,
+    "passed": 4,
+    "subjects": {
+      "Mathematics": 2,
+      "Science": 1,
+      "English": 1
+    },
+    "latencies_ms": [
+      4220,
+      3198,
+      1715,
+      1437
+    ],
+    "median_ms": 2456.5
+  },
+  "lesson_smoke": {
+    "languages": [
+      "en",
+      "hi",
+      "te"
+    ],
+    "http_statuses": [
+      201,
+      201,
+      201
+    ],
+    "latencies_ms": [
+      20494,
+      4127,
+      3984
+    ]
+  },
+  "tutor_smoke": {
+    "http_statuses": [
+      200,
+      200
+    ],
+    "latencies_ms": [
+      2086,
+      1516
+    ]
+  },
+  "mobile_profile": {
+    "conditions": "Chromium headless, 360\u00d7780,4xCPU,400ms latency,50KB/s each direction (Slow3G simulation)",
+    "lcp_ms": 5568,
+    "cls": 0,
+    "entry_gzip_bytes": 146436,
+    "long_tasks_ms": [
+      97,
+      52
+    ]
+  },
+  "independent_accuracy": "NOT TESTED",
+  "causal_learning_impact": "NOT TESTED"
+}

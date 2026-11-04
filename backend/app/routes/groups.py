@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session, joinedload
 
@@ -20,9 +20,16 @@ from app.services.grouping_service import (
 router = APIRouter(prefix="/api", tags=["groups"])
 
 
+def _group_revision(group):
+    from app.services.mutation_service import fingerprint
+    return fingerprint({'id': str(group.id), 'code': group.misconception_code, 'topic': group.topic,
+        'members': sorted(str(m.student_id) for m in group.group_members)})
+
+
 def _group_response(group: LearningGroup) -> LearningGroupResponse:
     return LearningGroupResponse(
         id=str(group.id),
+        revision=_group_revision(group),
         class_id=str(group.class_id),
         topic=group.topic,
         misconception_code=group.misconception_code,
@@ -83,11 +90,19 @@ def list_groups(
 def review_group(
     group_id: UUID,
     payload: GroupReviewRequest,
+    request: Request,
     db: Session = Depends(get_db),
 ) -> LearningGroupResponse:
     group = db.get(LearningGroup, group_id)
     if group is None:
         raise HTTPException(status_code=404, detail="Learning group not found")
+    from app.core.config import get_settings
+    from app.services.auth_service import require_teacher
+    from app.services.learning_service import record_evidence
+    teacher_id = require_teacher(request, db, group.class_id)
+    revision = _group_revision(group)
+    if (payload.expected_revision is not None and payload.expected_revision != revision) or (get_settings().auth_mode == 'required' and payload.expected_revision is None):
+        raise HTTPException(409, 'STALE_GROUP_RECOMMENDATION: refresh before reviewing')
     if group.review_status != "proposed" and group.review_status != payload.status:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
@@ -95,6 +110,11 @@ def review_group(
         )
     group.review_status = payload.status
     group.teacher_approved = payload.status == "approved"
+    for member in group.group_members:
+        record_evidence(db, member.student, group.classroom.subject, group.topic,
+            'teacher_review', f'group-review:{group.id}:{revision}:{payload.status}:{member.student_id}', {
+                'group_id': str(group.id), 'reviewed_revision': revision, 'outcome': payload.status,
+                'teacher_id': str(teacher_id), 'code': group.misconception_code})
     db.commit()
     db.refresh(group)
     return _group_response(group)

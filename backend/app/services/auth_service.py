@@ -8,7 +8,7 @@ from fastapi import Depends, HTTPException, Request
 from sqlalchemy import select
 from app.core.config import get_settings
 from app.core.database import get_db
-from app.models import Class, Student, LearningGroup, InterventionAssignment, Reassessment, Quiz, Diagnosis, Submission
+from app.models import Class, Student, Teacher, LearningGroup, InterventionAssignment, Reassessment, Quiz, Diagnosis, Submission
 from app.models.access import AuthAccount, AuthSession
 
 COOKIE = 'classpulse_session'
@@ -31,7 +31,7 @@ def password_hash(password, salt=None):
 def provision_account(db, username, password, *, teacher_id=None, student_id=None):
     if bool(teacher_id) == bool(student_id) or len(password) < 12:
         raise ValueError('Provide one existing actor and a password of at least 12 characters')
-    if db.get(TeacherModel(), teacher_id) is None if teacher_id else db.get(Student, student_id) is None:
+    if (db.get(Teacher, teacher_id) if teacher_id else db.get(Student, student_id)) is None:
         raise ValueError('Actor not found')
     if db.scalar(select(AuthAccount.id).where(AuthAccount.username == username)):
         raise ValueError('Account already exists; credentials were not overwritten')
@@ -39,11 +39,6 @@ def provision_account(db, username, password, *, teacher_id=None, student_id=Non
     db.add(account)
     db.flush()
     return account
-
-
-def TeacherModel():
-    from app.models import Teacher
-    return Teacher
 
 
 def hash_token(token):
@@ -124,6 +119,20 @@ def _resource_scope(request, db):
 
 
 async def authorize_request(request: Request, db=Depends(get_db)):
+    from starlette.concurrency import run_in_threadpool
+    body = None
+    if request.url.path.endswith('/chat') and '/copilot/' in request.url.path:
+        try:
+            body = await request.json()
+        except ValueError as error:
+            raise HTTPException(422, 'INVALID_JSON') from error
+    return await run_in_threadpool(_authorize_sync, request, db, body)
+
+
+def _authorize_sync(request, db, body):
+    request.state.db = db
+    if hasattr(db, 'info'):
+        db.info['request_id'] = getattr(request.state, 'request_id', None)
     path = request.url.path
     if not path.startswith('/api/') or path in {'/api/auth/config', '/api/auth/login'}:
         return
@@ -142,11 +151,19 @@ async def authorize_request(request: Request, db=Depends(get_db)):
         return
     if settings.auth_mode == 'required' and '/demo/' in path and name != 'demo_classes':
         raise HTTPException(403, 'DEMO_IDENTITY_DISABLED')
-    classes, students = _resource_scope(request, db)
+    try:
+        classes, students = _resource_scope(request, db)
+    except ValueError as error:
+        raise HTTPException(422, 'INVALID_RESOURCE_IDENTIFIER') from error
+    if settings.auth_mode == 'required' and request.method == 'POST' and any(part in path for part in ('/diagnose', '/generate', '/reflect', '/chat')):
+        from app.services.rate_limit_service import check_rate
+        check_rate(('inference', str(actor['id'])), 10)
     if path.endswith('/chat') and '/copilot/' in path:
-        body = await request.json()
-        if body.get('class_id'):
-            classes.append(UUID(str(body['class_id'])))
+        if isinstance(body, dict) and body.get('class_id'):
+            try:
+                classes.append(UUID(str(body['class_id'])))
+            except ValueError as error:
+                raise HTTPException(422, 'INVALID_RESOURCE_IDENTIFIER') from error
     if actor['role'] == 'student':
         if name not in STUDENT_ROUTES:
             raise HTTPException(403, 'TEACHER_ROLE_REQUIRED')
@@ -163,6 +180,8 @@ async def authorize_request(request: Request, db=Depends(get_db)):
         if hasattr(request, '_headers'):
             del request._headers
     elif actor['role'] == 'teacher':
+        if name in STUDENT_ROUTES and request.method not in {'GET', 'HEAD'}:
+            raise HTTPException(403, 'STUDENT_ROLE_REQUIRED')
         for class_id in classes:
             require_teacher(request, db, class_id)
         if name in {'preview_import'}:

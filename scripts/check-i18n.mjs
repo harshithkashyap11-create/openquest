@@ -27,3 +27,5 @@ for (const language of languages.slice(1)) {
 }
 
 if (missingCount) console.warn(`Found ${missingCount} translation key mismatch(es).`);
+
+if (missingCount) process.exitCode = 1;

@@ -1,0 +1,6 @@
+{
+  "teacherLoginAndLogout": "PASS",
+  "studentLoginAndTeacherEndpointDenial": "PASS",
+  "expiredSessionReturnsToLogin": "PASS",
+  "pageErrors": []
+}

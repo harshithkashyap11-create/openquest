@@ -1,0 +1,49 @@
+{
+  "synthetic": true,
+  "cases": [
+    {
+      "http_status": 200,
+      "latency_ms": 2086,
+      "result": {
+        "assignment_id": "05a98ce3-6c58-46d6-bdcf-bac05ee13160",
+        "question_index": 0,
+        "question": "Add 1/4 + 1/6.",
+        "level": 1,
+        "hint": "భinnaాలను కలపడానికి ముందు, వాటి హారాలను (అడుగు భాగం సంఖ్యలను) సమానంగా చేయాలి. 4 మరియు 6 సంఖ్యలకు కనిష్ట సామాన్య గుణిజం (LCM) కనుగొనడం ద్వారా ప్రారంభించండి.",
+        "language": "te",
+        "provider": "gemini",
+        "model": "gemini-3.5-flash-lite",
+        "policy": "guided_practice",
+        "generation_note": "Live response-aware guided hint; qualitative feedback is provisional, not an independent mastery score.",
+        "response": "",
+        "next_action": "RESPOND_THEN_HINT",
+        "feedback": "uncertain",
+        "evidence": "",
+        "requested_model": "gemini-3.5-flash-lite",
+        "latency_ms": 2000
+      }
+    },
+    {
+      "http_status": 200,
+      "latency_ms": 1516,
+      "result": {
+        "assignment_id": "05a98ce3-6c58-46d6-bdcf-bac05ee13160",
+        "question_index": 0,
+        "question": "Add 1/4 + 1/6.",
+        "level": 2,
+        "hint": "చాలా బాగుంది! 4 మరియు 6 హారాలకు కనిష్ట సామాన్య గుణిజం (LCM) 12 అని మీరు సరైన హారాన్ని ఎంచుకున్నారు. ఇప్పుడు, 1/4 మరియు 1/6 భిన్నాలను 12 హారంగా ఉండే తుల్య భిన్నాలుగా (equivalent fractions) మార్చండి.",
+        "language": "te",
+        "provider": "gemini",
+        "model": "gemini-3.5-flash-lite",
+        "policy": "guided_practice",
+        "generation_note": "Live response-aware guided hint; qualitative feedback is provisional, not an independent mastery score.",
+        "response": "I will use equal-sized parts and rewrite both fractions with denominator 12.",
+        "next_action": "RESPOND_THEN_HINT",
+        "feedback": "partially_correct",
+        "evidence": "rewrite both fractions with denominator 12",
+        "requested_model": "gemini-3.5-flash-lite",
+        "latency_ms": 1489
+      }
+    }
+  ]
+}

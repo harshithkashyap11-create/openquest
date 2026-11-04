@@ -25,7 +25,6 @@ import {
   RefreshNotice,
 } from '../components/PageStates';
 import Drawer from '../components/ui/Drawer';
-import ProgressBar from '../components/ui/ProgressBar';
 import StatusPill from '../components/ui/StatusPill';
 import Tabs from '../components/ui/Tabs';
 import { useDemoSession } from '../context/useDemoSession';
@@ -266,7 +265,7 @@ export default function ClassInsights() {
                         {t('confidence')}:{' '}
                         {diagnosis.confidence == null
                           ? t('notAvailable')
-                          : `${format.format(Math.round(diagnosis.confidence * 100))}%`}
+                          : t(diagnosis.confidence >= 0.75 ? 'confidenceHigh' : diagnosis.confidence >= 0.5 ? 'confidenceModerate' : 'confidenceLow')}
                       </span>
                       <span>{diagnosis.provider}</span>
                       <span>
@@ -375,15 +374,8 @@ export default function ClassInsights() {
             <p>
               {selected.confidence == null
                 ? t('notAvailable')
-                : `${format.format(Math.round(selected.confidence * 100))}% · ${t(selected.confidence >= 0.75 ? 'confidenceHigh' : selected.confidence >= 0.5 ? 'confidenceModerate' : 'confidenceLow')}`}
+                : t(selected.confidence >= 0.75 ? 'confidenceHigh' : selected.confidence >= 0.5 ? 'confidenceModerate' : 'confidenceLow')}
             </p>
-            {selected.confidence != null && (
-              <ProgressBar
-                value={selected.confidence * 100}
-                label={t('confidence')}
-                animated
-              />
-            )}
             <p className="field-help">{t('confidenceCaution')}</p>
             <h3>{t('evidenceQuote')}</h3>
             <blockquote className="evidence-quote">

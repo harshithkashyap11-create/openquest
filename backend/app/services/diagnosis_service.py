@@ -1,7 +1,7 @@
 from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from dataclasses import dataclass, field
 from time import monotonic
-from uuid import UUID
+from uuid import UUID, uuid4
 
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session, joinedload
@@ -14,6 +14,8 @@ from app.services.diagnosis_provider import (
     ProviderRateLimited,
     create_diagnosis_provider,
 )
+from app.services.learning_service import record_evidence
+from app.services.answer_evaluation import answers_match
 from app.subject_taxonomy import (
     FOLLOW_UP_CODE,
     get_taxonomy,
@@ -78,6 +80,7 @@ class DiagnosisService:
         )
         submissions = list(self.db.scalars(pending_statement).unique())
         result = DiagnosisBatchResult()
+        failure_events = []
         if not submissions:
             return result
 
@@ -115,8 +118,9 @@ class DiagnosisService:
                         if isinstance(error, ProviderRateLimited):
                             result.rate_limited += 1
                         result.errors.append(
-                            f"{submission.id}: {type(error).__name__}: {error}"
+                            f"{submission.id}: {type(error).__name__}: diagnosis unavailable; saved response can be retried"
                         )
+                        failure_events.append((submission, type(error).__name__))
                         continue
                     result.diagnoses.append(diagnosis)
 
@@ -127,13 +131,38 @@ class DiagnosisService:
                     for future in pending
                 )
                 for future in pending:
+                    failure_events.append((futures[future], "BatchTimeout"))
                     future.cancel()
                 result.failed += len(pending)
         finally:
             executor.shutdown(wait=False, cancel_futures=True)
 
+        # Persist failures only after the bounded provider wait ends. Do not
+        # hold a SQLite write transaction while another model call is pending.
+        for submission, error_type in failure_events:
+            record_evidence(self.db, submission.student, submission.question.subject,
+                submission.question.topic, "diagnosis_failure", f"diagnosis-failure:{uuid4()}", {
+                    "submission_id": str(submission.id), "error_type": error_type,
+                    "retryable": True, "provider": self.provider.name})
+
         if result.diagnoses:
             self.db.add_all(result.diagnoses)
+            self.db.flush()
+            for diagnosis in result.diagnoses:
+                submission = self.db.get(Submission, diagnosis.submission_id)
+                record_evidence(self.db, submission.student, submission.question.subject,
+                    submission.question.topic, "diagnosis", f"diagnosis-submission:{submission.id}", {
+                        "observation_id": f"diagnosis:{diagnosis.id}",
+                        "diagnosis_id": str(diagnosis.id), "question_id": str(submission.question_id),
+                        "attempt": f"baseline:{submission.attempt_no}",
+                        "code": diagnosis.misconception_code,
+                        "correct": answers_match(submission.answer, submission.question.correct_answer,
+                            question_text=submission.question.question_text),
+                        "uncertain": diagnosis.status == "needs_followup",
+                        "provider": diagnosis.provider, "model": diagnosis.model_version,
+                        "evidence": diagnosis.evidence,
+                        "confidence_note": "Uncalibrated provider/rule score; not a probability."})
+        if result.diagnoses or result.failed:
             self.db.commit()
         result.diagnosed = len(result.diagnoses)
         result.remaining_pending = self.db.scalar(

@@ -19,6 +19,7 @@ if settings.database_url.startswith("sqlite"):
     def enable_sqlite_foreign_keys(connection, _record) -> None:
         cursor = connection.cursor()
         cursor.execute("PRAGMA foreign_keys=ON")
+        cursor.execute("PRAGMA busy_timeout=5000")
         cursor.close()
 
 

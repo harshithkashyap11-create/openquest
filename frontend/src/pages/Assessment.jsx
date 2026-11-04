@@ -37,6 +37,12 @@ export default function Assessment() {
     setSubmitting(true);
     setSubmitError('');
     try {
+      const key = `classpulse.assessment-command:${session.studentId}`;
+      const command = JSON.stringify(answers);
+      let prior;
+      try { prior = JSON.parse(sessionStorage.getItem(key)); } catch {}
+      const requestId = prior?.command === command ? prior.requestId : crypto.randomUUID();
+      sessionStorage.setItem(key, JSON.stringify({ command, requestId }));
       const result = await submitAssessment(
         session.studentId,
         data.questions.map((question) => ({
@@ -44,7 +50,9 @@ export default function Assessment() {
           answer: answers[question.id]?.answer || '',
           explanation: answers[question.id]?.explanation || '',
         })),
+        requestId,
       );
+      sessionStorage.removeItem(key);
       setSubmitted(true);
       setAnswers({});
       setSubmissionInfo(

@@ -14,6 +14,9 @@ import { useDemoSession } from './context/useDemoSession';
 import { I18nProvider } from './i18n/I18nProvider';
 import './App.css';
 
+const LearningEvidence = lazy(() => import('./pages/LearningEvidence'));
+const LessonStudio = lazy(() => import('./pages/LessonStudio'));
+const LearningLab = lazy(() => import('./pages/LearningLab'));
 const TeacherQuizzes = lazy(() => import('./pages/TeacherQuizzes'));
 const StudentQuizzes = lazy(() => import('./pages/StudentQuizzes'));
 const Assessment = lazy(() => import('./pages/Assessment'));
@@ -54,6 +57,8 @@ function AppRoutes() {
           <Route path="/teacher" element={<AppShell role="teacher" />}>
             <Route index element={<Navigate to="overview" replace />} />
             <Route path="overview" element={<TeacherDashboard />} />
+            <Route path="learning" element={<LearningEvidence />} />
+            <Route path="lessons" element={<LessonStudio />} />
             <Route path="quizzes" element={<TeacherQuizzes />} />
             <Route path="insights" element={<ClassInsights />} />
             <Route path="interventions" element={<Intervention />} />
@@ -64,6 +69,7 @@ function AppRoutes() {
           <Route path="/student" element={<AppShell role="student" />}>
             <Route index element={<Navigate to="dashboard" replace />} />
             <Route path="dashboard" element={<StudentDashboard />} />
+            <Route path="learning" element={<LearningLab />} />
             <Route path="quizzes" element={<StudentQuizzes />} />
             <Route path="quizzes/:quizId" element={<StudentQuizzes />} />
             <Route path="assessment" element={<Assessment />} />

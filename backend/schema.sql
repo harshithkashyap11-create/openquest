@@ -309,3 +309,196 @@ CREATE INDEX ix_quiz_reflections_attempt_id ON quiz_reflections (attempt_id);
 UPDATE alembic_version SET version_num='0006_quiz_learning_loop' WHERE alembic_version.version_num = '0005_multisubject_diagnoses';
 
 COMMIT;
+
+
+-- Agentic learning additions (migration 0007 is canonical).
+
+CREATE TABLE mutation_receipts (
+	id TEXT NOT NULL,
+	fingerprint TEXT NOT NULL,
+	response JSON NOT NULL,
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+	PRIMARY KEY (id)
+)
+
+;
+
+CREATE TABLE lessons (
+	id UUID NOT NULL,
+	class_id UUID NOT NULL,
+	subject TEXT NOT NULL,
+	topic TEXT NOT NULL,
+	misconception_code TEXT NOT NULL,
+	created_by UUID NOT NULL,
+	generation_context JSON NOT NULL,
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY(class_id) REFERENCES classes (id),
+	FOREIGN KEY(created_by) REFERENCES teachers (id)
+)
+
+;
+CREATE INDEX ix_lessons_class_id ON lessons (class_id);
+
+CREATE TABLE auth_accounts (
+	id UUID NOT NULL,
+	username TEXT NOT NULL,
+	password_hash TEXT NOT NULL,
+	teacher_id UUID,
+	student_id UUID,
+	PRIMARY KEY (id),
+	CONSTRAINT ck_account_one_role CHECK ((teacher_id IS NULL) != (student_id IS NULL)),
+	UNIQUE (username),
+	FOREIGN KEY(teacher_id) REFERENCES teachers (id),
+	FOREIGN KEY(student_id) REFERENCES students (id)
+)
+
+;
+
+CREATE TABLE learner_states (
+	id UUID NOT NULL,
+	student_id UUID NOT NULL,
+	subject TEXT NOT NULL,
+	topic TEXT NOT NULL,
+	projection JSON NOT NULL,
+	version INTEGER NOT NULL,
+	PRIMARY KEY (id),
+	CONSTRAINT uq_learner_topic UNIQUE (student_id, subject, topic),
+	FOREIGN KEY(student_id) REFERENCES students (id)
+)
+
+;
+CREATE INDEX ix_learner_states_student_id ON learner_states (student_id);
+
+CREATE TABLE learning_events (
+	id UUID NOT NULL,
+	student_id UUID NOT NULL,
+	subject TEXT NOT NULL,
+	topic TEXT NOT NULL,
+	kind TEXT NOT NULL,
+	source_key TEXT NOT NULL,
+	data JSON NOT NULL,
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY(student_id) REFERENCES students (id),
+	UNIQUE (source_key)
+)
+
+;
+CREATE INDEX ix_learning_events_student_id ON learning_events (student_id);
+
+CREATE TABLE learning_sessions (
+	id UUID NOT NULL,
+	student_id UUID NOT NULL,
+	subject TEXT NOT NULL,
+	topic TEXT NOT NULL,
+	state TEXT NOT NULL,
+	version INTEGER NOT NULL,
+	PRIMARY KEY (id),
+	CONSTRAINT uq_session_topic UNIQUE (student_id, subject, topic),
+	FOREIGN KEY(student_id) REFERENCES students (id)
+)
+
+;
+CREATE INDEX ix_learning_sessions_student_id ON learning_sessions (student_id);
+
+CREATE TABLE lesson_revisions (
+	id UUID NOT NULL,
+	lesson_id UUID NOT NULL,
+	revision_no INTEGER NOT NULL,
+	language TEXT NOT NULL,
+	content JSON NOT NULL,
+	status TEXT NOT NULL,
+	provider TEXT NOT NULL,
+	model TEXT,
+	generation_note TEXT NOT NULL,
+	version INTEGER NOT NULL,
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+	PRIMARY KEY (id),
+	CONSTRAINT uq_lesson_revision UNIQUE (lesson_id, revision_no),
+	CONSTRAINT ck_lesson_revision_status CHECK (status IN ('draft','approved','published','rejected','archived')),
+	CONSTRAINT ck_lesson_language CHECK (language IN ('en','hi','te')),
+	FOREIGN KEY(lesson_id) REFERENCES lessons (id)
+)
+
+;
+CREATE INDEX ix_lesson_revisions_lesson_id ON lesson_revisions (lesson_id);
+
+CREATE TABLE auth_sessions (
+	token_hash TEXT NOT NULL,
+	account_id UUID NOT NULL,
+	csrf_token TEXT NOT NULL,
+	expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+	PRIMARY KEY (token_hash),
+	FOREIGN KEY(account_id) REFERENCES auth_accounts (id)
+)
+
+;
+CREATE INDEX ix_auth_sessions_account_id ON auth_sessions (account_id);
+
+CREATE TABLE learning_decisions (
+	id UUID NOT NULL,
+	event_id UUID NOT NULL,
+	action TEXT NOT NULL,
+	reason TEXT NOT NULL,
+	requires_teacher_approval BOOLEAN NOT NULL,
+	policy_version TEXT NOT NULL,
+	source TEXT NOT NULL,
+	status TEXT NOT NULL,
+	PRIMARY KEY (id),
+	UNIQUE (event_id),
+	FOREIGN KEY(event_id) REFERENCES learning_events (id)
+)
+
+;
+
+CREATE TABLE lesson_reviews (
+	id UUID NOT NULL,
+	revision_id UUID NOT NULL,
+	teacher_id UUID NOT NULL,
+	action TEXT NOT NULL,
+	notes JSON NOT NULL,
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+	PRIMARY KEY (id),
+	CONSTRAINT uq_lesson_review_action UNIQUE (revision_id, action),
+	FOREIGN KEY(revision_id) REFERENCES lesson_revisions (id),
+	FOREIGN KEY(teacher_id) REFERENCES teachers (id)
+)
+
+;
+CREATE INDEX ix_lesson_reviews_revision_id ON lesson_reviews (revision_id);
+
+CREATE TABLE assigned_lessons (
+	id UUID NOT NULL,
+	assignment_id UUID NOT NULL,
+	revision_id UUID NOT NULL,
+	teacher_id UUID NOT NULL,
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+	PRIMARY KEY (id),
+	CONSTRAINT uq_assigned_lesson_revision UNIQUE (assignment_id, revision_id),
+	FOREIGN KEY(assignment_id) REFERENCES intervention_assignments (id),
+	FOREIGN KEY(revision_id) REFERENCES lesson_revisions (id),
+	FOREIGN KEY(teacher_id) REFERENCES teachers (id)
+)
+
+;
+CREATE INDEX ix_assigned_lessons_assignment_id ON assigned_lessons (assignment_id);
+
+CREATE TABLE diagnosis_corrections (
+	id UUID NOT NULL,
+	diagnosis_id UUID NOT NULL,
+	teacher_id UUID NOT NULL,
+	code TEXT NOT NULL,
+	reason TEXT NOT NULL,
+	version INTEGER NOT NULL,
+	request_id TEXT NOT NULL,
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+	PRIMARY KEY (id),
+	CONSTRAINT uq_diagnosis_correction_version UNIQUE (diagnosis_id, version),
+	FOREIGN KEY(diagnosis_id) REFERENCES diagnoses (id),
+	FOREIGN KEY(teacher_id) REFERENCES teachers (id),
+	UNIQUE (request_id)
+)
+
+;
+CREATE INDEX ix_diagnosis_corrections_diagnosis_id ON diagnosis_corrections (diagnosis_id);

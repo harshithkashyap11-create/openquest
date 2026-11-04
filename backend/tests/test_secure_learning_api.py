@@ -53,3 +53,4 @@ def test_login_session_and_class_isolation(api):
     assert client.get(f'/api/students/{student.id}/learning-state', headers=headers).status_code == 200
     assert client.get(f'/api/classes/{classroom.id}/diagnoses', headers=headers).status_code == 403
     assert client.get(f'/api/students/{student.id}/progress', headers={'X-Student-ID': str(student.id)}).status_code == 200
+    assert client.get(f'/api/students/{student.id}/progress').status_code == 200

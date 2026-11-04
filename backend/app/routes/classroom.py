@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Header, HTTPException, status
+from fastapi import APIRouter, Depends, Header, HTTPException, Request, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session, joinedload, selectinload
 
@@ -49,8 +49,18 @@ def _assert_demo_student(student_id: UUID, asserted_student_id: UUID) -> None:
 
 
 @router.get("/demo/classes", response_model=list[DemoClassResponse])
-def demo_classes(db: Session = Depends(get_db)) -> list[DemoClassResponse]:
-    return list_demo_classes(db)
+def demo_classes(request: Request, db: Session = Depends(get_db)) -> list[DemoClassResponse]:
+    from app.core.config import get_settings
+    from app.services.auth_service import actor_for
+    classes = list_demo_classes(db)
+    if get_settings().auth_mode == "required":
+        actor = actor_for(request, db)
+        if actor["role"] == "student":
+            student = db.get(Student, actor["id"])
+            return [c for c in classes if c.id == student.class_id]
+        owned = set(db.scalars(select(Class.id).where(Class.teacher_id == actor["id"])))
+        return [c for c in classes if c.id in owned]
+    return classes
 
 
 @router.get(

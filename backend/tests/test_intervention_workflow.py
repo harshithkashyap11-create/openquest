@@ -382,6 +382,8 @@ def test_student_workflow_reassessment_scoring_and_progress(db_session):
         assert db_session.query(PracticeResponse).count() == 2
         assert db_session.query(InterventionAssignment).one().started_at is not None
 
+        client.post(f"/api/intervention-assignments/{assignment_id}/submit", headers=student_headers,
+            json={"answers": [{"question_index": i, "answer": a} for i, a in enumerate(["5/12", "1/2", "7/8"])]})
         completed = client.post(
             f"/api/intervention-assignments/{assignment_id}/complete",
             headers=student_headers,
@@ -389,7 +391,7 @@ def test_student_workflow_reassessment_scoring_and_progress(db_session):
         assert completed.status_code == 200
         assert completed.json()["assignment"]["status"] == "completed"
         assert completed.json()["assignment"]["completed_at"] is not None
-        assert len(completed.json()["assignment"]["practice_responses"]) == 2
+        assert len(completed.json()["assignment"]["practice_responses"]) == 3
         assert completed.json()["assignment"]["practice_responses"][0]["question_index"] == 0
         quiz = completed.json()["reassessment"]
         assert len(quiz["questions"]) == 3
@@ -628,6 +630,8 @@ def test_reassessment_result_retrieval(db_session):
     try:
         gen = client.post(f"/api/groups/{group.id}/interventions/generate")
         assignment_id = gen.json()["assignments"][0]["id"]
+        client.post(f"/api/intervention-assignments/{assignment_id}/submit", headers=student_headers,
+            json={"answers": [{"question_index": i, "answer": a} for i, a in enumerate(["5/12", "1/2", "7/8"])]})
         completed = client.post(
             f"/api/intervention-assignments/{assignment_id}/complete",
             headers=student_headers,
@@ -699,7 +703,7 @@ def test_failed_reassessment_generation_rolls_back_completion(db_session, monkey
         client.post(
             f"/api/intervention-assignments/{assignment_id}/submit",
             headers=student_headers,
-            json={"answers": [{"question_index": 0, "answer": "5/12"}]},
+            json={"answers": [{"question_index": i, "answer": a} for i, a in enumerate(["5/12", "1/2", "7/8"])]},
         )
         assignment = db_session.get(InterventionAssignment, UUID(assignment_id))
         assert assignment.status == "in_progress"
@@ -734,6 +738,8 @@ def test_duplicate_reassessment_prevention_on_repeated_complete(db_session):
         gen = client.post(f"/api/groups/{group.id}/interventions/generate")
         assignment_id = gen.json()["assignments"][0]["id"]
 
+        client.post(f"/api/intervention-assignments/{assignment_id}/submit", headers=student_headers,
+            json={"answers": [{"question_index": i, "answer": a} for i, a in enumerate(["5/12", "1/2", "7/8"])]})
         first = client.post(
             f"/api/intervention-assignments/{assignment_id}/complete",
             headers=student_headers,

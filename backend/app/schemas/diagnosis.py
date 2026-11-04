@@ -55,6 +55,9 @@ def validate_evidence_quotes(
 
 
 class DiagnosisItem(BaseModel):
+    id: str | None = None
+    correction_version: int = 0
+    effective_code: str | None = None
     submission_id: str
     student_id: str
     student_code: str

@@ -1,0 +1,244 @@
+{
+  "provider": "gemini",
+  "synthetic": true,
+  "cases": [
+    {
+      "language": "en",
+      "http_status": 201,
+      "latency_ms": 20494,
+      "lesson": {
+        "id": "486cdebe-11de-4a7a-bc08-4237b554638d",
+        "class_id": "51ef0f4e-15a9-46b3-b617-b69c9d43b2c8",
+        "subject": "Mathematics",
+        "topic": "Fractions",
+        "generation_context": {
+          "subject": "Mathematics",
+          "topic": "Fractions",
+          "misconception_code": "M01",
+          "language": "en",
+          "misconception_description": "Adds numerators and denominators directly instead of using equal-sized parts.",
+          "learning_objective": "Add fractions by expressing them in equal-sized parts.",
+          "difficulty": "standard",
+          "duration_minutes": 15,
+          "enrolled_students": 1,
+          "evidence_ids": [],
+          "supported_gap_observations": 0,
+          "evidence_note": "No recorded learner evidence; teacher-selected topic draft.",
+          "requested_model": "gemini-3.5-flash-lite",
+          "generation_latency_ms": 20448
+        },
+        "misconception_code": "M01",
+        "revision": {
+          "id": "f24da224-8095-4ca8-a3b1-2cc416665732",
+          "number": 1,
+          "language": "en",
+          "status": "draft",
+          "content": {
+            "title": "Adding Fractions with Equal-Sized Parts",
+            "objectives": [
+              "Add fractions by expressing them in equal-sized parts."
+            ],
+            "explanation": "When we add fractions, we cannot simply add the top numbers (numerators) and the bottom numbers (denominators) together. The bottom number tells us how many equal parts make a whole. If the denominators are different, the sizes of the pieces are different. To add them correctly, we must first change the fractions so they have the same denominator, meaning all the pieces are the same size. Once the parts are equal, we only add the numerators and keep the denominator the same.",
+            "misconception_correction": "Mistaken rule: Adding numerators and denominators straight across, such as 1/2 + 1/3 = 2/5. Replacement rule: Find a common denominator to make the piece sizes equal before adding the numerators, such as 1/2 = 3/6 and 1/3 = 2/6, so 3/6 + 2/6 = 5/6.",
+            "worked_example": {
+              "problem": "Add 1/4 + 1/2.",
+              "steps": [
+                "Notice the denominators are 4 and 2, which are different sizes.",
+                "Convert 1/2 into fourths by multiplying numerator and denominator by 2, giving 2/4.",
+                "Now add the numerators: 1/4 + 2/4 = 1 + 2 over 4.",
+                "Keep the denominator the same."
+              ],
+              "answer": "3/4"
+            },
+            "practice_questions": [
+              {
+                "prompt": "Add 1/3 + 1/6.",
+                "answer": "1/2",
+                "hints": [
+                  "Find a common denominator by changing thirds into sixths.",
+                  "1/3 is equal to 2/6.",
+                  "Now add 2/6 + 1/6."
+                ]
+              },
+              {
+                "prompt": "Add 1/2 + 1/4.",
+                "answer": "3/4",
+                "hints": [
+                  "Convert 1/2 so it has a denominator of 4.",
+                  "1/2 becomes 2/4.",
+                  "Add 2/4 + 1/4."
+                ]
+              }
+            ],
+            "exit_ticket": {
+              "prompt": "Add 1/3 + 1/2 by first finding a common denominator of sixths.",
+              "answer": "5/6",
+              "hints": [
+                "Convert 1/3 into sixths.",
+                "Convert 1/2 into sixths.",
+                "Add the numerators while keeping the denominator as 6."
+              ]
+            }
+          },
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "generation_note": "Live provider draft; answer keys and language require teacher review.",
+          "reviews": []
+        }
+      }
+    },
+    {
+      "language": "hi",
+      "http_status": 201,
+      "latency_ms": 4127,
+      "lesson": {
+        "id": "fabddbe5-e955-4d35-a0e6-88ff2ea3619f",
+        "class_id": "51ef0f4e-15a9-46b3-b617-b69c9d43b2c8",
+        "subject": "Mathematics",
+        "topic": "Fractions",
+        "generation_context": {
+          "subject": "Mathematics",
+          "topic": "Fractions",
+          "misconception_code": "M01",
+          "language": "hi",
+          "misconception_description": "Adds numerators and denominators directly instead of using equal-sized parts.",
+          "learning_objective": "Add fractions by expressing them in equal-sized parts.",
+          "difficulty": "standard",
+          "duration_minutes": 15,
+          "enrolled_students": 1,
+          "evidence_ids": [],
+          "supported_gap_observations": 0,
+          "evidence_note": "No recorded learner evidence; teacher-selected topic draft.",
+          "requested_model": "gemini-3.5-flash-lite",
+          "generation_latency_ms": 4104
+        },
+        "misconception_code": "M01",
+        "revision": {
+          "id": "4107c62d-f5de-41f3-93b2-73c3b9165a3a",
+          "number": 1,
+          "language": "hi",
+          "status": "draft",
+          "content": {
+            "title": "भिन्न जोड़ना: समान आकार के हिस्से बनाना",
+            "objectives": [
+              "समान आकार के हिस्सों का उपयोग करके भिन्नों को जोड़ना सीखना।"
+            ],
+            "explanation": "भिन्नों को आपस में जोड़ने के लिए उनके हर (denominators) समान होने चाहिए ताकि वे एक ही आकार के हिस्सों को दर्शाएं। यदि हर अलग-अलग हैं, तो सीधे अंशों और हरों को नहीं जोड़ा जा सकता। पहले दोनों भिन्नों को एक समान हर में बदलना जरूरी है।",
+            "misconception_correction": "यह गलती अक्सर होती है कि छात्र 1/2 + 1/3 को जोड़ते समय अंशों (1+1=2) और हरों (2+3=5) को सीधे जोड़कर 2/5 लिख देते हैं। यह गलत है क्योंकि 1/2 और 1/3 अलग-अलग आकार के हिस्से हैं। सही तरीका यह है कि पहले दोनों भिन्नों के हर को समान किया जाए (जैसे छह (sixths) का उपयोग करना) और फिर केवल अंशों को जोड़ा जाए।",
+            "worked_example": {
+              "problem": "1/2 + 1/3 जोड़ें।",
+              "steps": [
+                "हर (2 और 3) का लघुत्तम समापवर्त्य (LCM) लें जो कि 6 है।",
+                "1/2 को छह में बदलें: 1/2 = 3/6।",
+                "1/3 को छह में बदलें: 1/3 = 2/6।",
+                "अब समान आकार के हिस्सों को जोड़ें: 3/6 + 2/6।",
+                "केवल अंशों को जोड़ें और हर को वही रखें: 3 + 2 = 5, उत्तर 5/6 है।"
+              ],
+              "answer": "5/6"
+            },
+            "practice_questions": [
+              {
+                "prompt": "1/4 + 1/2 जोड़ें।",
+                "answer": "3/4",
+                "hints": [
+                  "दोनों भिन्नों के हर को समान बनाने के लिए 1/2 को चौथाई (fourths) में बदलें।",
+                  "1/2 बराबर है 2/4 के।",
+                  "अब 1/4 और 2/4 को जोड़ें।"
+                ]
+              }
+            ],
+            "exit_ticket": {
+              "prompt": "1/3 + 1/6 जोड़ें।",
+              "answer": "1/2",
+              "hints": [
+                "हर 3 और 6 का समान हर 6 है।",
+                "1/3 को छह के रूप में बदलें: 1/3 = 2/6।",
+                "अब 2/6 और 1/6 को जोड़ें और यदि संभव हो तो सरल करें।"
+              ]
+            }
+          },
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "generation_note": "Live provider draft; answer keys and language require teacher review.",
+          "reviews": []
+        }
+      }
+    },
+    {
+      "language": "te",
+      "http_status": 201,
+      "latency_ms": 3984,
+      "lesson": {
+        "id": "e87de420-0070-4932-90c8-e3d2f2415f37",
+        "class_id": "51ef0f4e-15a9-46b3-b617-b69c9d43b2c8",
+        "subject": "Mathematics",
+        "topic": "Fractions",
+        "generation_context": {
+          "subject": "Mathematics",
+          "topic": "Fractions",
+          "misconception_code": "M01",
+          "language": "te",
+          "misconception_description": "Adds numerators and denominators directly instead of using equal-sized parts.",
+          "learning_objective": "Add fractions by expressing them in equal-sized parts.",
+          "difficulty": "standard",
+          "duration_minutes": 15,
+          "enrolled_students": 1,
+          "evidence_ids": [],
+          "supported_gap_observations": 0,
+          "evidence_note": "No recorded learner evidence; teacher-selected topic draft.",
+          "requested_model": "gemini-3.5-flash-lite",
+          "generation_latency_ms": 3966
+        },
+        "misconception_code": "M01",
+        "revision": {
+          "id": "79f48372-b7b5-41b6-a4db-610f1c066e06",
+          "number": 1,
+          "language": "te",
+          "status": "draft",
+          "content": {
+            "title": "భిన్నాలను కలపడం (Adding Fractions)",
+            "objectives": [
+              "సమాన పరిమాణములు గల భాగాలను ఉపయోగించి భిన్నాలను కలపడం నేర్చుకోవడం"
+            ],
+            "explanation": "భిన్నాలను కలిపేటప్పుడు, హారములు (denominators) సమానంగా ఉన్నాయో లేదో చూడాలి. హారములు వేరుగా ఉన్నప్పుడు, వాటిని నేరుగా కలపకూడదు (ఉదాహరణకు 1/2 + 1/3 అంటే లవాలను, హారాలను నేరుగా కూడి 2/5 అనడం తప్పు). మొదట రెండు భిన్నాలకు ఒకే హారం (common denominator) వచ్చేలా సమాన భిన్నాలుగా మార్చాలి. ఆ తర్వాతే లవాలను కలపాలి.",
+            "misconception_correction": "తప్పు పద్ధతి: లవాలను, హారాలను విడివిడిగా నేరుగా కలపడం (ఉదాహరణకు 1/2 + 1/3 = 2/5 అనడం). సరైన పద్ధతి: హారాలు సమానంగా ఉండేలా చూసుకుని, కేవలం లవాలను మాత్రమే కలపడం. 1/2 మరియు 1/3 లను కలపడానికి ఆరు భాగాలను (sixths) ఉపయోగించాలి.",
+            "worked_example": {
+              "problem": "1/2 మరియు 1/3 లను కలపండి.",
+              "steps": [
+                "హారాలు 2 మరియు 3 కి సామాన్య హారం 6 ను కనుగొనండి.",
+                "1/2 ని ఆరు భాగాలలోకి మార్చండి: 1/2 = 3/6.",
+                "1/3 ని ఆరు భాగాలలోకి మార్చండి: 1/3 = 2/6.",
+                "ఇప్పుడు లవాలను కలపండి: 3 + 2 = 5, హారం 6 అలాగే ఉంటుంది."
+              ],
+              "answer": "5/6"
+            },
+            "practice_questions": [
+              {
+                "prompt": "1/4 + 1/2 ని కలపండి.",
+                "answer": "3/4",
+                "hints": [
+                  "మొదటి భిన్నం హారం 4. రెండవ భిన్నం హారం 2 ని 4 గా మార్చండి.",
+                  "1/2 భిన్నాన్ని 2/4 గా రాయండి.",
+                  "ఇప్పుడు 1/4 మరియు 2/4 లను కలపండి."
+                ]
+              }
+            ],
+            "exit_ticket": {
+              "prompt": "1/3 + 1/6 ని కలపండి.",
+              "answer": "1/2",
+              "hints": [
+                "సామాన్య హారం 6 ని ఉపయోగించండి.",
+                "1/3 భిన్నాన్ని 2/6 గా మార్చండి.",
+                "2/6 మరియు 1/6 లను కలపండి."
+              ]
+            }
+          },
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "generation_note": "Live provider draft; answer keys and language require teacher review.",
+          "reviews": []
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "provider": "gemini",
+  "requested_model": "gemini-3.5-flash-lite",
+  "credentials_configured": true,
+  "dataset": "embedded synthetic smoke cases; NOT independently labeled evaluation",
+  "cases": [
+    {
+      "subject": "Mathematics",
+      "topic": "Fractions",
+      "status": "PASS",
+      "result": {
+        "misconception_code": "M01",
+        "confidence": 1.0,
+        "evidence": "I added the numerators and denominators.",
+        "misconception_description": "Additive numerator/denominator error: Adds numerators and denominators directly instead of using equal-sized parts.",
+        "misunderstanding_explanation": "The student added the numerators (1 + 1 = 2) and the denominators (2 + 3 = 5) directly to get 2/5, treating the numerators and denominators as independent whole numbers rather than parts of a whole that require a common denominator.",
+        "suggested_intervention": "Use visual models like fraction bars or area models to show that 1/2 and 1/3 have different-sized parts and cannot be combined directly until they are converted into parts of the same size.",
+        "needs_followup": true,
+        "followup_question": "Why must the parts have the same size before you add them?",
+        "provider": "gemini",
+        "status": "provisional",
+        "model_version": "gemini-3.5-flash-lite"
+      },
+      "latency_ms": 4220
+    },
+    {
+      "subject": "Science",
+      "topic": "Force and motion",
+      "status": "PASS",
+      "result": {
+        "misconception_code": "FM01",
+        "confidence": 1.0,
+        "evidence": "A moving object needs a continuing forward force to keep moving.",
+        "misconception_description": "Believes an object must keep experiencing a forward force to maintain motion.",
+        "misunderstanding_explanation": "The student believes that an object cannot maintain its motion without a continuous forward force, failing to apply Newton's first law of motion to a frictionless environment where an object with zero net force maintains its constant velocity.",
+        "suggested_intervention": "Use a frictionless air hockey table or space simulation to demonstrate that once an object is set in motion, it will continue moving at a constant speed without any applied force.",
+        "needs_followup": false,
+        "followup_question": "",
+        "provider": "gemini",
+        "status": "provisional",
+        "model_version": "gemini-3.5-flash-lite"
+      },
+      "latency_ms": 3198
+    },
+    {
+      "subject": "English",
+      "topic": "Subject-verb agreement",
+      "status": "PASS",
+      "result": {
+        "misconception_code": "SV01",
+        "confidence": 1.0,
+        "evidence": "Pencils is plural, so I choose are even though box is the subject.",
+        "misconception_description": "Intervening-noun distraction: Matches the verb to a nearby noun instead of the sentence's subject.",
+        "misunderstanding_explanation": "The student correctly identified 'pencils' as plural and matched the verb 'are' to it, while explicitly acknowledging 'box is the subject' but failing to make the verb agree with the actual grammatical subject.",
+        "suggested_intervention": "Review how prepositional phrases ('of pencils') come between the true subject ('box') and the verb, reminding the student that the verb must always agree with the head subject rather than the object of the preposition.",
+        "needs_followup": false,
+        "followup_question": null,
+        "provider": "gemini",
+        "status": "provisional",
+        "model_version": "gemini-3.5-flash-lite"
+      },
+      "latency_ms": 1715
+    },
+    {
+      "subject": "Mathematics",
+      "topic": "Fractions",
+      "status": "PASS",
+      "result": {
+        "misconception_code": "CORRECT",
+        "confidence": 1.0,
+        "evidence": "I used equal parts: 1/2 = 3/6 and 1/3 = 2/6, so the sum is 5/6.",
+        "misconception_description": "The student correctly answered the question and demonstrated a sound conceptual understanding of finding a common denominator to add fractions.",
+        "misunderstanding_explanation": "The student successfully recognized the need for common denominators, correctly converted 1/2 to 3/6 and 1/3 to 2/6, and accurately added them to get 5/6.",
+        "suggested_intervention": "Acknowledge the correct use of finding a common denominator and equal parts. No further intervention is necessary.",
+        "needs_followup": false,
+        "followup_question": null,
+        "provider": "gemini",
+        "status": "provisional",
+        "model_version": "gemini-3.5-flash-lite"
+      },
+      "latency_ms": 1437
+    }
+  ],
+  "status": "PASS"
+}

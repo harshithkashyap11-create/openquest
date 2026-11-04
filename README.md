@@ -2,7 +2,7 @@
 
 ClassPulse AI is a classroom intelligence platform MVP for Mathematics (Fractions and Basic algebra), Science (Force and motion and Basic electricity), and English (Grammar and Subject-verb agreement). The FastAPI backend provides SQLite/PostgreSQL persistence, Alembic migrations, labeled synthetic demo data, subject-specific diagnosis, teacher-reviewed learning groups, targeted interventions, adaptive reassessments, and observed progress reporting. The React/Vite frontend provides teacher and student demo flows over the FastAPI API.
 
-The Node/Express prototype is archived under `legacy/node-backend/`; the FastAPI service is the active backend. No multi-agent framework or production authentication is used.
+The Node/Express prototype is archived under `legacy/node-backend/`; the FastAPI service is the active backend. No general-purpose multi-agent framework is used. Local demo identity is self-asserted; optional credential-backed sessions enforce teacher/student and classroom scope for shared deployments.
 
 ## Prerequisites
 
@@ -303,3 +303,10 @@ cd frontend
 npm run build
 CLASSPULSE_TEST_PRODUCTION=1 npm run test:e2e
 ```
+
+
+## Agentic learning upgrade
+
+The existing classroom workflow now connects persisted evidence, heuristic learner state, bounded learning decisions, teacher-reviewed lesson revisions, progressive template or live response-aware tutoring, and idempotent offline practice synchronization.
+
+Start with [installation](docs/INSTALLATION.md), [demo guide](docs/DEMO_GUIDE.md), [architecture](docs/ARCHITECTURE.md), and the [final implementation report](docs/FINAL_IMPLEMENTATION_REPORT.md). [Known limitations](docs/KNOWN_LIMITATIONS.md) distinguish verified behavior from independent educational evaluation and deployment work that remains. The isolated demo database never replaces the existing application database.

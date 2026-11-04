@@ -10,12 +10,35 @@ const apiBaseUrl = configuredApiUrl
 const api = axios.create({
   baseURL: apiBaseUrl,
   timeout: 15000,
+  withCredentials: true,
   headers: { 'Content-Type': 'application/json' },
+});
+
+api.interceptors.request.use((config) => {
+  try {
+    const session = JSON.parse(sessionStorage.getItem('classpulse.demo-session') || 'null');
+    if (session) {
+      config.headers['X-Demo-Role'] = session.role;
+      config.headers['X-Class-ID'] = session.classId;
+      if (session.studentId) config.headers['X-Student-ID'] = session.studentId;
+      if (session.csrf_token) config.headers['X-CSRF-Token'] = session.csrf_token;
+    }
+  } catch { /* A corrupt local preference never becomes an authenticated actor. */ }
+  return config;
 });
 
 const recentErrorLogs = new Map();
 
 api.interceptors.response.use(undefined, (error) => {
+  if (error.response?.status === 401 && error.config?.url !== '/auth/login') {
+    try {
+      const stored = JSON.parse(sessionStorage.getItem('classpulse.demo-session') || 'null');
+      if (stored?.authenticated) {
+        sessionStorage.removeItem('classpulse.demo-session');
+        window.dispatchEvent(new Event('classpulse:session-expired'));
+      }
+    } catch { /* Keep local queued responses intact during reauthentication. */ }
+  }
   if (error.code !== 'ERR_CANCELED') {
     const request = error.config || {};
     const method = (request.method || 'GET').toUpperCase();

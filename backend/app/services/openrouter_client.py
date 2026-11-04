@@ -1,4 +1,6 @@
 import httpx
+from threading import local
+from time import perf_counter
 
 from app.services.diagnosis_provider import (
     ProviderConfigurationError,
@@ -32,8 +34,18 @@ class OpenRouterChatClient:
         self.base_url = base_url.rstrip("/")
         self.timeout_seconds = timeout_seconds
         self.client = client
+        self._metadata = local()
+
+    @property
+    def reported_model(self):
+        return getattr(self._metadata, "model", None)
+
+    @property
+    def latency_ms(self):
+        return getattr(self._metadata, "latency_ms", None)
 
     def complete_json(self, *, prompt: str, temperature: float) -> str:
+        started = perf_counter()
         payload = {
             "model": self.model,
             "messages": [{"role": "user", "content": prompt}],
@@ -77,6 +89,8 @@ class OpenRouterChatClient:
 
         try:
             data = response.json()
+            self._metadata.model = data.get("model") if isinstance(data.get("model"), str) else None
+            self._metadata.latency_ms = round((perf_counter() - started) * 1000)
             content = data["choices"][0]["message"]["content"]
         except (ValueError, KeyError, IndexError, TypeError) as error:
             raise ProviderError(

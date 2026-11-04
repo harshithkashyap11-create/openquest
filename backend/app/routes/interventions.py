@@ -276,6 +276,12 @@ def complete_intervention(
     assignment = _owned_assignment_or_404(db, assignment_id, asserted_student_id)
     try:
         if assignment.status != "completed":
+            if len(assignment.practice_responses) < len(assignment.intervention.practice_questions):
+                raise ValueError("PRACTICE_REQUIRED: submit every guided practice response before reassessment")
+            from app.services.learning_service import record_evidence
+            record_evidence(db, assignment.student, assignment.intervention.subject,
+                assignment.intervention.topic, "activity_completed", f"completed:{assignment.id}", {
+                    "assignment_id": str(assignment.id)})
             assignment.status = "completed"
             assignment.completed_at = datetime.now(timezone.utc)
         reassessment = generate_reassessment(db, assignment.id)

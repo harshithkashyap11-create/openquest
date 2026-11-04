@@ -2129,6 +2129,8 @@ h3 {
 .main-panel {
   max-width: 1440px;
   padding: 28px 24px 48px;
+  /* A route translated during entry must not expand the mobile document. */
+  overflow-x: clip;
 }
 .cp-route-content {
   min-width: 0;

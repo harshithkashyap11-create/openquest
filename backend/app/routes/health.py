@@ -21,9 +21,20 @@ def readiness(db: Session = Depends(get_db)) -> dict[str, str]:
     try:
         db.execute(text("SELECT 1"))
     except SQLAlchemyError as error:
-        logger.warning("Database readiness check failed", exc_info=error)
+        logger.warning("Database readiness check failed")
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Database unavailable",
         ) from error
     return {"status": "ready", "database": "ok"}
+
+
+@router.get('/health/ai')
+def ai_configuration():
+    from app.core.config import get_settings
+    settings = get_settings()
+    provider = settings.ai_provider
+    configured = bool(settings.gemini_api_key if provider == 'gemini' else settings.openrouter_api_key if provider == 'openrouter' else True)
+    return {'provider': provider, 'model': settings.gemini_model if provider == 'gemini' else settings.openrouter_model if provider == 'openrouter' else 'rules-v1',
+        'credentials_configured': configured, 'live_readiness': 'NOT_TESTED',
+        'note': 'Configuration check only. Run scripts.probe_ai --live for an actual bounded provider check.'}

@@ -171,10 +171,10 @@ def extract_classroom_context(
     # Build grounded text block for model consumption
     grounding_lines = [
         f"VERIFIED CLASSROOM GROUND TRUTH:",
-        f"- Class Name: {classroom.class_name}",
+        "- Class: selected authorized classroom",
         f"- Subject: {classroom.subject}",
         f"- Topic: {classroom.topic}",
-        f"- Total Enrolled Students: {len(students)} (Codes: {', '.join(student_codes)})",
+        f"- Total Enrolled Students: {len(students)}",
         f"- Assessment Submissions: {assessment_summary.submitted_students} of {len(students)} students submitted ({assessment_summary.answered_questions} total responses, {assessment_summary.diagnosed_answers} diagnosed, {assessment_summary.pending_diagnoses} pending diagnosis)",
     ]
 
@@ -198,14 +198,14 @@ def extract_classroom_context(
         for m in top_misconceptions:
             ev_str = f" | Evidence quote: \"{m.sample_evidence[0]}\"" if m.sample_evidence else ""
             grounding_lines.append(
-                f"  * {m.code} ({m.category}): {m.student_count} student(s) [{', '.join(m.affected_students)}]. {m.description}{ev_str}"
+                f"  * {m.code} ({m.category}): {m.student_count} student(s) . {m.description}"
             )
     else:
         grounding_lines.append("- Misconceptions: None diagnosed yet")
 
     if students_needing_attention:
         grounding_lines.append(
-            f"- Students Needing Immediate Attention: {', '.join(sorted(students_needing_attention))}"
+            f"- Students Needing Immediate Attention: {len(students_needing_attention)} (identities withheld from provider)"
         )
 
     grounding_lines.append(

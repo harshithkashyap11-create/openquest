@@ -1,0 +1,25 @@
+{
+  "/health": {
+    "http_status": 200,
+    "response": {
+      "status": "ok"
+    }
+  },
+  "/health/ready": {
+    "http_status": 200,
+    "response": {
+      "status": "ready",
+      "database": "ok"
+    }
+  },
+  "/health/ai": {
+    "http_status": 200,
+    "response": {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "credentials_configured": true,
+      "live_readiness": "NOT_TESTED",
+      "note": "Configuration check only. Run scripts.probe_ai --live for an actual bounded provider check."
+    }
+  }
+}

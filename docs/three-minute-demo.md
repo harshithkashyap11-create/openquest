@@ -18,10 +18,10 @@ Confirm `/health`, `/api/demo/classes`, the frontend, the selected role/class, t
 ## Timed walkthrough — 175 seconds
 
 | Time | Working action | Explain the value |
-|---|---|---|
+|---|---|---|a
 | 0–20s | Entry → Teacher → Mathematics → Fractions → the actual class | “ClassPulse helps teachers understand student reasoning and choose the next teaching step.” Point to the live catalog: Mathematics, Science and English. |
 | 20–50s | Overview → Class insights → View evidence | Show actual submission/diagnosis counts; open the evidence drawer. The quote supports the model interpretation. Confidence is an estimate; provisional and follow-up labels remain visible. Escape returns focus. |
-| 50–85s | Learning groups → View members → a prepared intervention | Explain that teachers review groups. If demonstrating a new assignment, read the confirmation: this backend generates **and assigns** to approved members. Success appears only after the server responds. Identify the returned provider/template label. Generated educational text still needs educator review. |
+| 50–85s | Learning groups → View members → a prepared intervention | Explain that teachers review groups. If demonstrating a new assignment, read the confirmation: this backend generates **and assigns** to approved members. Success appears only after the server responds. Identify the returned provider/teamplate label. Generated educational text still needs educator review. |
 | 85–120s | Open Copilot → summarize the current class → request a short worksheet or plan | Show the selected class context, actual response and provider. Show the teacher-review draft banner. Close and reopen to demonstrate conversation retention. If the provider fails, use the visible retry state or disclose mock fallback; do not call a stored/fixture reply live AI. |
 | 120–150s | Exit demo → Student → same class → a verified code → prepared activity | Show Learn & example, Try it, then Finish & reassess. Or open an assessment and move Next/Previous: answers remain. Do not submit a new attempt merely for animation. |
 | 150–175s | Progress → show initial/follow-up samples → switch Telugu → Lite effects | “These are observed scores from different questions and sample sizes, not proof of a causal effect.” Finish: “Understand learning gaps, then help teachers act.” |

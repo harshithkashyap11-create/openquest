@@ -1,0 +1,20 @@
+{
+  "backend": "160 passed, 1 skipped",
+  "browser": "22 passed",
+  "build": "PASS",
+  "lint": "PASS",
+  "i18n": "PASS: 577 keys in each locale",
+  "account_browser": {
+    "teacherLoginAndLogout": "PASS",
+    "studentLoginAndTeacherEndpointDenial": "PASS",
+    "expiredSessionReturnsToLogin": "PASS",
+    "pageErrors": []
+  },
+  "provider_smoke": "4/4",
+  "lesson_smoke": "3/3",
+  "tutor_smoke": "2/2",
+  "independent_evaluation": "NOT TESTED",
+  "production_security": "NOT TESTED",
+  "real_android": "NOT TESTED",
+  "timed_rehearsal": "NOT TESTED"
+}

@@ -3,7 +3,7 @@
 ## Inspected baseline
 
 Active repository: `/home/harshithkashyap/Desktop/open quest/openpost`, branch
-`main`, revision `acquire with git rev-parse HEAD` (recorded in final report).
+`main`, revision `df1e0656931652d91dd292f0783b9bd93cb68375` (inspected revision; working tree contains additions).
 Sibling `openquest` and `classpulse_phase1` are historical material, not Git roots.
 The Node backend is archived under `legacy/`. No repository AGENTS.md was found.
 Existing tracked and untracked edits were preserved. Recovery source snapshot:
@@ -67,3 +67,56 @@ Real model evaluation is separate from deterministic tests and synthetic demos.
 
 Implementation and final execution evidence will be appended here and summarized
 in `FINAL_IMPLEMENTATION_REPORT.md`. Do not interpret this plan as completion.
+
+## Implemented and observed
+
+- Added a replayable topic evidence ledger, optimistic learner/session projections,
+  finite state transitions and one deterministic recommendation per event.
+- Added credential-backed local sessions and class/role isolation, with separate
+  explicitly local demo compatibility. Shared environments reject demo mode.
+- Added structured versioned lessons, manual answer/language review, publication,
+  historical revision retention and pinned links to approved activities.
+- Added assignment-bound four-level practice hints, real hint history and practice
+  evidence. New tutoring templates are labeled, not represented as live Gemini.
+- Connected assessment, diagnosis, teacher review, approved assignment, practice,
+  completion and reassessment to the same evidence projection.
+- Corrected preexisting baseline-bank contamination by reassessment questions;
+  added identical-reassessment retry handling and eligibility guards.
+- Added student-scoped downloaded lessons/practice, foreground synchronization
+  receipts, retained conflicts and static-only service-worker caching.
+- Preserved the original quiz workflow, role UI, existing source changes and provider
+  selection. A recovery snapshot exists; no commit/push command was issued.
+- Full backend checks at an intermediate gate: 156 passed, 1 PostgreSQL skip.
+  Full production browser gate: 21 passed. Final counts are recorded separately.
+- Live native Gemini smoke: Maths/Science/English and contrasting fraction reasoning.
+  Live M01 lesson generation: English/Hindi/Telugu. These are synthetic smoke checks,
+  not independent diagnostic accuracy or verified school learning gains.
+- Initial live lesson output was too general. Prompt context now includes canonical
+  misconception meaning, objective and an explicit correction field; sampled new
+  output targets fraction addition. Unsupported LaTeX is rejected by the schema.
+- Offline browser check initially failed because Vite varies static assets by Origin.
+  Cache matching was corrected only for same-origin static assets. The browser then
+  reopened a downloaded Telugu lesson after disconnect/reload.
+- All migrations/fixture tests use isolated files. The original configured database
+  was not migrated or cleared. Dedicated demo initialization was executed twice.
+
+See FINAL_IMPLEMENTATION_REPORT.md for final execution evidence, remaining gaps and
+acceptance status. Optional capabilities and unverified deployment claims remain
+explicitly incomplete in KNOWN_LIMITATIONS.md.
+
+## Final verification and handoff
+
+Final backend suite: 160 passed, one PostgreSQL integration skip. Production
+browser suite: 22 passed, including real offline download/reload/queue/sync.
+Separate credential-mode browser checks passed for teacher logout, student
+authorization and expired-cookie recovery. Live synthetic tutor, diagnosis and
+multilingual lesson checks have recorded actual provider/model/latency evidence.
+Visual QA additionally caught the app shell's misleading backend-failure banner
+during expected offline use; the shell now tracks connectivity separately and
+the browser test asserts that state.
+
+All twelve requested handoff documents exist. Local demo source was restarted on
+loopback 8018 with its dedicated persistent database; production preview is on
+5188. This is READY WITH LIMITATIONS for the local synthetic core, not completion
+of every numbered requirement. Independent evaluation and operational limitations
+are explicit in the final report.
