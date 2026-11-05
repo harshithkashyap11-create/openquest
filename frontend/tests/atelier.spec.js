@@ -30,11 +30,13 @@ test('Lite preference persists and reduced motion overrides full effects without
 }) => {
   const s = await demo(request);
   await enter(page, s);
-  await page.goto('/teacher/overview');
+  await page.goto('/teacher/guide');
+  await page.locator('.display-preferences summary').click();
   const effects = page.getByLabel('Effects', { exact: true });
   await effects.selectOption('lite');
   await expect(page.locator('html')).toHaveAttribute('data-effects', 'lite');
   await page.reload();
+  await page.locator('.display-preferences summary').click();
   await expect(effects).toHaveValue('lite');
   await effects.selectOption('full');
   await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -199,6 +201,7 @@ test('evidence and group review preserve backend state, confirmation is required
   expect(groups.length).toBeGreaterThan(0);
   await enter(page, s);
   await page.goto('/teacher/insights');
+  await page.locator('details.diagnosis-panel > summary').click();
   const evidence = page
     .getByRole('button', { name: /View evidence for/ })
     .first();

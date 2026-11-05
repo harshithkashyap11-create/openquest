@@ -8,7 +8,7 @@ const STORAGE_KEY = 'classpulse.demo-session';
 function readSession() {
   try {
     const session = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || 'null');
-    return session ? { ...session, className: classDisplayName(session.className, session.topic) } : null;
+    return session ? { ...session, teachingSubject: session.teachingSubject || session.subject, className: classDisplayName(session.className, session.topic) } : null;
   } catch {
     return null;
   }
@@ -41,7 +41,9 @@ export function DemoSessionProvider({ children }) {
     () => ({
       session,
       startSession(nextSession) {
-        const displaySession = { ...nextSession, className: classDisplayName(nextSession.className, nextSession.topic) };
+        if (session?.role === 'teacher' && nextSession.role === 'teacher' &&
+            nextSession.subject !== (session.teachingSubject || session.subject)) return;
+        const displaySession = { ...nextSession, teachingSubject: session?.role === 'teacher' ? session.teachingSubject || session.subject : nextSession.subject, className: classDisplayName(nextSession.className, nextSession.topic) };
         writeSession(displaySession);
         setSession(displaySession);
       },

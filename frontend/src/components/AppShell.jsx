@@ -8,8 +8,6 @@ import {
   GraduationCap,
   LogOut,
   Menu,
-  PanelLeftClose,
-  PanelLeftOpen,
   Sparkles,
   Sprout,
   RefreshCw,
@@ -22,7 +20,6 @@ import { listDemoClasses } from '../services/classpulseApi';
 import { classDisplayName } from '../services/classDisplayName';
 import LanguageSelector from './LanguageSelector';
 import { lazy, Suspense } from 'react';
-import EffectsControl from './EffectsControl';
 import MobileDrawer from './ui/MobileDrawer';
 import RouteTransition from '../motion/RouteTransition';
 const TeacherCopilot = lazy(() => import('./TeacherCopilot'));
@@ -61,6 +58,7 @@ export default function AppShell({ role }) {
   const [retryHealth, setRetryHealth] = useState(0);
   const mounted = useRef(false);
   const isTeacher = role === 'teacher';
+  const subjectClasses = classes.filter(item => item.subject === (session.teachingSubject || session.subject));
   const links = isTeacher
     ? [
         {
@@ -168,11 +166,13 @@ export default function AppShell({ role }) {
   function navigation(mobile = false) {
     return (
       <>
-        <Link
+        <button
+          type="button"
           className="brand-lockup"
-          to={isTeacher ? '/teacher/overview' : '/student/dashboard'}
-          aria-label={`${t('brand')} AI`}
-          onClick={() => setMenuOpen(false)}
+          aria-label={`${t('brand')} AI · ${t(mobile || !collapsed ? 'collapseNavigation' : 'expandNavigation')}`}
+          aria-expanded={mobile ? menuOpen : !collapsed}
+          title={t(mobile || !collapsed ? 'collapseNavigation' : 'expandNavigation')}
+          onClick={mobile ? () => setMenuOpen(false) : toggleSidebar}
         >
           <span className="brand-mark" aria-hidden="true">
             <Activity size={22} />
@@ -183,7 +183,7 @@ export default function AppShell({ role }) {
             </strong>
             <small>{t('brandTagline')}</small>
           </span>
-        </Link>
+        </button>
         <div className="sidebar-label">
           {isTeacher ? t('teacherView') : t('studentView')}
         </div>
@@ -225,26 +225,6 @@ export default function AppShell({ role }) {
             <LogOut size={20} aria-hidden="true" />
             <span className="nav-label">{t(session.authenticated ? 'accountSignOut' : 'signOut')}</span>
           </button>
-          {!mobile && (
-            <button
-              className="nav-link sidebar-collapse"
-              onClick={toggleSidebar}
-              aria-expanded={!collapsed}
-              aria-label={
-                collapsed ? t('expandNavigation') : t('collapseNavigation')
-              }
-              title={
-                collapsed ? t('expandNavigation') : t('collapseNavigation')
-              }
-            >
-              {collapsed ? (
-                <PanelLeftOpen size={20} aria-hidden="true" />
-              ) : (
-                <PanelLeftClose size={20} aria-hidden="true" />
-              )}
-              <span className="nav-label">{t('collapseNavigation')}</span>
-            </button>
-          )}
         </div>
       </>
     );
@@ -289,12 +269,12 @@ export default function AppShell({ role }) {
             <span className="topbar-dot" aria-hidden="true" />
             {isTeacher ? (
               <span>
-                {classes.length > 1 ? (
+                {subjectClasses.length > 1 ? (
                   <select aria-label={t('chooseClass')} value={session.classId} onChange={event => {
-                    const selected = classes.find(item => item.id === event.target.value);
+                    const selected = subjectClasses.find(item => item.id === event.target.value);
                     if (selected) startSession({ ...session, classId: selected.id, className: selected.class_name, subject: selected.subject, topic: selected.topic });
                   }}>
-                    {classes.map(item => <option value={item.id} key={item.id}>{classDisplayName(item.class_name, item.topic)}</option>)}
+                    {subjectClasses.map(item => <option value={item.id} key={item.id}>{classDisplayName(item.class_name, item.topic)}</option>)}
                   </select>
                 ) : <strong>{session?.className || t('classLabel')}</strong>}
                 <small>
@@ -316,7 +296,6 @@ export default function AppShell({ role }) {
                 : t('backendUnreachable')}
           </div>}
           <div className="topbar-controls">
-            <EffectsControl />
             <LanguageSelector compact />
             {isTeacher && (
               <button

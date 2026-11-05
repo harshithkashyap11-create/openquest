@@ -16,7 +16,6 @@ import useAsyncData from '../hooks/useAsyncData';
 import { useDemoSession } from '../context/useDemoSession';
 import { useI18n } from '../i18n/useI18n';
 import LanguageSelector from '../components/LanguageSelector';
-import EffectsControl from '../components/EffectsControl';
 import Button from '../components/ui/Button';
 import { ErrorState, LoadingState } from '../components/PageStates';
 import { getErrorMessage } from '../services/api';
@@ -172,7 +171,6 @@ function DemoLogin() {
           </span>
         </a>
         <div className="entry-preferences">
-          <EffectsControl />
           <LanguageSelector compact />
         </div>
       </header>

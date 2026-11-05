@@ -54,7 +54,8 @@ export default function LessonStudio() {
         <label htmlFor="lesson-code">{t('misconception')}</label><select id="lesson-code" name="code" defaultValue={search.get('code') || codes[0]?.code} required>{codes.map(c => <option key={c.code} value={c.code}>{c.code} · {c.category}</option>)}</select>
         <label htmlFor="lesson-language">{t('teachingLanguage')}</label><select id="lesson-language" name="language" defaultValue={language}><option value="en">English</option><option value="hi">हिन्दी</option><option value="te">తెలుగు</option></select>
         <label htmlFor="lesson-difficulty">{t('recommendedLevel')}</label><select id="lesson-difficulty" name="difficulty"><option value="foundation">{t('foundationLevel')}</option><option value="standard">{t('standardLevel')}</option><option value="challenging">{t('challengeLevel')}</option></select>
-        <label htmlFor="lesson-duration">{t('durationMinutes')}</label><input id="lesson-duration" name="duration" type="number" min={5} max={60} defaultValue={15} required />
+        <label htmlFor="lesson-duration">{t('durationMinutes')}</label><input id="lesson-duration" name="duration" type="number" min={5} max={60} defaultValue={15} required aria-describedby="lesson-duration-help" />
+        <p className="field-help" id="lesson-duration-help">{t('durationHelp')}</p>
         <label className="learning-check"><input name="fallback" type="checkbox" />{t('allowTemplateFallback')}</label>
         <button className="button button-primary" disabled={busy}>{busy ? t('loading') : t('generateLessonDraft')}</button>
       </form>

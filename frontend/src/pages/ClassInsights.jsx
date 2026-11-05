@@ -10,7 +10,10 @@ import {
 import {
   Bar,
   BarChart,
+  Cell,
   CartesianGrid,
+  Pie,
+  PieChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -130,6 +133,8 @@ export default function ClassInsights() {
     .filter(([code]) => code !== 'CORRECT')
     .map(([code, count]) => ({ code, count }));
   const format = new Intl.NumberFormat(language, { maximumFractionDigits: 10 });
+  const colors = ['#0f766e', '#c17b28', '#527bb0', '#9773a6', '#c96566', '#536e55'];
+  const chartTotal = chartData.reduce((sum, item) => sum + item.count, 0);
   return (
     <div className="page-content insights-page">
       <RefreshNotice error={error} refreshing={refreshing} onRetry={reload} />
@@ -137,13 +142,7 @@ export default function ClassInsights() {
         eyebrow={t('classInsights')}
         title={t('insightsTitle')}
         context={session.className}
-        description={`${session.subject || ''} · ${session.topic || ''} — ${t('diagnosisHelp')}`}
-        actions={
-          <span className="observed-badge">
-            <BarChart3 size={15} aria-hidden="true" />
-            {t('teacherReview')}
-          </span>
-        }
+        description={`${session.subject || ''} · ${session.topic || ''} —`}
       />
       <section className="metric-grid metric-grid-three">
         <MetricCard
@@ -172,7 +171,8 @@ export default function ClassInsights() {
           </div>
           {chartData.length ? (
             <>
-              <div className="chart-container" aria-hidden="true">
+              <div className="distribution-charts" aria-hidden="true">
+              <div className="chart-container">
                 <ResponsiveContainer width="100%" height={240}>
                   <BarChart
                     data={chartData}
@@ -189,19 +189,31 @@ export default function ClassInsights() {
                     <Tooltip />
                     <Bar
                       dataKey="count"
-                      fill="var(--cp-brand)"
                       radius={[4, 4, 0, 0]}
                       isAnimationActive={false}
-                    />
+                    >
+                      {chartData.map((item, index) => <Cell key={item.code} fill={colors[index % colors.length]} />)}
+                    </Bar>
                   </BarChart>
                 </ResponsiveContainer>
               </div>
+              <div className="chart-container distribution-pie">
+                <ResponsiveContainer width="100%" height={240}>
+                  <PieChart>
+                    <Pie data={chartData} dataKey="count" nameKey="code" innerRadius="48%" outerRadius="78%" paddingAngle={2} isAnimationActive={false}>
+                      {chartData.map((item, index) => <Cell key={item.code} fill={colors[index % colors.length]} />)}
+                    </Pie>
+                    <Tooltip formatter={(value, name) => [`${value} · ${format.format(value / chartTotal * 100)}%`, name]} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+              </div>
               <dl className="chart-text-alternative">
-                {chartData.map((item) => (
+                {chartData.map((item, index) => (
                   <div key={item.code}>
-                    <dt>{item.code}</dt>
+                    <dt><span className="chart-key" style={{ background: colors[index % colors.length] }} aria-hidden="true" />{item.code}</dt>
                     <dd>
-                      {format.format(item.count)} {t('diagnosedAnswers')}
+                      {format.format(item.count)} {t('diagnosedAnswers')} · {format.format(Math.round(item.count / chartTotal * 100))}%
                     </dd>
                   </div>
                 ))}
@@ -211,7 +223,9 @@ export default function ClassInsights() {
             <EmptyState title={t('emptyDiagnoses')} />
           )}
         </article>
-        <article className="panel diagnosis-panel">
+        <details className="panel diagnosis-panel">
+          <summary>{t('individualDiagnoses')} <span className="count-badge">{data.diagnoses.length}</span></summary>
+          <div className="diagnosis-details-content">
           <div className="panel-heading">
             <div>
               <p className="eyebrow">{t('diagnosisDetails')}</p>
@@ -299,7 +313,8 @@ export default function ClassInsights() {
               />
             )}
           </Tabs>
-        </article>
+          </div>
+        </details>
       </section>
       <details className="panel roster-details">
         <summary>

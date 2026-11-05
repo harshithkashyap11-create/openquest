@@ -76,6 +76,6 @@ test('map refresh failure retains data and translations fit a narrow screen', as
   await page.locator('.language-control select').selectOption('en');
   await page.goto('/teacher/guide');
   await expect(page.getByRole('heading', { name: 'Student data', exact: true })).toBeVisible();
-  await expect(page.getByText('Reachability not tested', { exact: false })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Local system status', exact: true })).toHaveCount(0);
   await expect(page.getByText('This page sends no support report.', { exact: false })).toBeVisible();
 });
