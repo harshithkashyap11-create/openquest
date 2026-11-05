@@ -66,6 +66,6 @@ Do not infer production or educational validation from passing software checks.
 | Three-minute timed human rehearsal not verified | Automated cycle and lesson/offline browser tests do not guarantee a live presentation fits the timetable. |
 
 Current external dependencies: configured provider credentials, network and quota;
-local SQLAlchemy database and browser storage. See FINAL_IMPLEMENTATION_REPORT.md
+local SQLAlchemy database and browser storage. See [FINAL_IMPLEMENTATION_REPORT.md](FINAL_IMPLEMENTATION_REPORT.md)
 for measured results and the final verdict. No paid service or provider was silently
 substituted and no commit/push was issued by this agent.

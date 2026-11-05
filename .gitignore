@@ -33,3 +33,6 @@ htmlcov/
 
 # Dedicated synthetic demo, including generated private credentials.
 .classpulse-demo/
+
+# Keep large generated review captures out of future Git commits.
+/docs/upgrade-evidence/

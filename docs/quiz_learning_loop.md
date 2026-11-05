@@ -4,11 +4,11 @@
 
 ClassPulse connects teacher-authored multiple-choice quizzes to student reflection and a live teacher report. The student explains an incorrect answer before the tutor interprets it. Teachers see observed answer counts separately from tentative error themes and can flag an interpretation. A repair question checks one subsequent response; a five-minute lesson suggestion helps the teacher act on the findings.
 
-The implementation extends `openpost`'s React/Vite frontend and FastAPI/SQLAlchemy backend. Quizzes remain separate from the existing synthetic topic-assessment, grouping, and intervention flows. The teacher copilot receives a summary of the three newest published quizzes alongside its existing baseline data.
+The implementation extends OpenQuest's React/Vite frontend and FastAPI/SQLAlchemy backend. Quizzes remain separate from the existing synthetic topic-assessment, grouping, and intervention flows. The teacher copilot receives a summary of the three newest published quizzes alongside its existing baseline data.
 
 ## Run locally
 
-From `openpost/backend`, with the existing Python requirements installed:
+From `backend/`, with the existing Python requirements installed:
 
 ```bash
 python3 -m alembic upgrade head
@@ -17,7 +17,7 @@ python3 -m uvicorn app.main:app --host 127.0.0.1 --port 8011
 
 This uses the existing repository `.env` and database. If the database has no demo classes, run `python3 -m scripts.import_synthetic_dataset --include-multisubject` after migrations. Do not reset an existing database.
 
-From `openpost/frontend`:
+From `frontend/`:
 
 ```bash
 npm install

@@ -1,6 +1,6 @@
 # Verified local installation and startup
 
-Repository: `/home/harshithkashyap/Desktop/open quest/openpost`.
+Run the commands below from the OpenQuest repository root unless a command changes directory.
 Executed runtime: Python 3.14.7, Node 22.23.1, npm 10.9.8. The backend requirements
 remain compatible declarations rather than a fully pinned lockfile; other Python
 versions and a clean dependency installation were not re-tested in this upgrade.
@@ -11,7 +11,7 @@ requirements. These are installation instructions, not a claim that a fresh inst
 was executed during verification:
 
 ```bash
-cd '/home/harshithkashyap/Desktop/open quest/openpost/backend'
+cd backend
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
@@ -29,7 +29,7 @@ Mock mode requires no key and never claims live inference.
 Initialize the dedicated synthetic demo (does not use or erase the existing app DB):
 
 ```bash
-cd '/home/harshithkashyap/Desktop/open quest/openpost/backend'
+cd backend
 python -m scripts.prepare_demo --dry-run
 python -m scripts.prepare_demo --with-accounts
 ```
@@ -43,8 +43,8 @@ is idempotent. It refuses an existing unmarked database and has no reset command
 Run the local synthetic role-selection demo in one terminal:
 
 ```bash
-cd '/home/harshithkashyap/Desktop/open quest/openpost/backend'
-DATABASE_URL='sqlite:////home/harshithkashyap/Desktop/open quest/openpost/.classpulse-demo/classpulse-demo.sqlite' APP_ENV=development AUTH_MODE=demo AI_PROVIDER=mock python -m uvicorn app.main:app --host 127.0.0.1 --port 8018
+cd backend
+DATABASE_URL='sqlite:///../.classpulse-demo/classpulse-demo.sqlite' APP_ENV=development AUTH_MODE=demo AI_PROVIDER=mock python -m uvicorn app.main:app --host 127.0.0.1 --port 8018
 ```
 
 To use the configured live provider, omit AI_PROVIDER=mock; do not edit the private
@@ -58,7 +58,7 @@ Run the frontend in another terminal. Production preview is required for offline
 shell testing; development mode intentionally does not register the service worker.
 
 ```bash
-cd '/home/harshithkashyap/Desktop/open quest/openpost/frontend'
+cd frontend
 npm run build
 CLASS_PULSE_BACKEND_URL=http://127.0.0.1:8018 npm run preview -- --host 127.0.0.1 --port 5188 --strictPort
 ```
@@ -72,7 +72,7 @@ CLASS_PULSE_BACKEND_URL=http://127.0.0.1:8018 npm run dev -- --host 127.0.0.1
 Health and opt-in live verification (only synthetic embedded prompts are sent):
 
 ```bash
-cd '/home/harshithkashyap/Desktop/open quest/openpost/backend'
+cd backend
 python -m scripts.check_health --base-url http://127.0.0.1:8018
 python -m scripts.probe_ai --live --output /tmp/classpulse-provider-smoke.json
 python -m scripts.verify_live_lessons --live --output /tmp/classpulse-live-lessons.json
@@ -90,7 +90,8 @@ tested. PostgreSQL execution of the new revision remains NOT TESTED.
 Verification commands:
 
 ```bash
-cd '/home/harshithkashyap/Desktop/open quest/openpost/backend'
+cd backend
+python -m pip install -r requirements-dev.txt
 python -m pytest -q
 cd ../frontend
 npm run build

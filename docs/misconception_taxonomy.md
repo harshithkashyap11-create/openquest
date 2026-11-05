@@ -24,6 +24,22 @@
 
 These bands are initial engineering defaults and should be validated against teacher-labelled examples.
 
+## Diagnosis and review rules
+
+`CORRECT` and `FOLLOW_UP` are shared outcomes. M06 is the legacy Fractions
+abstention. A valid global code is rejected if it does not belong to the active
+question subject and topic. A misconception requires a nonempty verbatim evidence
+excerpt from the learner's actual answer or explanation. Unsupported labels and
+fabricated excerpts are not saved. Low-confidence or explicitly uncertain evidence
+requests follow-up and is excluded from supported grouping and scored mastery.
+
+The taxonomy is repository-versioned rather than a separate database revision.
+Provider scores are uncalibrated; the UI presents qualitative uncertainty and a
+caution. Teacher corrections preserve the original model output and record reason,
+actor, version, and request identity while updating learner projections and future
+group proposals. Grouping currently chooses one primary misconception per learner;
+full multilabel grouping remains a limitation.
+
 ## Mathematics — Basic algebra
 
 | Code | Category | Operational description |

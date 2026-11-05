@@ -1,4 +1,4 @@
-# OpenPost map and learning journey — current report
+# OpenQuest (ClassPulse AI) map and learning journey — current report
 
 ## Class navigation update — 2026-11-05
 
@@ -39,7 +39,7 @@ review is NOT TESTED. Original source/model text retains its stored language.
 
 ## Phase 0 audit and preserved state
 
-Repository root: `/home/harshithkashyap/Desktop/open quest/openpost`.
+Repository root: the OpenQuest checkout (the local workspace folder name is user-selected).
 Branch `main`, HEAD `e99adf5` (one ahead of origin/main); clean initial working tree.
 No project files changed until the user-facing Phase 0 report was presented.
 No branch/worktree/commit/PR/push/deployment was created. The e99adf5 commit remains
@@ -272,7 +272,7 @@ Frontend changes add the map, shared review UI, source chronology, guide and loc
 - [docs/MULTILINGUAL_SUPPORT.md](../docs/MULTILINGUAL_SUPPORT.md)
 - [docs/PRIVACY_AND_SAFETY.md](../docs/PRIVACY_AND_SAFETY.md)
 - [docs/database_design.md](../docs/database_design.md)
-- [docs/three-minute-demo.md](../docs/three-minute-demo.md)
+- [docs/DEMO_GUIDE.md](../docs/DEMO_GUIDE.md)
 - [docs/upgrade-evidence/map-journey/2026-11-05-synthetic-fractions-mock.webm](../docs/upgrade-evidence/map-journey/2026-11-05-synthetic-fractions-mock.webm)
 - [docs/upgrade-evidence/map-journey/README.md](../docs/upgrade-evidence/map-journey/README.md)
 - [docs/upgrade-evidence/map-journey/map-en-360.png](../docs/upgrade-evidence/map-journey/map-en-360.png)
@@ -341,7 +341,7 @@ No remote push, commit, PR, deployment or external student/evaluation data uploa
 occurred. Existing user work and e99adf5/FEATURE_IDEAS.md were preserved.
 
 ```bash
-cd '/home/harshithkashyap/Desktop/open quest/openpost/backend'
+cd backend
 python -m scripts.run_map_demo
 ```
 
@@ -361,11 +361,11 @@ controls and a timed human rehearsal must not be represented as verified.
 
 ## Repository and environment
 
-Active repository: `/home/harshithkashyap/Desktop/open quest/openpost`.
+Active repository: OpenQuest; product name: ClassPulse AI.
 Inspected/final Git HEAD: `df1e0656931652d91dd292f0783b9bd93cb68375`; branch main,
 with working-tree changes and additions. No commit or push command was issued by
 this agent. Existing tracked and untracked work was retained. A source recovery
-snapshot was saved before behavior changes; see IMPLEMENTATION_LOG.md.
+snapshot was saved before behavior changes; the relevant implementation history is available in Git.
 
 Executed versions: Python 3.14.7; Node 22.23.1; npm 10.9.8; FastAPI 0.141.1;
 SQLAlchemy 2.0.52; Alembic 1.20.1; Pydantic 2.13.5; HTTPX 0.28.1. Frontend manifests

@@ -28,41 +28,44 @@ def normalize_subject_topic(
     """Normalize subject and topic aliases to match official SUBJECT_TAXONOMY keys."""
     sub_raw = (subject or "").strip().casefold()
     top_raw = (topic or "").strip().casefold()
+    display_topic = (topic or "").strip()
 
-    # Topic heuristics
-    if any(k in top_raw for k in ["fraction", "fractions", "numerator", "denominator"]):
+    def has_any(*terms: str) -> bool:
+        return any(term in top_raw for term in terms)
+
+    if sub_raw:
+        if "math" in sub_raw:
+            if not top_raw or has_any("fraction", "numerator", "denominator"):
+                return ("Mathematics", "Fractions")
+            if has_any("algebra", "equation", "variable"):
+                return ("Mathematics", "Basic algebra")
+        elif "science" in sub_raw:
+            if not top_raw or has_any("force", "motion", "inertia", "speed", "newton"):
+                return ("Science", "Force and motion")
+            if has_any("electric", "circuit", "voltage", "current"):
+                return ("Science", "Basic electricity")
+        elif "english" in sub_raw:
+            if not top_raw or has_any("grammar", "tense", "punctuation", "pronoun"):
+                return ("English", "Grammar")
+            if has_any("subject-verb", "agreement", "singular", "plural"):
+                return ("English", "Subject-verb agreement")
+        return ("Unsupported", display_topic or (subject or "Unsupported").strip())
+
+    # With no subject, infer it only from a recognized topic alias.
+    if has_any("fraction", "numerator", "denominator"):
         return ("Mathematics", "Fractions")
-    if any(k in top_raw for k in ["algebra", "equation", "variable"]):
+    if has_any("algebra", "equation", "variable"):
         return ("Mathematics", "Basic algebra")
-    if any(k in top_raw for k in ["force", "motion", "inertia", "speed", "newton"]):
+    if has_any("force", "motion", "inertia", "speed", "newton"):
         return ("Science", "Force and motion")
-    if any(k in top_raw for k in ["electric", "circuit", "voltage", "current"]):
+    if has_any("electric", "circuit", "voltage", "current"):
         return ("Science", "Basic electricity")
-    if any(k in top_raw for k in ["grammar", "tense", "punctuation", "pronoun"]):
-        return ("English", "Grammar")
-    if any(k in top_raw for k in ["subject-verb", "agreement", "singular", "plural"]):
+    if has_any("subject-verb", "agreement", "singular", "plural"):
         return ("English", "Subject-verb agreement")
-
-    # Subject heuristics
-    if "math" in sub_raw:
-        if "algebra" in top_raw:
-            return ("Mathematics", "Basic algebra")
-        return ("Mathematics", "Fractions")
-    if "science" in sub_raw:
-        if "electric" in top_raw or "circuit" in top_raw:
-            return ("Science", "Basic electricity")
-        return ("Science", "Force and motion")
-    if "english" in sub_raw:
-        if "agreement" in top_raw or "verb" in top_raw:
-            return ("English", "Subject-verb agreement")
+    if has_any("grammar", "tense", "punctuation", "pronoun"):
         return ("English", "Grammar")
 
-    # Exact tuple lookup if provided
-    for (s, t) in SUBJECT_TAXONOMY.keys():
-        if s.casefold() == sub_raw and t.casefold() == top_raw:
-            return (s, t)
-
-    return ("Mathematics", "Fractions")
+    return ("Unsupported", display_topic or "Unsupported")
 
 
 def detect_intent(message: str, action: str | None) -> str:
@@ -99,6 +102,25 @@ class MockCopilotProvider:
     ) -> CopilotChatResponse:
         subject, topic = self._resolve_subject_topic(request, context_summary)
         intent = detect_intent(request.message, request.action)
+
+        if subject == "Unsupported":
+            supported = ", ".join(
+                f"{s}: {t}" for s, t in SUBJECT_TAXONOMY
+            )
+            return CopilotChatResponse(
+                reply=(
+                    f"I can’t generate subject-specific guidance for {topic!r} yet. "
+                    f"Supported topics are {supported}."
+                ),
+                intent=intent,
+                subject=subject,
+                topic=topic,
+                class_id=context_summary.class_id if context_summary else None,
+                class_context_summary=context_summary,
+                suggested_followups=["Choose one of the supported subjects and topics."],
+                provider=self.name,
+                model_version=self.model_version,
+            )
 
         if intent == "classroom_intelligence":
             return self._handle_classroom_intelligence(request, context_summary, subject, topic)
@@ -712,6 +734,8 @@ class OpenRouterCopilotProvider:
         grounding_text: str = "",
     ) -> CopilotChatResponse:
         subject, topic = self.fallback._resolve_subject_topic(request, context_summary)
+        if subject == "Unsupported":
+            return self.fallback.generate(request, context_summary, grounding_text)
         intent = detect_intent(request.message, request.action)
 
         prompt = self._build_prompt(request, context_summary, grounding_text, subject, topic, intent)

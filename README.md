@@ -2,7 +2,7 @@
 
 ClassPulse AI is a classroom intelligence platform MVP for Mathematics (Fractions and Basic algebra), Science (Force and motion and Basic electricity), and English (Grammar and Subject-verb agreement). The FastAPI backend provides SQLite/PostgreSQL persistence, Alembic migrations, labeled synthetic demo data, subject-specific diagnosis, teacher-reviewed learning groups, targeted interventions, adaptive reassessments, and observed progress reporting. The React/Vite frontend provides teacher and student demo flows over the FastAPI API.
 
-The Node/Express prototype is archived under `legacy/node-backend/`; the FastAPI service is the active backend. No general-purpose multi-agent framework is used. Local demo identity is self-asserted; optional credential-backed sessions enforce teacher/student and classroom scope for shared deployments.
+The repository is named **OpenQuest** and the product is **ClassPulse AI**. The FastAPI service in `backend/` is the active backend; AI provider adapters live inside that service. Local demo identity is self-asserted; credential-backed sessions enforce teacher/student and classroom scope for shared deployments.
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ The Node/Express prototype is archived under `legacy/node-backend/`; the FastAPI
 
 ## Configure the environment
 
-From `openpost/`, copy `.env.example` to `.env` if you do not already have a local `.env`. The example values are for local development only; replace them for any shared environment. Do not commit `.env`.
+From the repository root, copy `.env.example` to `.env` for local development. The example values enable local demo mode only; shared environments must set `APP_ENV=production` and `AUTH_MODE=required`. Do not commit `.env`.
 
 The SQLAlchemy URL must use the Psycopg 3 dialect:
 
@@ -29,7 +29,7 @@ docker compose --env-file .env.example ps
 docker compose --env-file .env.example exec api alembic upgrade head
 ```
 
-Compose starts PostgreSQL with a persistent named volume, waits for its health check before starting the API, and exposes the local API at `http://localhost:8000`. To use your copied `.env` instead, omit `--env-file .env.example`.
+Compose starts PostgreSQL with a persistent named volume, waits for its health check before starting the API, and exposes the local API at `http://localhost:8000`. The Compose defaults require authentication and set production mode. Passing `.env.example` explicitly enables the local demo settings; use `AUTH_MODE=required APP_ENV=production` for any shared deployment.
 
 The health endpoints are:
 
@@ -121,7 +121,7 @@ DATABASE_URL='postgresql+psycopg://classpulse:change-me-before-deploy@localhost:
 
 Set `DATABASE_URL` from your environment rather than using the sample values when your local database uses different credentials.
 
-For an isolated SQLite demo, run these commands from `openpost/backend/`:
+For an isolated SQLite demo, run these commands from `backend/`:
 
 ```bash
 python -m alembic upgrade head
@@ -145,7 +145,7 @@ Start the backend using the SQLite or PostgreSQL instructions above, then in a
 second terminal:
 
 ```bash
-cd openpost/frontend
+cd frontend
 npm install
 CLASS_PULSE_BACKEND_URL=http://127.0.0.1:8000 npm run dev
 ```
@@ -160,7 +160,7 @@ backend origin with or without the `/api` suffix, while
 `CLASS_PULSE_BACKEND_URL` controls the Vite development proxy. Without an API
 URL override, `/api` is proxied to `http://127.0.0.1:8000`.
 
-Useful frontend checks, run from `openpost/frontend/`:
+Useful frontend checks, run from `frontend/`:
 
 ```bash
 npm run lint
@@ -168,7 +168,7 @@ npm run build
 npm run i18n:check
 ```
 
-The read-only API smoke script can be run from `openpost/` after starting the
+The read-only API smoke script can be run from the repository root after starting the
 backend:
 
 ```bash
@@ -183,7 +183,7 @@ secure authentication. Do not expose this demo over an untrusted network.
 
 To verify a real OpenRouter connection without printing the key or response,
 first set `AI_PROVIDER=openrouter`, `OPENROUTER_API_KEY`, and `OPENROUTER_MODEL`
-in the repository-root `.env`. Then run from `openpost/backend/`:
+in the repository-root `.env`. Then run from `backend/`:
 
 ```bash
 python - <<'PY'
@@ -242,10 +242,11 @@ The verified starter answer keys and topic metadata are in `backend/app/question
 
 ## Tests
 
-Run unit/API/model/import tests in the backend directory:
+Install development dependencies, then run unit/API/model/import tests in the backend directory:
 
 ```bash
 cd backend
+python -m pip install -r requirements-dev.txt
 python -m pytest -q
 ```
 
@@ -290,11 +291,10 @@ teal design tokens, responsive navigation, accessible evidence/member dialogs,
 answer-preserving question navigation and persistent Auto/Lite/Full effects.
 No new runtime dependencies are required. Reduced motion always overrides Full.
 
-See [the engineering report](docs/upgrade-progress.md) for measured results,
-known limitations and the full verification checklist, and
-[the three-minute demonstration guide](docs/three-minute-demo.md) for preparation
-against real persisted demo records. Live provider availability must be checked
-separately; the isolated browser suite uses the labeled mock/template provider.
+See [the implementation report](docs/FINAL_IMPLEMENTATION_REPORT.md) for measured
+results and known limitations, and [the demo guide](docs/DEMO_GUIDE.md) for local
+preparation. Live provider availability must be checked separately; the isolated
+browser suite uses the labeled mock/template provider.
 
 To test the production frontend against a fresh disposable backend:
 
@@ -309,7 +309,7 @@ CLASSPULSE_TEST_PRODUCTION=1 npm run test:e2e
 
 The existing classroom workflow now connects persisted evidence, heuristic learner state, bounded learning decisions, teacher-reviewed lesson revisions, progressive template or live response-aware tutoring, and idempotent offline practice synchronization.
 
-Start with [installation](docs/INSTALLATION.md), [demo guide](docs/DEMO_GUIDE.md), [architecture](docs/ARCHITECTURE.md), and the [final implementation report](docs/FINAL_IMPLEMENTATION_REPORT.md). [Known limitations](docs/KNOWN_LIMITATIONS.md) distinguish verified behavior from independent educational evaluation and deployment work that remains. The isolated demo database never replaces the existing application database.
+Start with [installation](docs/INSTALLATION.md), [demo guide](docs/DEMO_GUIDE.md), [architecture](docs/ARCHITECTURE.md), and the [implementation report](docs/FINAL_IMPLEMENTATION_REPORT.md). [Known limitations](docs/KNOWN_LIMITATIONS.md) distinguish verified behavior from independent educational evaluation and deployment work that remains. The isolated demo database never replaces the existing application database.
 
 
 ## Classroom Misconception Map and fresh Fractions journey
@@ -326,3 +326,10 @@ From `backend`, `python -m scripts.run_map_demo` builds and starts the isolated
 synthetic mock demonstration at http://127.0.0.1:5189. Every run uses a fresh private
 database and retains earlier runs. See [the current demo guide](docs/DEMO_GUIDE.md),
 [limitations](docs/KNOWN_LIMITATIONS.md) and [evaluation format](docs/EVALUATION_METHODOLOGY.md).
+
+## AI assistance disclosure
+
+AI coding tools assisted with implementation, repository review, and documentation.
+Project maintainers remain responsible for reviewing the product design, code,
+diagnosis rules, and safety decisions. This disclosure does not represent independent
+educational validation; that requires educator-led review and evaluation.
