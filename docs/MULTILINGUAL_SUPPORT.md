@@ -31,3 +31,13 @@ Translation variants tied to a canonical source revision, automated terminology
 checks beyond markup, independent language adjudication, voice input and spoken
 playback are not implemented. Independently generated language drafts must not be
 represented as synchronized reviewed translations of one canonical source.
+
+## Map and journey additions (2026-11-05)
+
+New map, evidence, review confirmation, journey, help/status and queue-state text
+uses the existing en/hi/te catalogs. The checker now rejects missing/extra keys,
+empty strings and interpolation mismatches. Development builds display a missing
+key marker instead of silently substituting English. Hindi/Telugu translations
+are unreviewed; no educator adjudication has been recorded. Original student,
+question and stored provider text is deliberately not auto-translated. Map and
+journey times use IST; provider confidence is not translated into an accuracy claim.

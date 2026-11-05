@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { CheckCircle2, ClipboardList } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
+import { JourneyNavigation } from '../components/StudentJourney';
 import QuestionPager from '../components/ui/QuestionPager';
 import { EmptyState, ErrorState, LoadingState } from '../components/PageStates';
 import { useDemoSession } from '../context/useDemoSession';
@@ -76,6 +77,7 @@ export default function Assessment() {
         title={data.title || t('assessmentTitle')}
         description={t('assessmentInstructions')}
       />
+      <JourneyNavigation />
       {!data.questions.length ? (
         <section className="panel">
           <EmptyState title={t('noAssessmentQuestions')} />

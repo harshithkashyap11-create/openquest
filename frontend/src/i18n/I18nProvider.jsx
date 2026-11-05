@@ -31,7 +31,8 @@ export function I18nProvider({ children }) {
       language,
       setLanguage,
       t(key, values = {}) {
-        const message = dictionaries[language]?.[key] || en[key] || key;
+        const localized = dictionaries[language]?.[key];
+        const message = localized || (import.meta.env.DEV ? `[${language}:${key}]` : en[key] || key);
         return Object.entries(values).reduce(
           (translated, [name, value]) =>
             translated.replaceAll(`{${name}}`, String(value)),

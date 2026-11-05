@@ -136,6 +136,7 @@ export default function TeacherDashboard() {
           )
         }
       />
+      <Link className="button button-secondary" to="/teacher/map">{t('mapTitle')}</Link>
       {actionMessage && (
         <div
           className="status-message"

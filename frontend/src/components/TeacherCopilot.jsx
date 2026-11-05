@@ -1,4 +1,5 @@
 import LanguageSelector from './LanguageSelector';
+import { classDisplayName } from '../services/classDisplayName';
 import { useI18n } from '../i18n/useI18n';
 import { createPortal } from 'react-dom';
 import useModalDialog from '../hooks/useModalDialog';
@@ -270,13 +271,13 @@ function ClassContext({
         >
           {classOptions.map((item) => (
             <option key={item.id} value={item.id}>
-              {item.class_name} · {item.subject} / {item.topic}
+              {classDisplayName(item.class_name, item.topic)} · {item.subject} / {item.topic}
             </option>
           ))}
         </select>
       ) : (
         <strong className="copilot-context-class">
-          {context?.class_name || session.className || 'Selected class'}
+          {classDisplayName(context?.class_name, context?.topic) || session.className || 'Selected class'}
         </strong>
       )}
       <div className="copilot-context-tags">

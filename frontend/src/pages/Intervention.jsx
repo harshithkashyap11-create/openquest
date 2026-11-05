@@ -111,7 +111,8 @@ function TeacherInterventions({ classId }) {
   if (error && !data) return <ErrorState error={error} onRetry={reload} />;
 
   const filteredGroups = data.groups.filter(
-    (group) => groupFilter === 'all' || group.review_status === groupFilter,
+    (group) => (groupFilter === 'all' || group.review_status === groupFilter) &&
+      (!new URLSearchParams(location.search).get('code') || group.misconception_code === new URLSearchParams(location.search).get('code')),
   );
   const selectedGroup = data.groups.find(
     (group) => group.id === selectedGroupId,
@@ -169,6 +170,7 @@ function TeacherInterventions({ classId }) {
 
       <section className="panel">
         <div id="groups" />
+        {location.search && <Link to="/teacher/interventions#groups">{t('allGroups')}</Link>}
         <div className="panel-heading">
           <div>
             <p className="eyebrow">{t('groupActions')}</p>
@@ -317,8 +319,8 @@ function TeacherInterventions({ classId }) {
             <div className="generated-practice">
               <h3>{t('practice')}</h3>
               <ol>
-                {generatedIntervention.practice_questions.map((question) => (
-                  <li key={question.question_index}>{question.question}</li>
+                {generatedIntervention.practice_questions.map((question, index) => (
+                  <li key={question.question_index ?? index}>{question.question}</li>
                 ))}
               </ol>
             </div>

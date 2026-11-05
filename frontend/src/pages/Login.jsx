@@ -20,6 +20,7 @@ import EffectsControl from '../components/EffectsControl';
 import Button from '../components/ui/Button';
 import { ErrorState, LoadingState } from '../components/PageStates';
 import { getErrorMessage } from '../services/api';
+import { classDisplayName } from '../services/classDisplayName';
 import api from '../services/api';
 import {
   listDemoClasses,
@@ -209,8 +210,6 @@ function DemoLogin() {
             <ShieldCheck size={18} aria-hidden="true" />
             <span>
               {t('syntheticData')}
-              <br />
-              {t('demoNotice')}
             </span>
           </div>
         </div>
@@ -326,7 +325,7 @@ function DemoLogin() {
                     <option value="">{t('chooseClass')}</option>
                     {topicClasses.map((item) => (
                       <option value={item.id} key={item.id}>
-                        {item.class_name} · {item.student_count} {t('students')}
+                        {classDisplayName(item.class_name, item.topic)} · {item.student_count} {t('students')}
                       </option>
                     ))}
                   </select>
@@ -398,7 +397,6 @@ function DemoLogin() {
               </Button>
             </form>
           )}
-          <p className="entry-card-note">{t('demoNotice')}</p>
         </section>
       </section>
     </main>

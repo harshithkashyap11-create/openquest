@@ -8,6 +8,7 @@ from app.services.auth_service import authorize_request
 from app.routes.auth import router as auth_router
 from app.routes.learning import router as learning_router
 from app.routes.tutoring import router as tutoring_router
+from app.routes.misconception_map import router as map_router
 
 from app.routes.quizzes import router as quizzes_router
 from app.routes.diagnoses import router as diagnoses_router
@@ -26,6 +27,7 @@ app = FastAPI(
 app.include_router(auth_router)
 app.include_router(learning_router)
 app.include_router(tutoring_router)
+app.include_router(map_router)
 app.include_router(health_router)
 app.include_router(diagnoses_router)
 app.include_router(groups_router)

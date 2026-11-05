@@ -54,7 +54,9 @@ def _read_rows(csv_path: Path) -> list[dict[str, str | None]]:
         ]
 
 
-def import_synthetic_dataset(db: Session, csv_path: Path) -> ImportSummary:
+def import_synthetic_dataset(
+    db: Session, csv_path: Path, *, teacher_id: uuid.UUID | None = None
+) -> ImportSummary:
     rows = _read_rows(csv_path)
     if not rows:
         raise ValueError("Synthetic dataset contains no response rows")
@@ -91,9 +93,10 @@ def import_synthetic_dataset(db: Session, csv_path: Path) -> ImportSummary:
     }
 
     with db.begin():
-        teacher = db.scalar(
-            select(Teacher).where(Teacher.email == DEMO_TEACHER_EMAIL)
-        )
+        teacher = (db.get(Teacher, teacher_id) if teacher_id is not None else
+                   db.scalar(select(Teacher).where(Teacher.email == DEMO_TEACHER_EMAIL)))
+        if teacher_id is not None and teacher is None:
+            raise ValueError("Selected teacher does not exist")
         if teacher is None:
             teacher = Teacher(
                 id=_stable_id(f"teacher:{DEMO_TEACHER_EMAIL}"),
@@ -103,7 +106,7 @@ def import_synthetic_dataset(db: Session, csv_path: Path) -> ImportSummary:
             db.add(teacher)
             db.flush()
             counts["teachers_created"] += 1
-        elif teacher.name != DEMO_TEACHER_NAME:
+        elif teacher_id is None and teacher.name != DEMO_TEACHER_NAME:
             raise ValueError("Existing demo teacher has unexpected identifying details")
 
         classrooms: dict[tuple[str, str], Class] = {}

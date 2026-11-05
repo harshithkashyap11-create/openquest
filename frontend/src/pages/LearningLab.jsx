@@ -65,7 +65,7 @@ export default function LearningLab() {
       {data.cached && <p>{t('cachedContentNotice')}</p>}<p>{t('offlineInferenceNotice')}</p>
       <p>{t('pendingSync', { count: queue.filter(q => q.status !== 'synchronized').length })}</p>
       <button className="button button-secondary" disabled={!online} onClick={() => sync().catch(e => setMessage(e.message))}>{t('syncResponses')}</button>
-      {queue.map(q => <p key={q.key}>{t('practiceResponse')} · {q.status.replaceAll('_', ' ')}{q.status === 'conflict' && ` · ${t('syncConflict')}`}</p>)}
+      {queue.map(q => <p key={q.key}>{t('practiceResponse')} · {t(`queue_${q.status}`)}{q.status === 'conflict' && ` · ${t('syncConflict')}`}</p>)}
     </section>
     {message && <p role="status" className="panel">{message}</p>}
     {data.states.map(s => <EvidenceState key={`${s.subject}:${s.topic}`} state={s} />)}

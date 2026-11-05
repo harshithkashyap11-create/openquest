@@ -100,6 +100,12 @@ def review_group(
     from app.services.auth_service import require_teacher
     from app.services.learning_service import record_evidence
     teacher_id = require_teacher(request, db, group.class_id)
+    # A foreign key proves existence, not class membership. Recheck persisted
+    # proposal members before recording a decision or creating student events.
+    if payload.status == 'approved' and (len(group.group_members) < 2 or any(
+        member.student.class_id != group.class_id for member in group.group_members
+    )):
+        raise HTTPException(409, 'INVALID_GROUP_MEMBERSHIP')
     revision = _group_revision(group)
     if (payload.expected_revision is not None and payload.expected_revision != revision) or (get_settings().auth_mode == 'required' and payload.expected_revision is None):
         raise HTTPException(409, 'STALE_GROUP_RECOMMENDATION: refresh before reviewing')

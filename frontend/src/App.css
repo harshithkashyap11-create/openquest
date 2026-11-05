@@ -2065,6 +2065,21 @@ h3 {
   font-weight: 400;
   font-size: 0.72rem;
 }
+.topbar-class select {
+  width: min(100%, 230px);
+  min-height: 36px;
+  padding: 4px 24px 4px 8px;
+  border: 1px solid var(--cp-border-strong);
+  border-radius: var(--cp-radius-xs);
+  background: var(--cp-surface);
+  color: var(--cp-text);
+  font: inherit;
+  font-weight: 600;
+}
+.topbar-class select:focus-visible {
+  outline: 3px solid var(--cp-focus);
+  outline-offset: 2px;
+}
 .topbar-dot {
   background: var(--primary);
   box-shadow: 0 0 0 4px var(--primary-soft);

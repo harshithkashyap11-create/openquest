@@ -41,7 +41,7 @@ test('Lite preference persists and reduced motion overrides full effects without
   await expect(page.locator('html')).toHaveAttribute('data-effects', 'lite');
   await page.getByLabel('Language', { exact: true }).focus();
   await page.getByLabel('Language', { exact: true }).selectOption('te');
-  await expect(page.locator('.topbar-class')).toContainText(s.className);
+  await expect(page.locator('.topbar-class select')).toHaveValue(s.classId);
   expect(await page.evaluate(() => document.activeElement?.tagName)).toBe(
     'SELECT',
   );
@@ -319,7 +319,10 @@ test('student practice, completion and reassessment keep real scores and answers
     name: 'Finish activity and start reassessment',
     exact: true,
   });
-  if (await complete.count()) await complete.click();
+  // Practice submission is asynchronous. Wait for its persisted result before
+  // deciding the completion control is present; count() does not wait.
+  await expect(complete).toBeVisible();
+  await complete.click();
   await expect(page.locator('.reassessment-panel')).toBeVisible();
   const reassessment = page.locator('input[id^="reassessment-"]:enabled');
   if (await reassessment.count()) {
@@ -436,7 +439,7 @@ test('teacher and student role entry use the real catalog and server student res
     .selectOption(session.classId);
   await page.getByRole('button', { name: /Open teacher dashboard/ }).click();
   await expect(page).toHaveURL(/teacher\/overview/);
-  await page.getByRole('button', { name: 'Exit demo', exact: true }).click();
+  await page.getByRole('button', { name: 'Sign out', exact: true }).click();
   await page.getByRole('button', { name: /Student/ }).click();
   await page
     .getByLabel('Choose subject', { exact: true })

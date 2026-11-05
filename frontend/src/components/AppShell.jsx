@@ -19,6 +19,7 @@ import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useDemoSession } from '../context/useDemoSession';
 import { useI18n } from '../i18n/useI18n';
 import { listDemoClasses } from '../services/classpulseApi';
+import { classDisplayName } from '../services/classDisplayName';
 import LanguageSelector from './LanguageSelector';
 import { lazy, Suspense } from 'react';
 import EffectsControl from './EffectsControl';
@@ -56,6 +57,7 @@ export default function AppShell({ role }) {
   const location = useLocation();
   const routeNotice = location.state?.notice || '';
   const [backendStatus, setBackendStatus] = useState('connecting');
+  const [classes, setClasses] = useState([]);
   const [retryHealth, setRetryHealth] = useState(0);
   const mounted = useRef(false);
   const isTeacher = role === 'teacher';
@@ -67,6 +69,8 @@ export default function AppShell({ role }) {
           icon: Activity,
         },
         { to: '/teacher/quizzes', label: t('quizzes'), icon: BookOpenCheck },
+        { to: '/teacher/map', label: t('mapTitle'), icon: UsersRound },
+        { to: '/teacher/guide', label: t('mapGuide'), icon: BookOpenCheck },
         { to: '/teacher/learning', label: t('learningEvidence'), icon: Sprout },
         { to: '/teacher/lessons', label: t('lessonStudio'), icon: BookOpenCheck },
         {
@@ -98,6 +102,7 @@ export default function AppShell({ role }) {
         },
         { to: '/student/quizzes', label: t('quizzes'), icon: BookOpenCheck },
         { to: '/student/learning', label: t('learningLab'), icon: Sprout },
+        { to: '/student/guide', label: t('mapGuide'), icon: BookOpenCheck },
         {
           to: '/student/assessment',
           label: t('assessment'),
@@ -121,8 +126,9 @@ export default function AppShell({ role }) {
       return;
     }
     try {
-      await listDemoClasses();
+      const available = await listDemoClasses();
       if (!mounted.current) return;
+      setClasses(available);
       setBackendStatus('connected');
     } catch {
       if (!mounted.current) return;
@@ -211,7 +217,6 @@ export default function AppShell({ role }) {
           })}
         </nav>
         <div className="sidebar-bottom">
-          <div className="demo-chip">{t(session.authenticated ? 'accountAccess' : 'demoNotice')}</div>
           <button
             className="nav-link signout-button"
             onClick={signOut}
@@ -284,7 +289,14 @@ export default function AppShell({ role }) {
             <span className="topbar-dot" aria-hidden="true" />
             {isTeacher ? (
               <span>
-                <strong>{session?.className || t('classLabel')}</strong>
+                {classes.length > 1 ? (
+                  <select aria-label={t('chooseClass')} value={session.classId} onChange={event => {
+                    const selected = classes.find(item => item.id === event.target.value);
+                    if (selected) startSession({ ...session, classId: selected.id, className: selected.class_name, subject: selected.subject, topic: selected.topic });
+                  }}>
+                    {classes.map(item => <option value={item.id} key={item.id}>{classDisplayName(item.class_name, item.topic)}</option>)}
+                  </select>
+                ) : <strong>{session?.className || t('classLabel')}</strong>}
                 <small>
                   {session?.subject} · {session?.topic}
                 </small>
@@ -293,20 +305,16 @@ export default function AppShell({ role }) {
               <span>{session?.studentCode}</span>
             )}
           </div>
-          <div
+          {(backendStatus === 'offline' || backendStatus === 'unreachable') && <div
             className={`backend-status backend-${backendStatus}`}
             role="status"
             aria-live="polite"
           >
             <span className="backend-status-dot" aria-hidden="true" />
-            {backendStatus === 'connected'
-              ? t('backendConnected')
-              : backendStatus === 'offline'
+            {backendStatus === 'offline'
                 ? t('offlineLearning')
-              : backendStatus === 'unreachable'
-                ? t('backendUnreachable')
-                : t('backendConnecting')}
-          </div>
+                : t('backendUnreachable')}
+          </div>}
           <div className="topbar-controls">
             <EffectsControl />
             <LanguageSelector compact />

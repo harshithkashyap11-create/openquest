@@ -26,6 +26,22 @@ for (const language of languages.slice(1)) {
   }
 }
 
+for (const language of languages) {
+  for (const key of expected) {
+    const message = dictionaries[language][key];
+    if (typeof message !== 'string' || !message.trim()) {
+      missingCount += 1;
+      console.warn(`${language}: empty translation for ${key}`);
+      continue;
+    }
+    const parameters = value => [...value.matchAll(/\{(\w+)\}/g)].map(match => match[1]).sort().join(',');
+    if (parameters(message) !== parameters(dictionaries.en[key])) {
+      missingCount += 1;
+      console.warn(`${language}: interpolation mismatch for ${key}`);
+    }
+  }
+}
+
 if (missingCount) console.warn(`Found ${missingCount} translation key mismatch(es).`);
 
 if (missingCount) process.exitCode = 1;

@@ -17,10 +17,14 @@ with tempfile.TemporaryDirectory(prefix="classpulse-browser-") as temporary:
         "GEMINI_API_KEY": "",
         "OPENROUTER_MODEL": "",
     }
-    for arguments in [
+    commands = [
         ["-m", "alembic", "upgrade", "head"],
         ["-m", "scripts.import_synthetic_dataset", "--include-multisubject"],
-    ]:
+    ]
+    if os.environ.get('OPENPOST_MAP_DEMO') == '1':
+        env['DATABASE_URL'] = f'sqlite:///{temporary}/map-run/fractions.sqlite'
+        commands = [['-m', 'scripts.run_map_demo', '--prepare-only', '--directory', f'{temporary}/map-run']]
+    for arguments in commands:
         subprocess.run([sys.executable, *arguments], cwd=backend, env=env, check=True)
     process = subprocess.Popen(
         [

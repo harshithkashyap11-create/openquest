@@ -1,3 +1,357 @@
+# OpenPost map and learning journey — current report
+
+## Class navigation update — 2026-11-05
+
+The Fractions run now also includes the five existing sample topics: Basic
+algebra, Force and motion, Basic electricity, Grammar, and Subject-verb agreement.
+Teachers can switch classes from the top bar. The running demo was updated by
+adding the missing classes without resetting its existing Fractions responses.
+Technical connection and repeated demo labels were removed from ordinary navigation;
+the entry screen still identifies the classroom data as sample data. The recorded
+backup below predates this interface update.
+
+Date: 2026-11-05 (Africa/Nouakchott). **Local core implemented and verified;
+independent educator evaluation remains NOT TESTED.** This is not a claim that
+all MUST outcomes, a real classroom pilot, or the full seven-part request are
+complete. The missing dependency is an approved, genuinely educator-labeled,
+held-out dataset. A destructive reset is deferred in favor of fresh isolated runs.
+
+## Outcome and data sources
+
+| Feature | Route / command | Source and verification |
+|---|---|---|
+| Classroom Misconception Map | `/teacher/map` | Authorized persisted latest submissions, diagnoses and corrections; SQL counts, semantic concept list and bars; paginated original response evidence. No provider call when rendering. |
+| Attention and uncertainty | Same map | All-date unresolved states, original confidence <0.75/status/missing quote and M06/FOLLOW_UP; no invented probability. Completed assignments determine reassessment readiness. Counts tested against source records. |
+| Teacher decisions | Map evidence and Learning Evidence | Shared correction UI, explicit confirmation, versioned/idempotent existing API; original suggestion preserved, same-label review distinguished from changed-label correction. Lost acknowledgement retry verified. |
+| Groups and selected support | Map concept → `/teacher/interventions?code=...#groups` | Existing persisted proposal/member/review/assignment flow. Backend rejects foreign members during approval and assignment. Group-wide support retains its existing confirmation. |
+| Student journey/story | `/student/progress`, assessment and home navigation | Actual source submissions, support assignments, practice and reassessments. Reload verified. Missing events remain absent; no causal attribution or invented response-to-assignment FK. |
+| Offline status | `/student/learning` | Existing IndexedDB queue and real sync acknowledgements; pending/synchronized/conflict/sign-in strings now localized. Full suite verifies offline save, reload and reconnect. |
+| Workflow/data/local help and status | `/teacher/guide`, `/student/guide` | Verified data-handling explanation; local DB/config check without AI request or secrets. No support message is sent. |
+| Held-out evaluation tooling | `python -m scripts.heldout_evaluation` | Strict local manifest, recorded outputs, frozen development-majority baseline and same held-out denominator; no source records supplied, so current status is NOT_TESTED with zero examples and null metrics. |
+| Repeatable synthetic demo | `python -m scripts.run_map_demo` from backend | Fresh private SQLite run; three labeled synthetic learners, one question, two saved source responses, zero precomputed diagnoses. Actual UI submits the third response and follows the normal mock/template pipeline. Existing paths refused. |
+| Recorded backup | `docs/upgrade-evidence/map-journey/2026-11-05-synthetic-fractions-mock.webm` | Recorded 2026-11-05, synthetic mock rules/templates, real browser operations and persistence. Accelerated automation; not live AI or human timing evidence. |
+
+Normal runtime map/story data are persisted application records, not seeded UI
+results. The fresh demonstration and browser fixtures are explicitly synthetic.
+The evaluation artifact is a local status report, not a fabricated benchmark.
+All interface additions are translated into en/hi/te; independent educator language
+review is NOT TESTED. Original source/model text retains its stored language.
+
+## Phase 0 audit and preserved state
+
+Repository root: `/home/harshithkashyap/Desktop/open quest/openpost`.
+Branch `main`, HEAD `e99adf5` (one ahead of origin/main); clean initial working tree.
+No project files changed until the user-facing Phase 0 report was presented.
+No branch/worktree/commit/PR/push/deployment was created. The e99adf5 commit remains
+HEAD and its FEATURE_IDEAS.md bytes remain unchanged; all 31 ideas are preserved.
+
+Verified structure: `frontend/src/{App.jsx,pages,components,services,i18n}`;
+`backend/app/{routes,schemas,models,services}`; `backend/alembic/versions`;
+`backend/tests`; `frontend/tests`; `data`; `docs`; root `scripts`. No applicable
+repository AGENTS.md/CONTRIBUTING instructions were found. The app is React 19 /
+JavaScript / Vite with Axios/React Router/Recharts and FastAPI/SQLAlchemy/Pydantic,
+SQLite/PostgreSQL and seven Alembic revisions. Active AI adapters are in backend
+services (mock/OpenRouter/Gemini); the separate ai-service file is an unused
+placeholder, not an active CrewAI system. ClassPulse remains the existing product
+branding: no broad rename was attempted. Existing correction/group/intervention/
+offline capabilities were reused. No current CI directory or configured standalone
+type-check command was found. Source API inventory previously had an empty table;
+new paths were verified directly against OpenAPI. Existing documented contract
+paths/schemas were preserved byte-for-value in the updated JSON structures.
+
+### Baseline versus final checks
+
+Commands run in backend or frontend unless a different location is shown.
+
+| Check / exact command | Baseline | Final |
+|---|---|---|
+| `PYTHONDONTWRITEBYTECODE=1 python -m pytest -q -p no:cacheprovider` | PASS: 160 passed, 1 skipped; exit 0 | Final equivalent `python -m pytest -q`: PASS, 181 passed, 1 skipped; exit 0, 20.46s |
+| `npm run lint` | PASS, exit 0 | PASS, exit 0 |
+| `npm run i18n:check` | PASS, 577 keys/locale; exit 0 | PASS, 689 keys/locale; missing/extra/empty/interpolation checks, exit 0 |
+| `npm run build -- --outDir /tmp/openpost-phase0-build` | PASS, exit 0; output outside repo | Final `npm run build`: PASS, exit 0 |
+| `npm run test:e2e -- --list` | PASS: 22 discovered | Full suite has 24 tests |
+| `npm run test:e2e -- tests/atelier.spec.js tests/quiz-workflow.spec.js --output=/tmp/openpost-phase0-safe-e2e --reporter=line` | FAIL: 19 passed, 1 failed; exit 1 | Baseline race repaired; see full suite below |
+| `CLASSPULSE_TEST_PRODUCTION=1 npm run test:e2e -- --output=/tmp/openpost-final-e2e2 --reporter=line` | Full baseline NOT TESTED: original offline tests wrote screenshots into repository docs | PASS: all 24 passed; exit 0, 45.2s |
+| `CLASSPULSE_TEST_PRODUCTION=1 npm run test:e2e -- tests/misconception-map.spec.js --output=/tmp/openpost-map-final --reporter=line` | New tests failed before map implementation | PASS: 2 passed; exit 0, 9.2s; includes lost acknowledgement, reload, keyboard/focus, languages/mobile and help/status checks |
+| `CLASSPULSE_TEST_PRODUCTION=1 npm run test:e2e -- --config=playwright.demo.config.js --output=/tmp/openpost-demo-final --reporter=line` | New isolated rehearsal | PASS: 1 passed; exit 0, 16.1s for automated suite, not a timed human demo |
+| `python -m scripts.run_map_demo` | Unavailable before this change | PASS: built frontend, bound local API 8019/preview 5189, fresh DB, health/proxy/class/map/status checks; long-running server has no completion exit code |
+| `python -m scripts.heldout_evaluation --output ../docs/evaluation-status.json` | No held-out baseline runner | PASS: readiness artifact generated, exit 0; educational evaluation itself NOT TESTED |
+| SQLite migration tests (inside full pytest suite) | PASS | PASS: empty upgrade/check, populated preservation, downgrade/re-upgrade; no new migration needed |
+| PostgreSQL integration | NOT TESTED: disposable database not supplied | NOT TESTED; one integration skip remains |
+| Live provider smoke | NOT TESTED; no external request made | NOT TESTED; all automated inference uses local mock/template providers |
+| Human three-minute rehearsal / real-phone slow network | NOT TESTED | NOT TESTED |
+| `git diff --check` | Clean initial tree | PASS, exit 0 |
+| `git merge-base --is-ancestor e99adf5 HEAD` and feature-ideas byte comparison | PASS | PASS, exit 0; protected content unchanged |
+
+The initial full browser baseline was stopped to honor read-only Phase 0 after
+finding hardcoded screenshot destinations. A subsequent attempt encountered a
+leftover test-server port; that owned process was stopped and the safe subset
+rerun. No project files were changed in Phase 0. The actual pre-existing failure
+was `atelier.spec.js: student practice, completion and reassessment keep real
+scores and answers`: count() checked the completion button before an asynchronous
+practice result arrived, skipped the click, then waited for reassessment. The test
+now waits for the control and clicks unconditionally, retaining its score/reload
+assertions. The React generated-practice list-key warning was fixed with stable
+question index fallback. Screenshot outputs now use testInfo.outputPath, avoiding
+repository writes during ordinary acceptance runs. Existing FastAPI/Starlette
+TestClient deprecation and Node color-environment warnings remain informational.
+
+New tests were observed failing before their implementations for map endpoints,
+foreign-member review/assignment, evaluation loader, safe demo setup, status and
+UI routing. The final demo also exposed a real late-refresh drawer reopening race;
+selection now governs whether the drawer is open and success waits for reconciliation.
+
+## Priorities, delivered scope and concrete deferrals (all 31 ideas)
+
+The cut order was remote infrastructure → cross-subject identity → school reporting
+→ roster/curriculum breadth → feedback aggregation. Core evidence, actual review,
+student journey, truthful evaluation status and safe demo were retained.
+
+| # | Idea | Priority / final scope and reason |
+|---|---|---|
+| 1 | Misconception Map | MUST / PASS: authorized aggregate and paginated evidence route. |
+| 2 | Evidence | MUST / PASS: exact question/answer/explanation/suggestion fields. |
+| 3 | Uncertainty/review queue | MUST / PASS: explicit persisted/deterministic rule; uncalibrated confidence. |
+| 4 | Diagnosis correction | MUST / PASS: shared existing versioned API/UI, original output retained. |
+| 5 | Group review | MUST / PASS: existing member/review route plus backend class validation. |
+| 6 | Support from map | MUST / PASS: concept-filtered existing reviewed-group confirmation flow. |
+| 7 | Attention today | MUST / PASS: actionable all-date counts; IST explained, no invented date cutoff. |
+| 8 | Student story | MUST / PASS: source IDs, timestamps and actual assignment links. |
+| 9 | Onboarding | SHOULD / PASS: skimmable in-app workflow guide. |
+| 10 | Teacher control | MUST / PASS: suggested, reviewed, corrected and approved states distinguishable. |
+| 11 | Report AI problems | SHOULD / DEFERRED: no general diagnosis-feedback owner/review workflow; correction/local help available. Add a separate authorized record/review owner before extending. |
+| 12 | Reviewed languages | MUST / translation/key/mobile checks PASS; educator review NOT TESTED. Obtain actual bilingual educator review; original educational content is not silently translated. |
+| 13 | Data explanation | SHOULD / PASS: actual DB/provider/device processing; no retention/encryption promise. |
+| 14 | Educator evaluation set | MUST / NOT TESTED: no approved source labels; validated local manifest ready for genuine review. |
+| 15 | Evaluation report | MUST / tooling/status PASS; held-out educational results NOT TESTED. Supply approved frozen source groups before computing model/baseline metrics. |
+| 16 | Status | SHOULD / PASS: local DB/config; provider reachability explicitly untested. |
+| 17 | Errors/retries | MUST / PASS for new map/correction paths: loading/empty/failure/retained data and lost acknowledgement replay. |
+| 18 | Sync status | MUST / PASS: existing real queue/reconnect tested; localized states. |
+| 19 | Support route | SHOULD / PASS: local teammate help; no invented contact or external delivery. |
+| 20 | Hosting/backups | DEFERRED: remote infrastructure explicitly prohibited; no availability/backup claim. |
+| 21 | Prepared demo | MUST / automated cycle, safe setup and recorded backup PASS; timed human rehearsal NOT TESTED. |
+| 22 | Student journey | MUST / PASS: Assessment → Practice → Reassessment → Results navigation/story. |
+| 23 | Unified profile | MAY / DEFERRED: class-bound identity cannot safely join subjects. Establish canonical membership first. |
+| 24 | Roster import | SHOULD / DEFERRED: no current class-creation flow; adds breadth without enabling demo. Resume with preview/validation/confirmation and ownership. |
+| 25 | Curriculum tags | SHOULD / DEFERRED: no authoritative grade/curriculum provenance. Obtain reviewed source taxonomy before additive fields. |
+| 26 | Pilot controls | MAY / DEFERRED: recovery, retention/deletion and audit product flows exceed local scope; existing role checks retained. |
+| 27 | Accessible assessment/practice | MUST / native semantics, keyboard/focus/mobile checks PASS; human screen reader/zoom audit NOT TESTED. |
+| 28 | Synthetic reset | MUST safeguard / fresh-run isolation PASS; destructive reset DEFERRED because marker/name cannot prove every row is synthetic. Start a new run. |
+| 29 | Deployment | DEFERRED: no remote deployment authorized. |
+| 30 | School overview | MAY / DEFERRED: no school/admin authorization boundary. Establish tenancy before aggregates. |
+| 31 | Usefulness feedback | SHOULD / DEFERRED: no general feedback ownership/aggregation model and no adequate sample. Keep it separate from educator reference labels. |
+
+Missing-data/capability deferrals: educator reference set, stable cross-subject
+identity, school tenancy, curriculum provenance, class-creation flow and a safe
+mixed-database reset boundary. Hackathon cuts: general feedback product/pilot
+controls and production infrastructure. The impact and safe resume path are in
+the table; none is represented by a nonfunctional UI shell.
+
+## Evaluation and localization/accessibility limits
+
+Independent dataset size **0**, educator-labeled references **0**, held-out size
+**0**. Existing CSV/ground-truth examples are engineering-authored synthetic
+development material, not real classroom outcomes or independent educator labels.
+The majority-label baseline is defined from development references before held-out
+scoring; no baseline score is computed without data. Exact-match denominator keeps
+all held-out records, including abstentions, malformed/missing outputs and provider
+failures. Those output categories remain separate. Per-label support/F1, confusion,
+subject/language counts, metadata and dataset digest are available for future
+recorded runs. Nine deterministic tests use test-only synthetic fixtures to validate loader/accounting behavior;
+they are not a project accuracy claim. No provider call or external upload occurs.
+
+Language catalog checks: PASS for en/hi/te, 689 keys with interpolation parity.
+360px map screenshots were inspected, including Telugu wrapping; desktop saved
+progress was inspected at 1280px. Keyboard Enter selects concepts, Escape closes
+drawers and focus returns; native labeled forms and status/alert semantics are
+used. Existing reduced-motion and offline acceptance tests pass. Token contrast
+calculations on light surfaces: body 14.72:1, secondary 7.58:1, brand 6.84:1 and
+focus against app background 7.97:1. These are sampled token checks, not a full
+accessibility conformance audit. Human screen-reader testing, all-theme contrast,
+200% zoom, real Android/network throttling and educator language review: NOT TESTED.
+
+## Architecture, storage and tooling
+
+No new runtime dependencies, cloud infrastructure, message queues, global store,
+chart library, schema fields or migration were added. Existing APIs persist all
+mutations. Additive endpoints/read schemas are documented in API_CONTRACT.json
+and API_INVENTORY.md. Existing architecture/limitations/database/demo/install/
+language/privacy/evaluation docs were updated; FEATURE_IDEAS.md was not edited.
+
+Skills actually used: brainstorming (scope from the detailed user contract; its
+extra approval workflow was overridden by the user's explicit autonomous-execution
+instruction), frontend-design (existing quiet teacher UI/tokens), frontend-a11y
+(native controls/focus/status), api-design (bounded additive read APIs), security-review
+(class ownership/source privacy), test-driven-development (failing acceptance checks),
+systematic-debugging (baseline race and drawer reconciliation), python-patterns
+(Pydantic/explicit errors/local scripts), verification-before-completion (observed
+checks), and plugin-management (requested Ponytail lookup). No skills were installed.
+No dedicated FastAPI skill was available; repository conventions were used.
+
+Tools/packages actually used: exec_command/apply_patch for local inspection/edits;
+existing pytest/FastAPI TestClient/SQLAlchemy/Pydantic for real local API tests;
+existing npm/Vite/oxlint/Playwright for production UI/offline rehearsal and recordings;
+view_image for visual inspection; ffprobe for recorded-media validation; Codex app
+open_in_codex for a queued local preview; plugin-management search for Ponytail.
+No subagents, remote review service, live provider request or deployment tool was used.
+
+Ponytail was requested during implementation. No tool, installed skill or command
+was found, and plugin searches for Ponytail and Pony Tail returned no matches.
+**Ponytail was not used.** Its exact plugin-directory link is needed to identify
+and connect it; no substitute plugin was installed or falsely attributed.
+
+## Files changed
+
+Frontend changes add the map, shared review UI, source chronology, guide and localized states; backend changes add read-only projections and membership validation. Tests cover the real persistence boundaries. Provider prompts/adapters and classroom datasets were not changed. New demo/evaluation scripts remain local.
+
+### Frontend
+
+- [frontend/src/App.jsx](../frontend/src/App.jsx)
+- [frontend/src/components/AppShell.jsx](../frontend/src/components/AppShell.jsx)
+- [frontend/src/components/DiagnosisReview.jsx](../frontend/src/components/DiagnosisReview.jsx)
+- [frontend/src/components/PageStates.jsx](../frontend/src/components/PageStates.jsx)
+- [frontend/src/components/StudentJourney.jsx](../frontend/src/components/StudentJourney.jsx)
+- [frontend/src/i18n/I18nProvider.jsx](../frontend/src/i18n/I18nProvider.jsx)
+- [frontend/src/i18n/en.json](../frontend/src/i18n/en.json)
+- [frontend/src/i18n/hi.json](../frontend/src/i18n/hi.json)
+- [frontend/src/i18n/te.json](../frontend/src/i18n/te.json)
+- [frontend/src/pages/Assessment.jsx](../frontend/src/pages/Assessment.jsx)
+- [frontend/src/pages/Intervention.jsx](../frontend/src/pages/Intervention.jsx)
+- [frontend/src/pages/LearningEvidence.jsx](../frontend/src/pages/LearningEvidence.jsx)
+- [frontend/src/pages/LearningLab.jsx](../frontend/src/pages/LearningLab.jsx)
+- [frontend/src/pages/MisconceptionMap.css](../frontend/src/pages/MisconceptionMap.css)
+- [frontend/src/pages/MisconceptionMap.jsx](../frontend/src/pages/MisconceptionMap.jsx)
+- [frontend/src/pages/StudentDashboard.jsx](../frontend/src/pages/StudentDashboard.jsx)
+- [frontend/src/pages/StudentProgress.jsx](../frontend/src/pages/StudentProgress.jsx)
+- [frontend/src/pages/TeacherDashboard.jsx](../frontend/src/pages/TeacherDashboard.jsx)
+- [frontend/src/pages/WorkflowGuide.jsx](../frontend/src/pages/WorkflowGuide.jsx)
+- [frontend/src/services/learningApi.js](../frontend/src/services/learningApi.js)
+
+### Backend / AI boundary
+
+- [backend/app/main.py](../backend/app/main.py)
+- [backend/app/routes/groups.py](../backend/app/routes/groups.py)
+- [backend/app/routes/health.py](../backend/app/routes/health.py)
+- [backend/app/routes/misconception_map.py](../backend/app/routes/misconception_map.py)
+- [backend/app/schemas/misconception_map.py](../backend/app/schemas/misconception_map.py)
+- [backend/app/services/auth_service.py](../backend/app/services/auth_service.py)
+- [backend/app/services/intervention_service.py](../backend/app/services/intervention_service.py)
+- [backend/app/services/journey_service.py](../backend/app/services/journey_service.py)
+- [backend/app/services/misconception_map_service.py](../backend/app/services/misconception_map_service.py)
+- [backend/scripts/heldout_evaluation.py](../backend/scripts/heldout_evaluation.py)
+- [backend/scripts/run_map_demo.py](../backend/scripts/run_map_demo.py)
+
+### Tests and verification scripts
+
+- [backend/tests/test_heldout_evaluation.py](../backend/tests/test_heldout_evaluation.py)
+- [backend/tests/test_map_demo.py](../backend/tests/test_map_demo.py)
+- [backend/tests/test_misconception_map.py](../backend/tests/test_misconception_map.py)
+- [frontend/demo-tests/fractions-demo.spec.js](../frontend/demo-tests/fractions-demo.spec.js)
+- [frontend/playwright.demo.config.js](../frontend/playwright.demo.config.js)
+- [frontend/tests/atelier.spec.js](../frontend/tests/atelier.spec.js)
+- [frontend/tests/learning-intelligence.spec.js](../frontend/tests/learning-intelligence.spec.js)
+- [frontend/tests/misconception-map.spec.js](../frontend/tests/misconception-map.spec.js)
+- [scripts/check-i18n.mjs](../scripts/check-i18n.mjs)
+- [scripts/run_quiz_test_api.py](../scripts/run_quiz_test_api.py)
+
+### Data / local report
+
+- [docs/evaluation-status.json](../docs/evaluation-status.json)
+
+### Documentation / synthetic media
+
+- [README.md](../README.md)
+- [docs/API_CONTRACT.json](../docs/API_CONTRACT.json)
+- [docs/API_INVENTORY.md](../docs/API_INVENTORY.md)
+- [docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md)
+- [docs/DEMO_GUIDE.md](../docs/DEMO_GUIDE.md)
+- [docs/EVALUATION_METHODOLOGY.md](../docs/EVALUATION_METHODOLOGY.md)
+- [docs/FINAL_IMPLEMENTATION_REPORT.md](../docs/FINAL_IMPLEMENTATION_REPORT.md)
+- [docs/INSTALLATION.md](../docs/INSTALLATION.md)
+- [docs/KNOWN_LIMITATIONS.md](../docs/KNOWN_LIMITATIONS.md)
+- [docs/MULTILINGUAL_SUPPORT.md](../docs/MULTILINGUAL_SUPPORT.md)
+- [docs/PRIVACY_AND_SAFETY.md](../docs/PRIVACY_AND_SAFETY.md)
+- [docs/database_design.md](../docs/database_design.md)
+- [docs/three-minute-demo.md](../docs/three-minute-demo.md)
+- [docs/upgrade-evidence/map-journey/2026-11-05-synthetic-fractions-mock.webm](../docs/upgrade-evidence/map-journey/2026-11-05-synthetic-fractions-mock.webm)
+- [docs/upgrade-evidence/map-journey/README.md](../docs/upgrade-evidence/map-journey/README.md)
+- [docs/upgrade-evidence/map-journey/map-en-360.png](../docs/upgrade-evidence/map-journey/map-en-360.png)
+- [docs/upgrade-evidence/map-journey/map-hi-360.png](../docs/upgrade-evidence/map-journey/map-hi-360.png)
+- [docs/upgrade-evidence/map-journey/map-te-360.png](../docs/upgrade-evidence/map-journey/map-te-360.png)
+- [docs/upgrade-evidence/map-journey/saved-progress.png](../docs/upgrade-evidence/map-journey/saved-progress.png)
+
+## Final acceptance checklist
+
+| Acceptance item | Status / evidence |
+|---|---|
+| Phase 0 before edits | PASS: clean-tree read-only audit and user-facing report preceded implementation. |
+| Verified structure / no unnecessary rewrite | PASS: existing routers/services/components retained; changes are additive and focused. |
+| Authorized persisted map data | PASS: API and required-auth isolation tests. |
+| Count reconciliation | PASS: source totals/latest attempts/multiple suggestions and correction tests. |
+| Evidence attribution | PASS: original response, quote, AI explanation and correction fields distinct. |
+| Defined uncertainty | PASS: code/status/threshold/missing-quote rule documented; no calibration claim. |
+| Discoverable persisted correction | PASS: map and shared Learning Evidence UI; confirmed/reloaded/idempotent. |
+| Original AI output preserved | PASS: API and browser assertions. |
+| Discoverable group review | PASS: concept-specific route and existing member/review UI. |
+| Approval membership/authorization | PASS: foreign-member/credential tests; group minimum two. |
+| Teacher-selected support persistence | PASS: existing explicit group confirmation and fresh-demo assignment. |
+| Actionable attention counts | PASS: SQL counts and readiness transition tests. |
+| Persisted reassessment readiness | PASS: completed assignment + absent/pending result; no elapsed-time inference. |
+| Linked student story | PASS: source/assignment/result IDs and reload; response-to-assignment FK absence disclosed. |
+| No causal story claim | PASS: explicit UI/doc caveat; existing sample-size context preserved. |
+| AI/teacher decisions distinct | PASS: suggested/reviewed/corrected/approved labels reflect actual persisted records. |
+| Feedback does not mutate diagnoses | DEFERRED: no new feedback persistence implemented. |
+| Accurate student-data explanation | PASS: guide reflects actual DB/provider/IndexedDB handling. |
+| Educator evaluation provenance/labels | NOT TESTED: no approved references supplied. |
+| Untuned held-out records | NOT TESTED for a real set; tooling rejection checks PASS. |
+| Same baseline/model held-out items | NOT TESTED for a real set; hand-counted accounting tests PASS. |
+| Report counts/limitations | PASS: zero counts and null metrics; future report carries support and limitations. |
+| Separate uncertain/invalid/provider failure | PASS for tooling tests; educational run NOT TESTED. |
+| All new strings en/hi/te | PASS: key and interpolation/empty checks; human review NOT TESTED. |
+| Missing translations visible/detected | PASS: checker plus development missing-key marker. |
+| Keyboard/screen-reader semantics | PASS for native labels/status/keyboard/focus automation; human screen reader NOT TESTED. |
+| Accessible chart information | PASS: bars and semantic concept list share the same counts. |
+| Offline status matches queue/server | PASS: production offline/reload/reconnect acceptance tests. |
+| Saved/queued/unknown messages | PASS in tested new flows and localized existing queue. |
+| Retry duplication protection | PASS: real server save followed by lost acknowledgement and same-command retry. |
+| Safe status payload | PASS: configuration-only provider status, no secrets or raw diagnostics. |
+| Honest local support route | PASS: no invented contact or delivery claim. |
+| Visible synthetic demo labeling | PASS: class and guide/recording labels; no precomputed suggestions. |
+| Reset cannot touch real data | PASS for exclusive fresh-run alternative; destructive reset DEFERRED. |
+| Real demo auth/persistence path | PASS: actual demo role entry, ordinary APIs and reload; demo auth limitation disclosed. |
+| Backup visibly recorded | PASS: recording named/linked with date, mock provenance and limits. |
+| Remote hosting/backups out of scope | PASS: no push, remote deployment or backup claim. |
+| Stable unified identity | DEFERRED: no cross-subject profile added. |
+| CSV preview/confirmation | DEFERRED: roster import not added. |
+| Reliable curriculum provenance | DEFERRED: curriculum fields not added. |
+| School authorization | DEFERRED: no school aggregates added. |
+| Feature docs match implementation | PASS: current sections distinguish implemented/deferred/untested behavior. |
+| Limitations updated | PASS: educator, language, confidence, offline, identity and demo limits explicit. |
+| Exact demo setup/recovery | PASS: actual labels/routes/start command and recorded fallback. |
+| DB docs match migrations | PASS: no migration added, head remains 0007. |
+| Observed checks in report | PASS: commands/counts/exits and unavailable checks distinguished. |
+| No unrelated cleanup/generated churn | PASS: diff reviewed; intentional OpenAPI additions and synthetic backup media only. |
+
+How to demo, exact actions and recovery: DEMO_GUIDE.md. The local command was
+executed successfully; it serves only the fresh synthetic database. Running the
+command while those default ports are occupied will refuse the API port; stop the
+previous run or choose distinct ports before creating another run.
+
+No remote push, commit, PR, deployment or external student/evaluation data upload
+occurred. Existing user work and e99adf5/FEATURE_IDEAS.md were preserved.
+
+```bash
+cd '/home/harshithkashyap/Desktop/open quest/openpost/backend'
+python -m scripts.run_map_demo
+```
+
+---
+
+# Historical implementation report (retained verbatim)
+
+The following report describes an earlier upgrade. Its date, commit references,
+counts and acceptance verdict are historical; the current status is above.
+
 # ClassPulse AI — final implementation report
 
 Date: 2026-11-03. **Verdict: READY WITH LIMITATIONS for a local, synthetic core

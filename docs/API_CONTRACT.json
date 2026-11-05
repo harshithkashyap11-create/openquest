@@ -3236,6 +3236,255 @@
           }
         }
       }
+    },
+    "/api/classes/{class_id}/misconception-map": {
+      "get": {
+        "tags": [
+          "misconception map"
+        ],
+        "summary": "Classroom Map",
+        "operationId": "classroom_map_api_classes__class_id__misconception_map_get",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MapSummary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/misconception-map/evidence": {
+      "get": {
+        "tags": [
+          "misconception map"
+        ],
+        "summary": "Map Evidence",
+        "operationId": "map_evidence_api_classes__class_id__misconception_map_evidence_get",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          },
+          {
+            "name": "code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 40
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Code"
+            }
+          },
+          {
+            "name": "student_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Student Id"
+            }
+          },
+          {
+            "name": "review_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Review Only"
+            }
+          },
+          {
+            "name": "uncertain_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Uncertain Only"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvidencePage"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/students/{student_id}/journey": {
+      "get": {
+        "tags": [
+          "misconception map"
+        ],
+        "summary": "Learning Journey",
+        "operationId": "learning_journey_api_students__student_id__journey_get",
+        "parameters": [
+          {
+            "name": "student_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Student Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 30,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JourneyPage"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/system-status": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "System Status",
+        "description": "Authenticated local status; no provider requests or infrastructure values.",
+        "operationId": "system_status_api_system_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -6512,6 +6761,532 @@
           "answer"
         ],
         "title": "WorkedExample"
+      },
+      "AttentionCounts": {
+        "properties": {
+          "pending_diagnoses": {
+            "type": "integer",
+            "title": "Pending Diagnoses"
+          },
+          "pending_reviews": {
+            "type": "integer",
+            "title": "Pending Reviews"
+          },
+          "uncertain": {
+            "type": "integer",
+            "title": "Uncertain"
+          },
+          "proposed_groups": {
+            "type": "integer",
+            "title": "Proposed Groups"
+          },
+          "ready_for_reassessment": {
+            "type": "integer",
+            "title": "Ready For Reassessment"
+          }
+        },
+        "type": "object",
+        "required": [
+          "pending_diagnoses",
+          "pending_reviews",
+          "uncertain",
+          "proposed_groups",
+          "ready_for_reassessment"
+        ],
+        "title": "AttentionCounts"
+      },
+      "ConceptSummary": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "response_count": {
+            "type": "integer",
+            "title": "Response Count"
+          },
+          "student_count": {
+            "type": "integer",
+            "title": "Student Count"
+          },
+          "pending_reviews": {
+            "type": "integer",
+            "title": "Pending Reviews"
+          },
+          "uncertain": {
+            "type": "integer",
+            "title": "Uncertain"
+          },
+          "reviewed": {
+            "type": "integer",
+            "title": "Reviewed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "response_count",
+          "student_count",
+          "pending_reviews",
+          "uncertain",
+          "reviewed"
+        ],
+        "title": "ConceptSummary"
+      },
+      "EvidencePage": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ResponseEvidence"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "limit",
+          "offset",
+          "items"
+        ],
+        "title": "EvidencePage"
+      },
+      "JourneyEvent": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "response",
+              "support",
+              "practice",
+              "reassessment"
+            ],
+            "title": "Kind"
+          },
+          "source_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Source Id"
+          },
+          "at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "At"
+          },
+          "assignment_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assignment Id"
+          },
+          "question_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Question Id"
+          },
+          "question_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Question Text"
+          },
+          "answer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Answer"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "correct": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Correct"
+          },
+          "total": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "kind",
+          "source_id",
+          "at"
+        ],
+        "title": "JourneyEvent"
+      },
+      "JourneyPage": {
+        "properties": {
+          "student_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Student Id"
+          },
+          "subject": {
+            "type": "string",
+            "title": "Subject"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/JourneyEvent"
+            },
+            "type": "array",
+            "title": "Events"
+          }
+        },
+        "type": "object",
+        "required": [
+          "student_id",
+          "subject",
+          "topic",
+          "total",
+          "offset",
+          "limit",
+          "events"
+        ],
+        "title": "JourneyPage"
+      },
+      "MapSummary": {
+        "properties": {
+          "class_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Class Id"
+          },
+          "subject": {
+            "type": "string",
+            "title": "Subject"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "queried_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Queried At"
+          },
+          "period_from": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Period From"
+          },
+          "period_to": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Period To"
+          },
+          "total_responses": {
+            "type": "integer",
+            "title": "Total Responses"
+          },
+          "total_students": {
+            "type": "integer",
+            "title": "Total Students"
+          },
+          "concepts": {
+            "items": {
+              "$ref": "#/components/schemas/ConceptSummary"
+            },
+            "type": "array",
+            "title": "Concepts"
+          },
+          "attention": {
+            "$ref": "#/components/schemas/AttentionCounts"
+          }
+        },
+        "type": "object",
+        "required": [
+          "class_id",
+          "subject",
+          "topic",
+          "queried_at",
+          "period_from",
+          "period_to",
+          "total_responses",
+          "total_students",
+          "concepts",
+          "attention"
+        ],
+        "title": "MapSummary"
+      },
+      "ResponseEvidence": {
+        "properties": {
+          "diagnosis_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Diagnosis Id"
+          },
+          "submission_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Submission Id"
+          },
+          "student_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Student Id"
+          },
+          "student_code": {
+            "type": "string",
+            "title": "Student Code"
+          },
+          "question_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Question Id"
+          },
+          "question_text": {
+            "type": "string",
+            "title": "Question Text"
+          },
+          "answer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Answer"
+          },
+          "student_explanation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Student Explanation"
+          },
+          "submitted_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Submitted At"
+          },
+          "suggested_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Suggested At"
+          },
+          "original_code": {
+            "type": "string",
+            "title": "Original Code"
+          },
+          "effective_code": {
+            "type": "string",
+            "title": "Effective Code"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "evidence_quote": {
+            "type": "string",
+            "title": "Evidence Quote"
+          },
+          "ai_explanation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ai Explanation"
+          },
+          "provider": {
+            "type": "string",
+            "title": "Provider"
+          },
+          "model_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model Version"
+          },
+          "uncertain": {
+            "type": "boolean",
+            "title": "Uncertain"
+          },
+          "review": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReviewEvidence"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "diagnosis_id",
+          "submission_id",
+          "student_id",
+          "student_code",
+          "question_id",
+          "question_text",
+          "answer",
+          "student_explanation",
+          "submitted_at",
+          "suggested_at",
+          "original_code",
+          "effective_code",
+          "confidence",
+          "evidence_quote",
+          "ai_explanation",
+          "provider",
+          "model_version",
+          "uncertain",
+          "review"
+        ],
+        "title": "ResponseEvidence"
+      },
+      "ReviewEvidence": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "teacher_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Teacher Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "reason",
+          "version",
+          "teacher_id",
+          "created_at"
+        ],
+        "title": "ReviewEvidence"
       }
     }
   }

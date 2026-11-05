@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
 import DemoSessionContext from './demoSessionContext';
 import api from '../services/api';
+import { classDisplayName } from '../services/classDisplayName';
 
 const STORAGE_KEY = 'classpulse.demo-session';
 
 function readSession() {
   try {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY) || 'null');
+    const session = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || 'null');
+    return session ? { ...session, className: classDisplayName(session.className, session.topic) } : null;
   } catch {
     return null;
   }
@@ -39,8 +41,9 @@ export function DemoSessionProvider({ children }) {
     () => ({
       session,
       startSession(nextSession) {
-        writeSession(nextSession);
-        setSession(nextSession);
+        const displaySession = { ...nextSession, className: classDisplayName(nextSession.className, nextSession.topic) };
+        writeSession(displaySession);
+        setSession(displaySession);
       },
       async endSession() {
         const { assertOfflineCanLogout, clearOfflineData } = await import('../services/offlineLearning');

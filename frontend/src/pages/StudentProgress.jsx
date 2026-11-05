@@ -1,4 +1,5 @@
 import Score from '../components/ui/ScoreCard';
+import StudentJourney, { JourneyNavigation } from '../components/StudentJourney';
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -42,6 +43,8 @@ export default function StudentProgress() {
         title={t('yourProgress')}
         description={t('progressDescription')}
       />
+      <JourneyNavigation />
+      <StudentJourney key={session.studentId} studentId={session.studentId} />
       <section className="metric-grid metric-grid-three">
         <MetricCard
           label={t('activitiesAssigned')}

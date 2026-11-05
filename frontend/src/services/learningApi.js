@@ -8,5 +8,8 @@ export const editLesson = async (id, payload) => (await api.patch(`/lessons/${id
 export const reviewLesson = async (id, payload) => (await api.post(`/lessons/${id}/review`, payload)).data;
 export const corrections = async (id) => (await api.get(`/diagnoses/${id}/corrections`)).data;
 export const correctDiagnosis = async (id, payload) => (await api.post(`/diagnoses/${id}/corrections`, payload)).data;
+export const misconceptionMap = async (id) => (await api.get(`/classes/${id}/misconception-map`)).data;
+export const mapEvidence = async (id, params) => (await api.get(`/classes/${id}/misconception-map/evidence`, { params })).data;
+export const studentJourney = async (id, params) => (await api.get(`/students/${id}/journey`, { params })).data;
 export const tutorHistory = async (id) => (await api.get(`/intervention-assignments/${id}/tutor`)).data;
 export const requestHint = async (id, payload) => (await api.post(`/intervention-assignments/${id}/tutor/hints`, payload, { timeout: 65000 })).data;

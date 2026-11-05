@@ -19,6 +19,8 @@ STUDENT_ROUTES = {
  'student_quizzes', 'student_quiz', 'submit_quiz', 'reflect', 'repair',
  'student_learning_state', 'student_lessons', 'lesson_detail', 'tutor_history', 'request_hint',
  'sync_practice', 'auth_me', 'logout', 'demo_classes',
+ 'learning_journey',
+ 'system_status',
 }
 
 

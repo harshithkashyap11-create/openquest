@@ -310,3 +310,19 @@ CLASSPULSE_TEST_PRODUCTION=1 npm run test:e2e
 The existing classroom workflow now connects persisted evidence, heuristic learner state, bounded learning decisions, teacher-reviewed lesson revisions, progressive template or live response-aware tutoring, and idempotent offline practice synchronization.
 
 Start with [installation](docs/INSTALLATION.md), [demo guide](docs/DEMO_GUIDE.md), [architecture](docs/ARCHITECTURE.md), and the [final implementation report](docs/FINAL_IMPLEMENTATION_REPORT.md). [Known limitations](docs/KNOWN_LIMITATIONS.md) distinguish verified behavior from independent educational evaluation and deployment work that remains. The isolated demo database never replaces the existing application database.
+
+
+## Classroom Misconception Map and fresh Fractions journey
+
+Open **Classroom Misconception Map** in teacher navigation for source-backed
+concept counts, paginated original response evidence, uncertainty and versioned
+teacher decisions. Its support action opens the existing reviewed-group flow.
+Student progress now includes saved response, assignment, practice and reassessment
+chronology. English/Hindi/Telugu interface additions are translated but have not
+received independent educator review. The new local evaluation tooling reports
+NOT TESTED until approved educator-labeled held-out records are provided.
+
+From `backend`, `python -m scripts.run_map_demo` builds and starts the isolated
+synthetic mock demonstration at http://127.0.0.1:5189. Every run uses a fresh private
+database and retains earlier runs. See [the current demo guide](docs/DEMO_GUIDE.md),
+[limitations](docs/KNOWN_LIMITATIONS.md) and [evaluation format](docs/EVALUATION_METHODOLOGY.md).

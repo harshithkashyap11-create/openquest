@@ -12,14 +12,14 @@ export function LoadingState({ label }) {
   );
 }
 
-export function ErrorState({ error, onRetry }) {
+export function ErrorState({ error, onRetry, message }) {
   const { t } = useI18n();
   return (
     <div className="page-state page-state-error" role="alert">
       <AlertCircle size={22} aria-hidden="true" />
       <div>
         <strong>{t('errorTitle')}</strong>
-        <p>{getErrorMessage(error, t('connectionError'))}</p>
+        <p>{message || getErrorMessage(error, t('connectionError'))}</p>
         {onRetry && (
           <button className="button button-secondary" onClick={onRetry}>
             {t('retry')}

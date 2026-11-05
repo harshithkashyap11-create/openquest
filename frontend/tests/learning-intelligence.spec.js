@@ -33,7 +33,7 @@ test('lesson review, publication and mobile student access preserve provenance',
   await context.close();
 });
 
-test('approved activity tutoring and offline practice synchronize to persisted evidence', async ({ page, request }) => {
+test('approved activity tutoring and offline practice synchronize to persisted evidence', async ({ page, request }, testInfo) => {
   const classes = await request.get('/api/demo/classes').then(r => r.json());
   const c = classes.find(x => x.topic === 'Fractions');
   const th = { 'X-Demo-Role': 'teacher', 'X-Class-ID': c.id };
@@ -72,7 +72,7 @@ test('approved activity tutoring and offline practice synchronize to persisted e
   await page.getByRole('button', { name: 'Save practice responses', exact: true }).click();
   await expect(page.getByText('1 responses awaiting synchronization', { exact: true })).toBeVisible();
   await expect(page.locator('.backend-status')).toHaveText('Offline learning');
-  await page.screenshot({ path: '../docs/upgrade-evidence/agentic/offline-practice-360.png', fullPage: true });
+  await page.screenshot({ path: testInfo.outputPath('offline-practice-360.png'), fullPage: true });
   await page.context().setOffline(false);
   await expect.poll(async () => {
     const r = await request.get(`/api/intervention-assignments/${assignment.id}`, { headers: sh });
@@ -82,5 +82,5 @@ test('approved activity tutoring and offline practice synchronize to persisted e
   const after = await request.get(`/api/students/${assignment.student_id}/learning-state`, { headers: sh }).then(r => r.json());
   expect(after[0].independent_evidence_count).toBe(before[0].independent_evidence_count);
   expect(after[0].hint_count).toBe(2);
-  await page.screenshot({ path: '../docs/upgrade-evidence/agentic/synchronized-practice-360.png', fullPage: true });
+  await page.screenshot({ path: testInfo.outputPath('synchronized-practice-360.png'), fullPage: true });
 });

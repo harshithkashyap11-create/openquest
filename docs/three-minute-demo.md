@@ -1,3 +1,10 @@
+# Current preferred demo
+
+Use [DEMO_GUIDE.md](DEMO_GUIDE.md) for the fresh synthetic assessment → map →
+teacher review → support → reassessment flow and the exact single startup command.
+The older interface walkthrough below remains a reference, not the current
+verified map script. A timed human three-minute rehearsal is NOT TESTED.
+
 # ClassPulse AI — a three-minute demonstration
 
 Use labeled synthetic demo records. This is demo role access, not production authentication. Keep provider provenance, uncertainty and observed sample sizes visible throughout.

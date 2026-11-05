@@ -1,3 +1,42 @@
+# Current map/journey limitations — 2026-11-05
+
+- Independent educator evaluation is **NOT TESTED**: no approved educator labels
+  or held-out source records exist. `evaluation-status.json` has zero examples and
+  null metrics. Synthetic regression tests validate software accounting only.
+- English/Hindi/Telugu interface strings have not received independent educator
+  review. Source question text, original answers and stored model text retain
+  their original language. Confidence is not calibrated.
+- The map includes latest attempts per question; historical attempts remain in
+  the student story. Existing Class Insights and grouping retain their historical
+  selection rules. Groups select a primary suggestion by confidence and may not
+  match every latest map pattern; inspect the persisted membership before approval.
+- Reviewed means a correction record exists. Legacy status-only suggestions are
+  still awaiting review on the map; the map does not invent a reviewer from a
+  teacher_reviewed status or synthetic fixture label.
+- Source responses have no explicit assignment foreign key. The story shows
+  chronological response history and actual assignment/reassessment links; it
+  cannot attribute an intervention to one specific answer or demonstrate causality.
+- The fresh demo safely starts over in a new directory. A destructive synthetic
+  reset is **DEFERRED**: a database marker cannot prove no real records were added.
+  Previous rehearsal databases are retained, never deleted automatically.
+- Feedback persistence/aggregation, roster import, curriculum provenance,
+  cross-subject profiles and school aggregates remain deferred. Current student
+  identity is class-bound; no school administrator boundary exists.
+- Demo identity is self-asserted and local only. Required-auth mode enforces
+  server identity and ownership; no account recovery, retention/deletion workflow,
+  hosting or backups were added. No production-readiness claim is made.
+- Offline support remains downloaded material and queued practice; new inference,
+  teacher decisions and reassessment require connectivity. Browser storage is
+  unencrypted, may be evicted, and conflicts require teacher review. No background
+  synchronization or fully offline claim is supported.
+- System status distinguishes configuration from reachability. Provider inference
+  is not probed by the status page. Live provider smoke and PostgreSQL execution
+  remain **NOT TESTED** in this work.
+- Human screen-reader testing, independent language review, real-device slow-network
+  testing and a timed three-minute human rehearsal remain **NOT TESTED**.
+
+The earlier upgrade's detailed limitations are retained below for context.
+
 # Known limitations and unresolved acceptance work
 
 The upgrade does not implement every requirement in the eight-part specification.

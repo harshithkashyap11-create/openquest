@@ -2,6 +2,7 @@ import { ArrowRight, BookOpenCheck, ClipboardList } from 'lucide-react';
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import PageHeader from '../components/PageHeader';
+import { JourneyNavigation } from '../components/StudentJourney';
 import {
   EmptyState,
   ErrorState,
@@ -53,6 +54,7 @@ export default function StudentDashboard() {
         title={`${t('studentGreeting')}, ${session.studentCode}`}
         description={`${session.subject || 'Mathematics'} · ${session.topic || 'Fractions'} — ${t('homeDescription')}`}
       />
+      <JourneyNavigation />
       {data.assessment.questions.length ? (
         <section className="student-welcome-card">
           <div className="welcome-icon">

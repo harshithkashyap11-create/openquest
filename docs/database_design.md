@@ -30,3 +30,18 @@ Keep `expected_label` in the offline synthetic ground-truth file only; do not ex
 Store diagnosis evidence and model/prompt version for auditability.
 
 `submissions` enforces `UNIQUE (student_id, question_id)` in the database for the current one-response-per-question dataset. Supporting multiple attempts requires a deliberate schema change, such as an `attempt_no` column and revised uniqueness constraint.
+
+
+## Map and journey read models (2026-11-05)
+
+No schema migration is required; Alembic head remains 0007_learning_intelligence.
+Map queries read existing submissions, questions, students, diagnoses and
+versioned diagnosis_corrections. Attention additionally reads group review_status,
+assignment status and reassessment status. The journey reads submissions,
+intervention_assignments, practice_responses and reassessments; its IDs identify
+those source rows. Assignments link to reassessments through assignment_id. No
+response-to-assignment link or teacher review history is invented. Corrections
+continue to append to diagnosis_corrections; original diagnosis fields are intact.
+The evaluation manifest and aggregate status report are local files, not classroom
+tables. Demo isolation is a fresh, exclusive SQLite path; an application marker
+never grants permission to delete records from a mixed database.

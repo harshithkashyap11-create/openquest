@@ -1,3 +1,113 @@
+# Current Fractions map demonstration — 2026-11-05
+
+This path uses **synthetic** source responses, local **mock/rule** suggestions and
+labeled **template** practice. It makes no external AI request and demonstrates
+software persistence, not classroom learning efficacy or live Gemini quality.
+No educator-labeled held-out dataset is available: evaluation is NOT TESTED, with
+zero examples and no computed metrics (`evaluation-status.json`).
+
+## Start from a fresh isolated run
+
+Existing Python/npm dependencies must be installed (see INSTALLATION.md). From
+the repository root, run:
+
+```bash
+cd backend
+python -m scripts.run_map_demo
+```
+
+This builds the frontend and starts the local API on 8019 and production preview
+on 5189. Open http://127.0.0.1:5189. It creates a new private directory under the
+system temporary directory; its exact database path is printed. The existing app
+DB and `.classpulse-demo` are never opened. The Fractions class contains three
+synthetic learners DEMO-01..03 and one assessment question. Five additional sample
+classes are available: Basic algebra, Force and motion, Basic electricity, Grammar,
+and Subject-verb agreement. Teachers can switch classes using the top-bar selector.
+DEMO-02 has a synthetic 2/5 response; DEMO-03 has an insufficient-evidence response.
+No diagnosis, approval, intervention or result is precomputed. DEMO-01 starts empty.
+
+This command is an explicit local demo; role selection is self-asserted, not
+production authentication. No key or connection is needed for mock inference.
+Stop with Ctrl-C. To start over, run the command again: it creates a **new** run,
+retaining the previous one. Destructive reset is not implemented. `--directory`
+accepts only a nonexistent path and always refuses existing directories/symlinks.
+Do not delete or reset any database during the presentation. If default ports are
+occupied, use `--api-port 8020 --web-port 5191`; occupied ports are refused rather
+than silently using another API. Startup does not touch source or configuration.
+
+## Three-minute narration plan
+
+The entire browser journey has a separate automated rehearsal; a timed **human**
+three-minute performance remains NOT TESTED. Prepare the two role contexts before
+the presentation if needed, and keep narration brief.
+
+| Time | Real action and persisted checkpoint |
+|---|---|
+| 0:00–0:25 | On `/login`, choose Student → Mathematics → Fractions → Fractions, enter DEMO-01, Continue as student. Open Assessment. Answer `2/5`, explain `I added the numerators and denominators.`, Submit assessment. Show **Your answers were submitted. Your teacher can now review them.** |
+| 0:25–0:50 | Sign out; choose Teacher and the same class. On Teacher Overview click **Diagnose new answers**. Show **Diagnosis finished: 3 answers reviewed.** Open **Classroom Misconception Map**. Counts come from saved latest responses; mock suggestions are visibly provider-labeled. |
+| 0:50–1:20 | Select the concept surfaced for the fraction-addition reasoning. Inspect DEMO-01's original answer, quote and original AI suggestion. Mock rules normally surface M01; do not promise that a live provider must return it. Inspect DEMO-03's follow-up signal separately if time permits. Explain model confidence is not accuracy. |
+| 1:20–1:40 | Choose a supported Teacher decision, give a review reason, Review correction → Confirm and save. Show **Teacher decision saved.** Confirming the same code is **Teacher reviewed**; choosing another is **Teacher corrected**. Original suggestion stays visible. For the prepared M01 activity path, confirm M01 after inspecting the actual evidence. |
+| 1:40–2:00 | Close the drawer. **Review groups and choose support** opens the existing filtered Interventions flow. Generate groups, View members, inspect DEMO-01/02, then Approve. Choose **Generate and assign intervention** and confirm the recipients. Assignment is saved only after the server response. |
+| 2:00–2:40 | Sign out; re-enter DEMO-01. Interventions → Open activity → Try it. Complete the three fraction questions, Check practice answers, then Finish & reassess → Finish activity and start reassessment. Submit the independent check-in. |
+| 2:40–3:00 | Open My progress. Show the saved response, assigned support, practice and reassessment events, then reload. A later result is an observation; it does not establish that support caused improvement. Finish with the teacher's remaining actionable review item and the evaluation limitation. |
+
+Preparation keys for the deterministic M01 templates: practice `5/12`, `1/2`,
+`7/8`; reassessment `11/12`, `7/10`, `13/24`. These are rehearsal notes, not student
+API answer keys. The teacher UI exposes its existing authorized key view.
+
+## Recovery and optional paths
+
+- If diagnosis fails, the assessment is already saved. Stay on Overview, inspect
+  pending work and retry; the map remains usable from persisted data. This demo
+  explicitly uses mock rules, so do not describe it as a live provider fallback.
+- If a review acknowledgement is lost, keep the same input and confirm again.
+  The correction request identity and server receipt reconcile the saved result.
+  A late refresh must not reopen a drawer that the teacher closed.
+- If group support generation fails, retain the reviewed group and retry its
+  existing action. Do not describe a generated preview as assigned until saved.
+- Reload restores saved assignment/results. For a network interruption, retain
+  answers and retry the same action. A fresh run never erases the failed run.
+- Offline practice: while online, download an assigned activity in Learning Lab.
+  Disconnect, save practice, reload, then reconnect and synchronize. The queue
+  distinguishes device-only pending, server-confirmed, sign-in and conflict
+  states. Reassessment, teacher review and new hints require connectivity.
+- Workflow, data and help opens actual local status checks, data storage guidance
+  and a local teammate support route. No report is sent externally.
+- For educator evaluation readiness, run `python -m scripts.heldout_evaluation`
+  from backend. Show NOT_TESTED and sample count 0; do not substitute regression
+  metrics for independent evaluation.
+
+The production full-suite checks cover the offline route separately. Interface
+translations are present in en/hi/te and have not received independent educator
+review. Original question/answer/model text remains in its recorded language.
+
+## Recorded backup
+
+[Recorded synthetic mock journey](upgrade-evidence/map-journey/2026-11-05-synthetic-fractions-mock.webm)
+was captured on 2026-11-05. It shows actual persisted demo operations with local
+rules/templates and accelerated browser automation, before the class selector and
+wording changes. Announce that it is recorded
+before playing it. It does not demonstrate live AI, real classroom data or human
+timing. Keep it separate from the live application result data.
+
+## Reproduce the automated fresh-demo rehearsal
+
+```bash
+cd frontend
+npm run build
+CLASSPULSE_TEST_PRODUCTION=1 npm run test:e2e -- --config=playwright.demo.config.js --output=/tmp/openpost-demo-check
+```
+
+The test uses a new disposable database, real role-selection UI, real saves,
+normal diagnosis/group/intervention APIs and server grading. Its recording is a
+recorded synthetic mock demonstration, not live inference or human timing evidence.
+
+---
+
+The previous broader lesson/tutoring demonstration is retained below as an
+alternative. Its precomputed fixtures and provider requirements differ from the
+fresh map flow above.
+
 # Reproducible three-minute demonstration
 
 Use INSTALLATION.md to initialize and start the dedicated demo. Select Mathematics

@@ -50,3 +50,18 @@ account recovery and independent security review. Audit/evidence records are ret
 indefinitely by this MVP; no automated retention or deletion policy is implemented.
 Raw provider response archives and hidden reasoning are not persisted. This is not
 a claim of HIPAA/GDPR compliance or production-grade child-safety certification.
+
+## Source-backed map, journey and isolated demo (2026-11-05)
+
+Map summary returns no answer text. Teacher evidence is paginated and class-scoped;
+student chronology returns only that student's sources, with no correction reasons.
+React renders answers as plain text. No new provider or external reporting service
+receives responses. Local system status exposes no credentials, model identifiers,
+hostnames or database URLs and makes no provider request. The guide sends no support
+report. No retention/deletion or encryption guarantee is added.
+
+The demo runner refuses every existing directory, including symlinks, and never
+opens the configured application database. Fresh runs retain previous rehearsal
+files. The SQLite application marker is informational and never authorizes reset.
+Evaluation is offline and prints aggregate results without raw response text;
+reviewer metadata must be audited independently before an educator claim is made.

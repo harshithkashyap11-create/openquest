@@ -429,6 +429,8 @@ def generate_intervention_for_group(
         raise LookupError("Learning group not found")
     if not group.teacher_approved or group.review_status != "approved":
         raise PermissionError("Teacher approval is required before generating interventions")
+    if any(member.student.class_id != group.class_id for member in group.group_members):
+        raise PermissionError("Group membership must belong to the selected class")
     code = group.misconception_code.upper()
     if is_follow_up_code(code):
         raise InterventionNotAllowedError(

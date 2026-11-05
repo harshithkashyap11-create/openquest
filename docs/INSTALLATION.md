@@ -102,3 +102,14 @@ CLASSPULSE_TEST_PRODUCTION=1 npm run test:e2e
 Browser tests start their own disposable SQLite/mock API on 8012 and frontend on
 5181. They do not require or alter the running demonstration database. Bare
 `pytest` had an environment-specific import-path failure; module invocation works.
+
+
+## Fresh map demo (2026-11-05)
+
+For the new assessment/map journey, prefer `python -m scripts.run_map_demo` from
+backend after installing the existing requirements. It builds the frontend and
+starts localhost ports 8019/5189 against a fresh private SQLite file. No new
+package, migration, cloud service or key is required. See DEMO_GUIDE.md for the
+synthetic record labels, actual buttons and recovery. Existing demo initialization
+still works; it is a different, fixture-backed walkthrough. Neither command is a
+destructive reset. Run the new command again to create another independent run.
