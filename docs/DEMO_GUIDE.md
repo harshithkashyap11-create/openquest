@@ -19,12 +19,15 @@ python -m scripts.run_map_demo
 This builds the frontend and starts the local API on 8019 and production preview
 on 5189. Open http://127.0.0.1:5189. It creates a new private directory under the
 system temporary directory; its exact database path is printed. The existing app
-DB and `.classpulse-demo` are never opened. The Fractions class contains three
-synthetic learners DEMO-01..03 and one assessment question. Five additional sample
-classes are available: Basic algebra, Force and motion, Basic electricity, Grammar,
-and Subject-verb agreement. Teachers can switch classes using the top-bar selector.
-DEMO-02 has a synthetic 2/5 response; DEMO-03 has an insufficient-evidence response.
-No diagnosis, approval, intervention or result is precomputed. DEMO-01 starts empty.
+DB and `.classpulse-demo` are never opened. All six classes have 40 roster entries.
+The Fractions class has learners DEMO-01..40 and five assessment questions.
+DEMO-04..40 have complete answer sets with varied misconception patterns across
+M01-M05; their diagnoses are not stored in advance. Basic algebra, Force and motion,
+Basic electricity, Grammar, and Subject-verb agreement each retain six original
+sampled learners with answers and add 34 roster-only learners. Teachers can switch
+classes using the top-bar selector. DEMO-02 has an original 2/5 response; DEMO-03
+has an insufficient-evidence response. No diagnosis, approval, intervention or
+result is precomputed. DEMO-01 starts empty.
 
 This command is an explicit local demo; role selection is self-asserted, not
 production authentication. No key or connection is needed for mock inference.
@@ -43,8 +46,8 @@ the presentation if needed, and keep narration brief.
 
 | Time | Real action and persisted checkpoint |
 |---|---|
-| 0:00–0:25 | On `/login`, choose Student → Mathematics → Fractions → Fractions, enter DEMO-01, Continue as student. Open Assessment. Answer `2/5`, explain `I added the numerators and denominators.`, Submit assessment. Show **Your answers were submitted. Your teacher can now review them.** |
-| 0:25–0:50 | Sign out; choose Teacher and the same class. On Teacher Overview click **Diagnose new answers**. Show **Diagnosis finished: 3 answers reviewed.** Open **Classroom Misconception Map**. Counts come from saved latest responses; mock suggestions are visibly provider-labeled. |
+| 0:00–0:25 | On `/login`, choose Student → Mathematics → Fractions → Fractions, enter DEMO-01, Continue as student. Complete the five-question assessment with the learner's own reasoning and submit. Show **Your answers were submitted. Your teacher can now review them.** |
+| 0:25–0:50 | Sign out; choose Teacher and the same class. On Teacher Overview click **Diagnose new answers**. Each action processes up to 20 answers; repeat until the prepared queue is reviewed. Open **Classroom Misconception Map**. Counts come from saved responses; mock suggestions are visibly provider-labeled. |
 | 0:50–1:20 | Select the concept surfaced for the fraction-addition reasoning. Inspect DEMO-01's original answer, quote and original AI suggestion. Mock rules normally surface M01; do not promise that a live provider must return it. Inspect DEMO-03's follow-up signal separately if time permits. Explain model confidence is not accuracy. |
 | 1:20–1:40 | Choose a supported Teacher decision, give a review reason, Review correction → Confirm and save. Show **Teacher decision saved.** Confirming the same code is **Teacher reviewed**; choosing another is **Teacher corrected**. Original suggestion stays visible. For the prepared M01 activity path, confirm M01 after inspecting the actual evidence. |
 | 1:40–2:00 | Close the drawer. **Review groups and choose support** opens the existing filtered Interventions flow. Generate groups, View members, inspect DEMO-01/02, then Approve. Choose **Generate and assign intervention** and confirm the recipients. Assignment is saved only after the server response. |

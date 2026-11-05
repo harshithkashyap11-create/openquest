@@ -137,10 +137,12 @@ the identical held-out denominator. No dataset is uploaded. Current independent
 evaluation is NOT TESTED because no approved educator references were supplied.
 
 The fresh demo (`scripts.run_map_demo`) creates a new private directory and SQLite
-file, migrates it, seeds three visibly synthetic learners and two source responses
-through the real assessment service, and leaves all suggestions absent. The live
-presentation student submits the third response in the UI; diagnosis and subsequent
-steps follow the normal local mock pipeline. Existing directories are always
+file, migrates it, seeds six classes of 40 learners, five Fractions assessment
+questions and varied Fractions source responses through the real assessment service,
+and leaves new diagnoses absent. The other classes retain their existing six sample
+learners with responses and add 34 roster-only learners. The presentation student
+can submit additional responses in the UI; diagnosis and subsequent steps follow
+the normal local mock pipeline. Existing directories are always
 refused. Starting again creates a new run and retains the previous one; there is
 no destructive reset capability. The API owns its listening socket so port conflicts
 cannot silently send the frontend to a different database.

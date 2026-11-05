@@ -4,6 +4,8 @@ import sqlite3
 import subprocess
 import sys
 
+from app.services.diagnosis_provider import RuleBasedDiagnosisProvider
+
 BACKEND = Path(__file__).resolve().parents[1]
 
 
@@ -24,8 +26,42 @@ def test_fresh_demo_includes_all_previously_available_topics_without_precomputed
             ('English', 'Grammar'), ('English', 'Subject-verb agreement'),
         }
         assert db.execute('SELECT COUNT(DISTINCT teacher_id) FROM classes').fetchone()[0] == 1
-        assert db.execute("SELECT count(*) FROM students WHERE student_code LIKE 'DEMO-%'").fetchone()[0] == 3
-        assert db.execute("SELECT count(*) FROM submissions JOIN students ON submissions.student_id = students.id WHERE students.student_code LIKE 'DEMO-%'").fetchone()[0] == 2
+        rosters = dict(db.execute("""
+            SELECT classes.topic, count(students.id)
+            FROM classes LEFT JOIN students ON students.class_id = classes.id
+            GROUP BY classes.id
+        """))
+        assert rosters == {
+            'Fractions': 40, 'Basic algebra': 40, 'Force and motion': 40,
+            'Basic electricity': 40, 'Grammar': 40, 'Subject-verb agreement': 40,
+        }
+        assert db.execute("SELECT count(*) FROM questions WHERE subject='Mathematics' AND topic='Fractions'").fetchone()[0] == 5
+        new_student_rows = db.execute("""
+            SELECT students.student_code, questions.question_text, questions.correct_answer,
+                   submissions.answer, submissions.explanation
+            FROM submissions
+            JOIN students ON submissions.student_id = students.id
+            JOIN questions ON submissions.question_id = questions.id
+            JOIN classes ON classes.id = students.class_id
+            WHERE classes.topic='Fractions'
+              AND students.student_code BETWEEN 'DEMO-04' AND 'DEMO-40'
+        """).fetchall()
+        assert len(new_student_rows) == 37 * 5
+        diagnosed_students = {}
+        student_patterns = {}
+        provider = RuleBasedDiagnosisProvider()
+        for student_code, question, correct_answer, answer, explanation in new_student_rows:
+            diagnosis = provider.diagnose(question=question, correct_answer=correct_answer,
+                answer=answer, explanation=explanation)
+            if diagnosis.misconception_code in {'M01', 'M02', 'M03', 'M04', 'M05'}:
+                diagnosed_students.setdefault(diagnosis.misconception_code, set()).add(student_code)
+                student_patterns.setdefault(student_code, set()).add(diagnosis.misconception_code)
+        assert {code: len(students) for code, students in diagnosed_students.items()} == {
+            'M01': 8, 'M02': 8, 'M03': 7, 'M04': 7, 'M05': 7,
+        }
+        assert set(student_patterns) == {f'DEMO-{number:02d}' for number in range(4, 41)}
+        assert all(len(patterns) == 1 for patterns in student_patterns.values())
+        assert db.execute("SELECT count(*) FROM submissions JOIN students ON submissions.student_id = students.id JOIN classes ON classes.id=students.class_id WHERE classes.topic='Fractions' AND students.student_code BETWEEN 'DEMO-04' AND 'DEMO-40'").fetchone()[0] == 185
         assert db.execute('PRAGMA foreign_key_check').fetchall() == []
     # Re-running may not erase the first rehearsal.
     assert prepare(target).returncode != 0
@@ -54,6 +90,10 @@ def test_restore_other_classes_on_existing_demo_preserves_saved_answers(tmp_path
         after = db.execute("SELECT students.student_code, submissions.answer FROM submissions JOIN students ON submissions.student_id = students.id WHERE students.student_code LIKE 'DEMO-%' ORDER BY students.student_code").fetchall()
         assert before == after
         assert db.execute('SELECT count(*) FROM classes').fetchone()[0] == 6
+        assert set(db.execute("SELECT classes.topic, count(students.id) FROM classes LEFT JOIN students ON students.class_id=classes.id GROUP BY classes.id")) == {
+            ('Fractions', 40), ('Basic algebra', 40), ('Force and motion', 40),
+            ('Basic electricity', 40), ('Grammar', 40), ('Subject-verb agreement', 40),
+        }
 
 
 def test_restore_classes_refuses_unmarked_database(tmp_path):
