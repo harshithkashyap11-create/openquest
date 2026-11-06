@@ -1,4 +1,10 @@
 {
+  "studentWorkTitle": "Your learning",
+  "studentWorkUnavailable": "Some learning items could not be loaded. Try refreshing.",
+  "studentWorkEmpty": "No quizzes, available activities, or accessible lessons right now.",
+  "studentWork_quiz": "Quiz",
+  "studentWork_activity": "Classroom activity",
+  "studentWork_lesson": "Accessible lesson",
   "brand": "ClassPulse",
   "brandTagline": "Classroom learning insights",
   "language": "Language",

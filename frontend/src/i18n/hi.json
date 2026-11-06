@@ -1,4 +1,10 @@
 {
+  "studentWorkTitle": "आपकी पढ़ाई",
+  "studentWorkUnavailable": "कुछ शिक्षण सामग्री लोड नहीं हो सकी। फिर से रीफ़्रेश करें।",
+  "studentWorkEmpty": "अभी कोई क्विज़, उपलब्ध गतिविधि या सुलभ पाठ नहीं है।",
+  "studentWork_quiz": "क्विज़",
+  "studentWork_activity": "कक्षा गतिविधि",
+  "studentWork_lesson": "सुलभ पाठ",
   "brand": "क्लासपल्स",
   "brandTagline": "कक्षा सीखने की जानकारी",
   "language": "भाषा",

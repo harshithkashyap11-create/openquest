@@ -1,4 +1,10 @@
 {
+  "studentWorkTitle": "మీ అభ్యాసం",
+  "studentWorkUnavailable": "కొన్ని అభ్యాస అంశాలను లోడ్ చేయలేకపోయాము. మళ్లీ రిఫ్రెష్ చేయండి.",
+  "studentWorkEmpty": "ప్రస్తుతం క్విజ్‌లు, అందుబాటులో ఉన్న కార్యకలాపాలు లేదా సులభ పాఠాలు లేవు.",
+  "studentWork_quiz": "క్విజ్",
+  "studentWork_activity": "తరగతి కార్యకలాపం",
+  "studentWork_lesson": "సులభ పాఠం",
   "brand": "క్లాస్‌పల్స్",
   "brandTagline": "తరగతి అభ్యాస సమాచారం",
   "language": "భాష",

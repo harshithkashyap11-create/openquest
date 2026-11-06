@@ -2,6 +2,7 @@ import { ArrowRight, BookOpenCheck, ClipboardList } from 'lucide-react';
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import PageHeader from '../components/PageHeader';
+import StudentWork from '../components/StudentWork';
 import { JourneyNavigation } from '../components/StudentJourney';
 import {
   EmptyState,
@@ -111,6 +112,8 @@ export default function StudentDashboard() {
           <EmptyState title={t('noAssessmentQuestions')} />
         </section>
       )}
+
+      <StudentWork studentId={session.studentId} />
 
       <section className="panel">
         <div className="panel-heading">
