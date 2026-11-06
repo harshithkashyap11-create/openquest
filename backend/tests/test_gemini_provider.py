@@ -75,6 +75,17 @@ def test_native_gemini_transport_uses_header_key_and_json_generation():
     assert payload["contents"][0]["parts"][0]["text"] == "Explain fractions as JSON."
 
 
+def test_native_gemini_transport_accepts_explicit_inline_media():
+    from app.services.gemini_client import GeminiChatClient
+    def handler(request):
+        parts = json.loads(request.content)['contents'][0]['parts']
+        assert parts[1]['inlineData'] == {'mimeType': 'image/png', 'data': 'aGVsbG8='}
+        return httpx.Response(200, json=completion({'reply': 'Compare equal parts.'}))
+    with httpx.Client(transport=httpx.MockTransport(handler)) as http:
+        client = GeminiChatClient(api_key='fake-key', model='gemini-3.1-flash-lite', client=http)
+        assert json.loads(client.complete_json(prompt='Review the supplied drawing.', temperature=0.2, attachments=[{'mimeType': 'image/png', 'data': 'aGVsbG8='}]))['reply'] == 'Compare equal parts.'
+
+
 @pytest.mark.parametrize(
     "status,exception",
     [

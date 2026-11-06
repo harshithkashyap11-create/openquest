@@ -145,6 +145,11 @@ def extract_classroom_context(
                            'reflected_students': q['reflected_students'], 'uncertain_students': q['uncertain_students'],
                            'themes': q['themes']} for q in report['questions']]})
 
+    from app.services.studio_service import class_report
+    studio = class_report(db, class_id)
+    studio_summary = {'submitted_students': studio['submitted_students'], 'saved_attempts': len(studio['work']),
+                      'standards': studio['standards'][:80], 'note': studio['note']}
+
     summary = ClassContextSummary(
         class_id=classroom.id,
         class_name=classroom.class_name,
@@ -166,6 +171,7 @@ def extract_classroom_context(
         approved_groups_count=len(approved_groups),
         assigned_interventions_count=assigned_interventions_count,
         quiz_reports=quiz_reports,
+        studio_report=studio_summary,
     )
 
     # Build grounded text block for model consumption
@@ -216,4 +222,8 @@ def extract_classroom_context(
         import json
         grounding_lines.append("PUBLISHED QUIZ EVIDENCE (separate from baseline assessments; themes are tentative, not diagnoses):")
         grounding_lines.append(json.dumps(quiz_reports, ensure_ascii=False))
+    if studio_summary['saved_attempts']:
+        import json
+        grounding_lines.append('CLASSROOM STUDIO: observed latest-attempt points; pending reviews do not establish mastery. No audio or drawing has been analyzed.')
+        grounding_lines.append(json.dumps(studio_summary, ensure_ascii=False))
     return summary, "\n".join(grounding_lines)

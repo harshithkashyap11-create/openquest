@@ -58,7 +58,7 @@ export default function AppShell({ role }) {
   const [retryHealth, setRetryHealth] = useState(0);
   const mounted = useRef(false);
   const isTeacher = role === 'teacher';
-  const subjectClasses = classes.filter(item => item.subject === (session.teachingSubject || session.subject));
+  const subjectClasses = session.courses || classes.filter(item => item.subject === (session.teachingSubject || session.subject));
   const links = isTeacher
     ? [
         {
@@ -67,6 +67,7 @@ export default function AppShell({ role }) {
           icon: Activity,
         },
         { to: '/teacher/quizzes', label: t('quizzes'), icon: BookOpenCheck },
+        { to: '/teacher/studio', label: t('classroomStudio'), icon: BookOpenCheck },
         { to: '/teacher/map', label: t('mapTitle'), icon: UsersRound },
         { to: '/teacher/guide', label: t('mapGuide'), icon: BookOpenCheck },
         { to: '/teacher/learning', label: t('learningEvidence'), icon: Sprout },
@@ -99,6 +100,7 @@ export default function AppShell({ role }) {
           icon: GraduationCap,
         },
         { to: '/student/quizzes', label: t('quizzes'), icon: BookOpenCheck },
+        { to: '/student/studio', label: t('classroomStudio'), icon: BookOpenCheck },
         { to: '/student/learning', label: t('learningLab'), icon: Sprout },
         { to: '/student/guide', label: t('mapGuide'), icon: BookOpenCheck },
         {
@@ -215,6 +217,7 @@ export default function AppShell({ role }) {
               </Link>
             );
           })}
+          {session.courses && <Link className="nav-link" to="/courses" onClick={() => setMenuOpen(false)}><GraduationCap size={20} aria-hidden="true" /><span className="nav-label">{t('myCourses')}</span></Link>}
         </nav>
         <div className="sidebar-bottom">
           <button
@@ -267,12 +270,12 @@ export default function AppShell({ role }) {
           </button>
           <div className="topbar-class">
             <span className="topbar-dot" aria-hidden="true" />
-            {isTeacher ? (
+            {isTeacher || session.courses ? (
               <span>
                 {subjectClasses.length > 1 ? (
                   <select aria-label={t('chooseClass')} value={session.classId} onChange={event => {
                     const selected = subjectClasses.find(item => item.id === event.target.value);
-                    if (selected) startSession({ ...session, classId: selected.id, className: selected.class_name, subject: selected.subject, topic: selected.topic });
+                    if (selected) startSession({ ...session, classId: selected.id, className: selected.class_name, subject: selected.subject, topic: selected.topic, studentId: selected.student_id || session.studentId, studentCode: selected.student_code || session.studentCode });
                   }}>
                     {subjectClasses.map(item => <option value={item.id} key={item.id}>{classDisplayName(item.class_name, item.topic)}</option>)}
                   </select>

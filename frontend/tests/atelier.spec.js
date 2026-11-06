@@ -424,39 +424,22 @@ for (const [name, capabilities, lite] of [
     );
   });
 
-test('teacher and student role entry use the real catalog and server student resolution', async ({
-  page,
-  request,
-}) => {
-  const session = await demo(request, 'student');
+test('teacher and student entry use usernames and select their courses after login', async ({ page }) => {
   await page.goto('/login');
-  await page.getByRole('button', { name: /Teacher/ }).click();
-  await page
-    .getByLabel('Choose subject', { exact: true })
-    .selectOption('Mathematics');
-  await page
-    .getByLabel('Choose topic', { exact: true })
-    .selectOption('Fractions');
-  await page
-    .getByLabel('Choose class', { exact: true })
-    .selectOption(session.classId);
-  await page.getByRole('button', { name: /Open teacher dashboard/ }).click();
+  await page.getByRole('button', { name: 'Teacher', exact: true }).click();
+  await page.getByLabel('Username', { exact: true }).fill('math1');
+  await page.getByLabel('Password', { exact: true }).fill('*');
+  await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+  await expect(page).toHaveURL(/courses/);
+  await page.getByRole('button', { name: 'Open Fractions', exact: true }).click();
   await expect(page).toHaveURL(/teacher\/overview/);
   await page.getByRole('button', { name: 'Sign out', exact: true }).click();
-  await page.getByRole('button', { name: /Student/ }).click();
-  await page
-    .getByLabel('Choose subject', { exact: true })
-    .selectOption('Mathematics');
-  await page
-    .getByLabel('Choose topic', { exact: true })
-    .selectOption('Fractions');
-  await page
-    .getByLabel('Choose class', { exact: true })
-    .selectOption(session.classId);
-  await page
-    .getByLabel('Student code', { exact: true })
-    .fill(session.studentCode);
-  await page.getByRole('button', { name: /Continue as student/ }).click();
+  await page.getByRole('button', { name: 'Student', exact: true }).click();
+  await page.getByLabel('Username', { exact: true }).fill('S1');
+  await page.getByLabel('Password', { exact: true }).fill('a');
+  await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+  await expect(page).toHaveURL(/courses/);
+  await page.getByRole('button', { name: 'Open Fractions', exact: true }).click();
   await expect(page).toHaveURL(/student\/dashboard/);
 });
 

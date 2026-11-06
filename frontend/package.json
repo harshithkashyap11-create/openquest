@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "test:unit": "node --test unit/*.test.js",
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
@@ -13,7 +14,9 @@
   },
   "dependencies": {
     "axios": "^1.21.0",
+    "jsqr": "^1.4.0",
     "lucide-react": "^1.66.0",
+    "qrcode": "^1.5.4",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "react-router-dom": "^7.18.5",

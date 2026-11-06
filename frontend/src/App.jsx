@@ -25,6 +25,8 @@ const Assessment = lazy(() => import('./pages/Assessment'));
 const ClassInsights = lazy(() => import('./pages/ClassInsights'));
 const Intervention = lazy(() => import('./pages/Intervention'));
 const Login = lazy(() => import('./pages/Login'));
+const Courses = lazy(() => import('./pages/Courses'));
+const ClassroomStudio = lazy(() => import('./pages/ClassroomStudio'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const StudentDashboard = lazy(() => import('./pages/StudentDashboard'));
 const StudentProgress = lazy(() => import('./pages/StudentProgress'));
@@ -34,6 +36,7 @@ const TeacherDashboard = lazy(() => import('./pages/TeacherDashboard'));
 function RoleRoute({ role }) {
   const { session } = useDemoSession();
   if (!session) return <Navigate to="/login" replace />;
+  if (session.courses && !session.classId) return <Navigate to="/courses" replace />;
   if (role && session.role !== role) {
     return (
       <Navigate
@@ -55,6 +58,7 @@ function AppRoutes() {
     <Suspense fallback={<LoadingState />}>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/courses" element={<Courses />} />
         <Route element={<RoleRoute role="teacher" />}>
           <Route path="/teacher" element={<AppShell role="teacher" />}>
             <Route index element={<Navigate to="overview" replace />} />
@@ -64,6 +68,7 @@ function AppRoutes() {
             <Route path="learning" element={<LearningEvidence />} />
             <Route path="lessons" element={<LessonStudio />} />
             <Route path="quizzes" element={<TeacherQuizzes />} />
+            <Route path="studio" element={<ClassroomStudio />} />
             <Route path="insights" element={<ClassInsights />} />
             <Route path="interventions" element={<Intervention />} />
             <Route path="progress" element={<ClassProgress />} />
@@ -76,6 +81,7 @@ function AppRoutes() {
             <Route path="guide" element={<WorkflowGuide />} />
             <Route path="learning" element={<LearningLab />} />
             <Route path="quizzes" element={<StudentQuizzes />} />
+            <Route path="studio" element={<ClassroomStudio />} />
             <Route path="quizzes/:quizId" element={<StudentQuizzes />} />
             <Route path="assessment" element={<Assessment />} />
             <Route path="interventions" element={<Intervention />} />

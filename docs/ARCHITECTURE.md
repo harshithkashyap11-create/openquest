@@ -1,5 +1,26 @@
 # Implemented architecture
 
+## Classroom Studio extension (2026-11-06)
+
+`/api/auth/demo-login` resolves subject-teacher aliases and synthetic student
+course collections in demo mode. `/courses` selects a real class/student context
+before the existing dashboards open. Required-auth account validation is retained.
+
+The new `studio` router uses the existing global authorization dependency plus
+class/owner checks. `studio_bank_items`, `studio_activities`, `studio_work`,
+`studio_sets` and `studio_qr_sessions` are introduced by Alembic
+`0008_classroom_studio`. Published activity questions are snapshots; attempts retain
+answers, original media, results and conversations. Keys are removed from student
+delivery. Retry and attempt uniqueness constraints prevent duplicate accounting.
+
+The existing reflection provider now optionally sends inline original media
+through native Gemini; the other transports retain text-only behavior. Drawing
+strokes are rendered to a bounded PNG. Teacher-key grading remains deterministic;
+writing is reviewed manually. Copilot context receives Studio totals and standards
+without media or conversation text. The configured LTI AGS publisher runs after
+committed grades, retains delivery receipts and prevents older attempts from
+superseding newer ones. See [CLASSROOM_STUDIO.md](CLASSROOM_STUDIO.md).
+
 ClassPulse AI extends the existing React/JavaScript/Vite application and FastAPI /
 SQLAlchemy backend. PostgreSQL remains supported by the original schema; SQLite
 is used for the executed development and acceptance checks. Migrations are manual.

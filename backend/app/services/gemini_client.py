@@ -56,12 +56,12 @@ class GeminiChatClient:
             client=client,
         )
 
-    def complete_json(self, *, prompt: str, temperature: float) -> str:
+    def complete_json(self, *, prompt: str, temperature: float, attachments: list[dict] | None = None) -> str:
         started = perf_counter()
         url = f"{self.base_url}/models/{self.model}:generateContent"
         headers = {"x-goog-api-key": self.api_key, "Content-Type": "application/json"}
         payload = {
-            "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+            "contents": [{"role": "user", "parts": [{"text": prompt}, *[{"inlineData": item} for item in (attachments or [])]]}],
             "generationConfig": {
                 "responseMimeType": "application/json",
                 "temperature": temperature,

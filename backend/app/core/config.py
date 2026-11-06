@@ -14,6 +14,10 @@ class Settings(BaseSettings):
     app_env: str = "development"
     auth_mode: Literal["demo", "required"] = "demo"
     session_hours: int = Field(default=8, ge=1, le=24)
+    lms_access_token: str | None = Field(default=None, repr=False)
+    lms_lineitems: dict[str, str] = Field(default_factory=dict)
+    lms_user_ids: dict[str, str] = Field(default_factory=dict)
+    lms_auto_passback: bool = False
     ai_provider: str = "mock"
     openrouter_api_key: str | None = Field(default=None, repr=False)
     openrouter_model: str | None = None

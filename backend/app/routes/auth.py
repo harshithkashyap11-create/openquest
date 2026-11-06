@@ -3,6 +3,7 @@ import secrets
 from datetime import datetime, timedelta, timezone
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from pydantic import BaseModel, Field
+from typing import Literal
 from sqlalchemy import select, delete
 from app.core.config import get_settings
 from app.core.database import get_db
@@ -19,6 +20,18 @@ class LoginInput(BaseModel):
 @router.get('/config')
 def auth_config():
     return {'mode': get_settings().auth_mode, 'demo_identity': get_settings().auth_mode == 'demo'}
+
+
+class DemoLoginInput(LoginInput):
+    role: Literal['teacher', 'student']
+
+
+@router.post('/demo-login')
+def demo_login(payload: DemoLoginInput, db=Depends(get_db)):
+    if get_settings().auth_mode != 'demo':
+        raise HTTPException(403, 'Demo login is not enabled')
+    from app.services.demo_courses import demo_courses
+    return demo_courses(db, payload.role, payload.username)
 
 
 def account_view(db, account, csrf):

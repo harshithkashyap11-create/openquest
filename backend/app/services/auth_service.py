@@ -21,6 +21,8 @@ STUDENT_ROUTES = {
  'sync_practice', 'auth_me', 'logout', 'demo_classes',
  'learning_journey',
  'system_status',
+ 'studio_student_activities', 'studio_student_activity', 'studio_submit',
+ 'studio_student_sets', 'studio_student_export', 'studio_feedback',
 }
 
 
@@ -136,7 +138,7 @@ def _authorize_sync(request, db, body):
     if hasattr(db, 'info'):
         db.info['request_id'] = getattr(request.state, 'request_id', None)
     path = request.url.path
-    if not path.startswith('/api/') or path in {'/api/auth/config', '/api/auth/login'}:
+    if not path.startswith('/api/') or path in {'/api/auth/config', '/api/auth/login', '/api/auth/demo-login'}:
         return
     settings = get_settings()
     # Legacy demo calls remain compatible; demo mode is prohibited in shared

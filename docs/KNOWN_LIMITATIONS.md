@@ -1,4 +1,31 @@
-# Current map/journey limitations — 2026-11-05
+# Classroom Studio update — 2026-11-06
+
+The new [Studio guide](CLASSROOM_STUDIO.md) describes current behavior. Voice,
+drawing, a configurable grade publisher and a saved question library now exist
+for Studio activities; historical limitations below refer to their earlier scope.
+
+- The bank starts with 20 original items, not a competitor's historical dataset.
+  `CP.*` standards are custom labels. Teachers can add their own validated items.
+- Native Gemini can receive original media; other configured modes use text or
+  transcript. A synthetic tone/drawing transport check is not proof of speech
+  comprehension, diagnosis accuracy or learning gains.
+- Physical camera/microphone conditions, independent language/content review,
+  large-scale use and a real LMS delivery remain unverified. The LMS adapter
+  needs an externally provisioned scoped token, line items and identity mappings;
+  it does not implement the entire LTI launch/OAuth lifecycle.
+- PDF import is local selectable-text extraction plus structured numbered-question
+  parsing. Image-only PDFs need external OCR. Work PDFs retain drawings and text,
+  while recordings remain available in the app.
+- Demo aliases collect existing synthetic roster records into a course picker.
+  General school memberships and roster synchronization are not implemented.
+- New Studio submissions need connectivity and stay separate from legacy learner
+  evidence accounting. Copilot receives their aggregate standards/response counts.
+- The production frontend build reports a main chunk over 500 kB. No physical
+  inexpensive-phone performance claim or PostgreSQL execution claim is made.
+
+---
+
+# Historical map/journey limitations — 2026-11-05
 
 - Independent educator evaluation is **NOT TESTED**: no approved educator labels
   or held-out source records exist. `evaluation-status.json` has zero examples and

@@ -65,6 +65,7 @@ class ClassContextSummary(BaseModel):
     approved_groups_count: int = 0
     assigned_interventions_count: int = 0
     quiz_reports: list[QuizContext] = Field(default_factory=list)
+    studio_report: dict[str, Any] = Field(default_factory=dict)
 
 
 class DraftContentItem(BaseModel):

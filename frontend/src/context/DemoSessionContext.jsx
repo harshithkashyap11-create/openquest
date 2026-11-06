@@ -41,9 +41,10 @@ export function DemoSessionProvider({ children }) {
     () => ({
       session,
       startSession(nextSession) {
-        if (session?.role === 'teacher' && nextSession.role === 'teacher' &&
+        if (nextSession.courses && nextSession.classId && !nextSession.courses.some(c => c.id === nextSession.classId)) return;
+        if (!nextSession.courses && session?.role === 'teacher' && nextSession.role === 'teacher' &&
             nextSession.subject !== (session.teachingSubject || session.subject)) return;
-        const displaySession = { ...nextSession, teachingSubject: session?.role === 'teacher' ? session.teachingSubject || session.subject : nextSession.subject, className: classDisplayName(nextSession.className, nextSession.topic) };
+        const displaySession = { ...nextSession, teachingSubject: nextSession.courses ? nextSession.subject : session?.role === 'teacher' ? session.teachingSubject || session.subject : nextSession.subject, className: classDisplayName(nextSession.className, nextSession.topic) };
         writeSession(displaySession);
         setSession(displaySession);
       },

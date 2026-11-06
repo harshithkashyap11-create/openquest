@@ -1,4 +1,61 @@
-# OpenQuest (ClassPulse AI) map and learning journey — current report
+# Classroom Studio and course login — 2026-11-06
+
+Checkpoint before implementation: `13fea7a`. The current implementation adds
+username-first demo entry and course selection, a persistent teacher question bank,
+eight activity formats, PDF draft import, drawing/audio responses, bounded media
+feedback, QR response cards/scanning, ordered pathways, teacher grading, standards
+reports, work/grade exports and a configured LTI AGS publisher. See
+[CLASSROOM_STUDIO.md](CLASSROOM_STUDIO.md) for the exact scope and run instructions.
+
+The GitHub operations skill was used with `morluto/rea`; installed REA tools captured
+three public product/help pages and exported a three-record local evidence bundle.
+This research establishes public workflows, not private implementations or models.
+Sources and evidence IDs are in [COMPETITOR_RECONSTRUCTION.md](COMPETITOR_RECONSTRUCTION.md).
+
+## Executed checks for this update
+
+| Check | Result |
+|---|---|
+| Full backend suite | 203 passed, 1 optional PostgreSQL integration test skipped |
+| Full browser suite against production preview | 33 passed |
+| QR images, four physical card orientations | 1 Node test passed using actual QR encoding/decoding |
+| Frontend lint | Passed without diagnostics |
+| Frontend build | Passed; main chunk exceeds the 500 kB warning threshold |
+| Translation keys | English, Hindi and Telugu match, 852 keys each |
+| SQLite migration application and metadata drift | Passed in the backend suite |
+| PostgreSQL SQL export | Generated from Alembic; database execution not verified |
+| Compose default LMS configuration | Resolved both JSON maps to `{}` successfully |
+| API inventory | 97 operations, matching the OpenAPI definition |
+| Work PDF | Exported from a real synthetic student submission, text checked, rendered and visually reviewed |
+| Desktop and 390px visual check | No page errors or horizontal overflow in the observed flows |
+| Live native Gemini text/drawing request | Succeeded; 2,363 ms, exact text evidence retained |
+| Live native Gemini text/drawing/audio-tone request | Succeeded; 3,114 ms, all three input modes supplied |
+| LTI AGS publisher | Controlled HTTP contract, persisted receipt and absent-configuration behavior passed; no live LMS connected |
+
+The audio smoke used a one-second synthetic tone, so it establishes audio transport,
+not speech understanding. Browser recording used a synthetic audio stream through
+the native MediaRecorder; real microphones and classroom camera conditions remain
+unverified. Independent educational effectiveness, language adjudication and
+large-scale deployment have not been established.
+
+The full development-server browser attempt exposed a missing `letters` constant
+in the pre-existing quiz report and two production-only offline tests run in the
+wrong environment. The constant is restored and the production suite passes.
+New tests also caught and resolved invalid-choice attempt consumption, older
+attempts appearing in the grade CSV, overly broad library provenance search,
+and answer indexes in exported PDFs. The visual review corrected selected-tab
+hover contrast. The API inventory generator now reads OpenAPI paths because the
+current FastAPI version exposes included routers lazily.
+
+Preview: http://127.0.0.1:5191/login; isolated synthetic database at
+`.classpulse-demo/studio-2026-11-06/fractions.sqlite`; credentials/database excluded
+from Git. Existing application data were not migrated or reset. No remote push
+or deployment occurred. Detailed logs and screenshots are retained locally in
+the ignored `docs/upgrade-evidence/studio/` directory.
+
+---
+
+# Historical map and learning journey report
 
 ## Class navigation update — 2026-11-05
 

@@ -10,6 +10,8 @@ import {
   suggestLesson,
 } from '../services/quizApi';
 
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
 export default function LiveInsights({ quiz, classId }) {
   const { t, language } = useI18n();
   const [report, setReport] = useState(null);

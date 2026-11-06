@@ -1,5 +1,20 @@
 # ClassPulse AI
 
+## Course login and Classroom Studio
+
+The demo now starts with username/password sign-in and **My courses**. Teacher
+accounts `math1`, `science1`, `english1` and `teacher1`, and student aliases `S1` /
+`student1` accept any nonempty password in demo mode. Select a chapter after login.
+**Classroom Studio** adds a reusable diagnostic library, eight activity formats,
+PDF draft import, drawing/voice responses, bounded feedback, rotating QR response
+cards, pathways, teacher grading, standards reports, exports and a configurable
+LTI AGS score publisher. Native Gemini can receive original media for feedback.
+
+See [the Studio guide](docs/CLASSROOM_STUDIO.md) for the exact behavior, fresh demo
+command, optional LMS setup and limits, and [the REA research record](docs/COMPETITOR_RECONSTRUCTION.md)
+for source provenance. Apply Alembic head `0008_classroom_studio` and restart the
+API before using the new endpoints against an existing development database.
+
 ClassPulse AI is a classroom intelligence platform MVP for Mathematics (Fractions and Basic algebra), Science (Force and motion and Basic electricity), and English (Grammar and Subject-verb agreement). The FastAPI backend provides SQLite/PostgreSQL persistence, Alembic migrations, labeled synthetic demo data, subject-specific diagnosis, teacher-reviewed learning groups, targeted interventions, adaptive reassessments, and observed progress reporting. The React/Vite frontend provides teacher and student demo flows over the FastAPI API.
 
 The repository is named **OpenQuest** and the product is **ClassPulse AI**. The FastAPI service in `backend/` is the active backend; AI provider adapters live inside that service. Local demo identity is self-asserted; credential-backed sessions enforce teacher/student and classroom scope for shared deployments.

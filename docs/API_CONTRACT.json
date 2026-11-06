@@ -25,6 +25,45 @@
         }
       }
     },
+    "/api/auth/demo-login": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "summary": "Demo Login",
+        "operationId": "demo_login_api_auth_demo_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DemoLoginInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/auth/login": {
       "post": {
         "tags": [
@@ -742,6 +781,1564 @@
         }
       }
     },
+    "/api/classes/{class_id}/misconception-map": {
+      "get": {
+        "tags": [
+          "misconception map"
+        ],
+        "summary": "Classroom Map",
+        "operationId": "classroom_map_api_classes__class_id__misconception_map_get",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MapSummary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/misconception-map/evidence": {
+      "get": {
+        "tags": [
+          "misconception map"
+        ],
+        "summary": "Map Evidence",
+        "operationId": "map_evidence_api_classes__class_id__misconception_map_evidence_get",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          },
+          {
+            "name": "code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 40
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Code"
+            }
+          },
+          {
+            "name": "student_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Student Id"
+            }
+          },
+          {
+            "name": "review_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Review Only"
+            }
+          },
+          {
+            "name": "uncertain_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Uncertain Only"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvidencePage"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/students/{student_id}/journey": {
+      "get": {
+        "tags": [
+          "misconception map"
+        ],
+        "summary": "Learning Journey",
+        "operationId": "learning_journey_api_students__student_id__journey_get",
+        "parameters": [
+          {
+            "name": "student_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Student Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 30,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JourneyPage"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/studio/roster": {
+      "get": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Roster",
+        "operationId": "studio_roster_api_classes__class_id__studio_roster_get",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/studio/activities": {
+      "get": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Activities",
+        "operationId": "studio_activities_api_classes__class_id__studio_activities_get",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Create",
+        "operationId": "studio_create_api_classes__class_id__studio_activities_post",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/studio/activities/{activity_id}": {
+      "patch": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Edit",
+        "operationId": "studio_edit_api_classes__class_id__studio_activities__activity_id__patch",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          },
+          {
+            "name": "activity_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Activity Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/studio/activities/{activity_id}/publish": {
+      "post": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Publish",
+        "operationId": "studio_publish_api_classes__class_id__studio_activities__activity_id__publish_post",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          },
+          {
+            "name": "activity_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Activity Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/students/{student_id}/studio/activities": {
+      "get": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Student Activities",
+        "operationId": "studio_student_activities_api_students__student_id__studio_activities_get",
+        "parameters": [
+          {
+            "name": "student_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Student Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/students/{student_id}/studio/activities/{activity_id}": {
+      "get": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Student Activity",
+        "operationId": "studio_student_activity_api_students__student_id__studio_activities__activity_id__get",
+        "parameters": [
+          {
+            "name": "student_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Student Id"
+            }
+          },
+          {
+            "name": "activity_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Activity Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/students/{student_id}/studio/activities/{activity_id}/submit": {
+      "post": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Submit",
+        "operationId": "studio_submit_api_students__student_id__studio_activities__activity_id__submit_post",
+        "parameters": [
+          {
+            "name": "student_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Student Id"
+            }
+          },
+          {
+            "name": "activity_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Activity Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/studio/work/{work_id}/grade": {
+      "patch": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Grade",
+        "operationId": "studio_grade_api_classes__class_id__studio_work__work_id__grade_patch",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          },
+          {
+            "name": "work_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Work Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GradeInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/studio/report": {
+      "get": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Report",
+        "operationId": "studio_report_api_classes__class_id__studio_report_get",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/studio/grades.csv": {
+      "get": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Csv",
+        "operationId": "studio_csv_api_classes__class_id__studio_grades_csv_get",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/studio/integrations": {
+      "get": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Integrations",
+        "operationId": "studio_integrations_api_classes__class_id__studio_integrations_get",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/studio/work/{work_id}/passback": {
+      "post": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Passback",
+        "operationId": "studio_passback_api_classes__class_id__studio_work__work_id__passback_post",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          },
+          {
+            "name": "work_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Work Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/studio/work/{work_id}/export.pdf": {
+      "get": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Teacher Export",
+        "operationId": "studio_teacher_export_api_classes__class_id__studio_work__work_id__export_pdf_get",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          },
+          {
+            "name": "work_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Work Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/students/{student_id}/studio/work/{work_id}/export.pdf": {
+      "get": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Student Export",
+        "operationId": "studio_student_export_api_students__student_id__studio_work__work_id__export_pdf_get",
+        "parameters": [
+          {
+            "name": "student_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Student Id"
+            }
+          },
+          {
+            "name": "work_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Work Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/studio/import-pdf": {
+      "post": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Import Pdf",
+        "operationId": "studio_import_pdf_api_classes__class_id__studio_import_pdf_post",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PDFInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/studio/sets": {
+      "post": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Create Set",
+        "operationId": "studio_create_set_api_classes__class_id__studio_sets_post",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Teacher Sets",
+        "operationId": "studio_teacher_sets_api_classes__class_id__studio_sets_get",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/students/{student_id}/studio/sets": {
+      "get": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Student Sets",
+        "operationId": "studio_student_sets_api_students__student_id__studio_sets_get",
+        "parameters": [
+          {
+            "name": "student_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Student Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/studio/qr-sessions": {
+      "post": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Qr Create",
+        "operationId": "studio_qr_create_api_classes__class_id__studio_qr_sessions_post",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QRInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Qr List",
+        "operationId": "studio_qr_list_api_classes__class_id__studio_qr_sessions_get",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/studio/qr-sessions/{qr_id}/responses": {
+      "post": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Qr Response",
+        "operationId": "studio_qr_response_api_classes__class_id__studio_qr_sessions__qr_id__responses_post",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          },
+          {
+            "name": "qr_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Qr Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QRResponseInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/studio/qr-sessions/{qr_id}/close": {
+      "post": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Qr Close",
+        "operationId": "studio_qr_close_api_classes__class_id__studio_qr_sessions__qr_id__close_post",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          },
+          {
+            "name": "qr_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Qr Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/studio/library": {
+      "get": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Library",
+        "operationId": "studio_library_api_classes__class_id__studio_library_get",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Q"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Save Library",
+        "operationId": "studio_save_library_api_classes__class_id__studio_library_post",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudioQuestion"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classes/{class_id}/studio/generate": {
+      "post": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Generate",
+        "operationId": "studio_generate_api_classes__class_id__studio_generate_post",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Class Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/students/{student_id}/studio/work/{work_id}/feedback": {
+      "post": {
+        "tags": [
+          "classroom studio"
+        ],
+        "summary": "Studio Feedback",
+        "operationId": "studio_feedback_api_students__student_id__studio_work__work_id__feedback_post",
+        "parameters": [
+          {
+            "name": "student_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Student Id"
+            }
+          },
+          {
+            "name": "work_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Work Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/health": {
       "get": {
         "tags": [
@@ -799,6 +2396,26 @@
         ],
         "summary": "Ai Configuration",
         "operationId": "ai_configuration_health_ai_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/system-status": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "System Status",
+        "description": "Authenticated local status; no provider requests or infrastructure values.",
+        "operationId": "system_status_api_system_status_get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -3236,259 +4853,42 @@
           }
         }
       }
-    },
-    "/api/classes/{class_id}/misconception-map": {
-      "get": {
-        "tags": [
-          "misconception map"
-        ],
-        "summary": "Classroom Map",
-        "operationId": "classroom_map_api_classes__class_id__misconception_map_get",
-        "parameters": [
-          {
-            "name": "class_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Class Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MapSummary"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/classes/{class_id}/misconception-map/evidence": {
-      "get": {
-        "tags": [
-          "misconception map"
-        ],
-        "summary": "Map Evidence",
-        "operationId": "map_evidence_api_classes__class_id__misconception_map_evidence_get",
-        "parameters": [
-          {
-            "name": "class_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Class Id"
-            }
-          },
-          {
-            "name": "code",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "maxLength": 40
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Code"
-            }
-          },
-          {
-            "name": "student_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Student Id"
-            }
-          },
-          {
-            "name": "review_only",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "default": false,
-              "title": "Review Only"
-            }
-          },
-          {
-            "name": "uncertain_only",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "default": false,
-              "title": "Uncertain Only"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "maximum": 100,
-              "minimum": 1,
-              "default": 20,
-              "title": "Limit"
-            }
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 0,
-              "default": 0,
-              "title": "Offset"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EvidencePage"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/students/{student_id}/journey": {
-      "get": {
-        "tags": [
-          "misconception map"
-        ],
-        "summary": "Learning Journey",
-        "operationId": "learning_journey_api_students__student_id__journey_get",
-        "parameters": [
-          {
-            "name": "student_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Student Id"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "maximum": 100,
-              "minimum": 1,
-              "default": 30,
-              "title": "Limit"
-            }
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 0,
-              "default": 0,
-              "title": "Offset"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JourneyPage"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/system-status": {
-      "get": {
-        "tags": [
-          "health"
-        ],
-        "summary": "System Status",
-        "description": "Authenticated local status; no provider requests or infrastructure values.",
-        "operationId": "system_status_api_system_status_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
     "schemas": {
+      "ActivityInput": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "questions": {
+            "items": {
+              "$ref": "#/components/schemas/StudioQuestion"
+            },
+            "type": "array",
+            "maxItems": 40,
+            "minItems": 1,
+            "title": "Questions"
+          },
+          "max_attempts": {
+            "type": "integer",
+            "maximum": 10.0,
+            "minimum": 1.0,
+            "title": "Max Attempts",
+            "default": 3
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "questions"
+        ],
+        "title": "ActivityInput"
+      },
       "AssessmentAnswerRequest": {
         "properties": {
           "question_id": {
@@ -3721,6 +5121,39 @@
         ],
         "title": "AssignmentReassessmentQuestion"
       },
+      "AttentionCounts": {
+        "properties": {
+          "pending_diagnoses": {
+            "type": "integer",
+            "title": "Pending Diagnoses"
+          },
+          "pending_reviews": {
+            "type": "integer",
+            "title": "Pending Reviews"
+          },
+          "uncertain": {
+            "type": "integer",
+            "title": "Uncertain"
+          },
+          "proposed_groups": {
+            "type": "integer",
+            "title": "Proposed Groups"
+          },
+          "ready_for_reassessment": {
+            "type": "integer",
+            "title": "Ready For Reassessment"
+          }
+        },
+        "type": "object",
+        "required": [
+          "pending_diagnoses",
+          "pending_reviews",
+          "uncertain",
+          "proposed_groups",
+          "ready_for_reassessment"
+        ],
+        "title": "AttentionCounts"
+      },
       "ChatMessage": {
         "properties": {
           "role": {
@@ -3920,6 +5353,11 @@
             },
             "type": "array",
             "title": "Quiz Reports"
+          },
+          "studio_report": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Studio Report"
           }
         },
         "type": "object",
@@ -3997,6 +5435,44 @@
           "students_needing_support"
         ],
         "title": "ClassProgressResponse"
+      },
+      "ConceptSummary": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "response_count": {
+            "type": "integer",
+            "title": "Response Count"
+          },
+          "student_count": {
+            "type": "integer",
+            "title": "Student Count"
+          },
+          "pending_reviews": {
+            "type": "integer",
+            "title": "Pending Reviews"
+          },
+          "uncertain": {
+            "type": "integer",
+            "title": "Uncertain"
+          },
+          "reviewed": {
+            "type": "integer",
+            "title": "Reviewed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "response_count",
+          "student_count",
+          "pending_reviews",
+          "uncertain",
+          "reviewed"
+        ],
+        "title": "ConceptSummary"
       },
       "CopilotChatRequest": {
         "properties": {
@@ -4229,6 +5705,37 @@
           "student_count"
         ],
         "title": "DemoClassResponse"
+      },
+      "DemoLoginInput": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Username"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1,
+            "title": "Password"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "teacher",
+              "student"
+            ],
+            "title": "Role"
+          }
+        },
+        "type": "object",
+        "required": [
+          "username",
+          "password",
+          "role"
+        ],
+        "title": "DemoLoginInput"
       },
       "DemoStudentResolutionRequest": {
         "properties": {
@@ -4794,6 +6301,110 @@
         ],
         "title": "EditLesson"
       },
+      "EvidencePage": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ResponseEvidence"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "limit",
+          "offset",
+          "items"
+        ],
+        "title": "EvidencePage"
+      },
+      "FeedbackInput": {
+        "properties": {
+          "question_id": {
+            "type": "string",
+            "title": "Question Id"
+          },
+          "message": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Message"
+          },
+          "language": {
+            "type": "string",
+            "enum": [
+              "en",
+              "hi",
+              "te"
+            ],
+            "title": "Language",
+            "default": "en"
+          }
+        },
+        "type": "object",
+        "required": [
+          "question_id",
+          "message"
+        ],
+        "title": "FeedbackInput"
+      },
+      "GenerateInput": {
+        "properties": {
+          "topic": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Topic"
+          },
+          "count": {
+            "type": "integer",
+            "maximum": 10.0,
+            "minimum": 1.0,
+            "title": "Count",
+            "default": 3
+          },
+          "difficulty": {
+            "type": "string",
+            "enum": [
+              "easier",
+              "standard",
+              "harder"
+            ],
+            "title": "Difficulty",
+            "default": "standard"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "choice",
+              "numeric",
+              "short_answer",
+              "writing"
+            ],
+            "title": "Kind",
+            "default": "choice"
+          }
+        },
+        "type": "object",
+        "required": [
+          "topic"
+        ],
+        "title": "GenerateInput"
+      },
       "GenerateLesson": {
         "properties": {
           "misconception_code": {
@@ -4848,6 +6459,32 @@
           "request_id"
         ],
         "title": "GenerateLesson"
+      },
+      "GradeInput": {
+        "properties": {
+          "question_id": {
+            "type": "string",
+            "title": "Question Id"
+          },
+          "points": {
+            "type": "integer",
+            "maximum": 20.0,
+            "minimum": 0.0,
+            "title": "Points"
+          },
+          "comment": {
+            "type": "string",
+            "maxLength": 4000,
+            "title": "Comment",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "question_id",
+          "points"
+        ],
+        "title": "GradeInput"
       },
       "GroupGenerationResponse": {
         "properties": {
@@ -5221,6 +6858,174 @@
         ],
         "title": "InterventionGenerationResponse"
       },
+      "JourneyEvent": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "response",
+              "support",
+              "practice",
+              "reassessment"
+            ],
+            "title": "Kind"
+          },
+          "source_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Source Id"
+          },
+          "at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "At"
+          },
+          "assignment_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assignment Id"
+          },
+          "question_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Question Id"
+          },
+          "question_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Question Text"
+          },
+          "answer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Answer"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "correct": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Correct"
+          },
+          "total": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "kind",
+          "source_id",
+          "at"
+        ],
+        "title": "JourneyEvent"
+      },
+      "JourneyPage": {
+        "properties": {
+          "student_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Student Id"
+          },
+          "subject": {
+            "type": "string",
+            "title": "Subject"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/JourneyEvent"
+            },
+            "type": "array",
+            "title": "Events"
+          }
+        },
+        "type": "object",
+        "required": [
+          "student_id",
+          "subject",
+          "topic",
+          "total",
+          "offset",
+          "limit",
+          "events"
+        ],
+        "title": "JourneyPage"
+      },
       "LearningGroupResponse": {
         "properties": {
           "id": {
@@ -5448,6 +7253,84 @@
         ],
         "title": "LoginInput"
       },
+      "MapSummary": {
+        "properties": {
+          "class_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Class Id"
+          },
+          "subject": {
+            "type": "string",
+            "title": "Subject"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "queried_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Queried At"
+          },
+          "period_from": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Period From"
+          },
+          "period_to": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Period To"
+          },
+          "total_responses": {
+            "type": "integer",
+            "title": "Total Responses"
+          },
+          "total_students": {
+            "type": "integer",
+            "title": "Total Students"
+          },
+          "concepts": {
+            "items": {
+              "$ref": "#/components/schemas/ConceptSummary"
+            },
+            "type": "array",
+            "title": "Concepts"
+          },
+          "attention": {
+            "$ref": "#/components/schemas/AttentionCounts"
+          }
+        },
+        "type": "object",
+        "required": [
+          "class_id",
+          "subject",
+          "topic",
+          "queried_at",
+          "period_from",
+          "period_to",
+          "total_responses",
+          "total_students",
+          "concepts",
+          "attention"
+        ],
+        "title": "MapSummary"
+      },
       "MisconceptionStat": {
         "properties": {
           "code": {
@@ -5521,6 +7404,27 @@
           "answers"
         ],
         "title": "OfflinePractice"
+      },
+      "PDFInput": {
+        "properties": {
+          "filename": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "Filename"
+          },
+          "content_base64": {
+            "type": "string",
+            "maxLength": 10000000,
+            "minLength": 1,
+            "title": "Content Base64"
+          }
+        },
+        "type": "object",
+        "required": [
+          "filename",
+          "content_base64"
+        ],
+        "title": "PDFInput"
       },
       "PracticeAnswer": {
         "properties": {
@@ -5712,6 +7616,46 @@
           "correct_answers"
         ],
         "title": "ProgressAccuracy"
+      },
+      "QRInput": {
+        "properties": {
+          "activity_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Activity Id"
+          },
+          "question_id": {
+            "type": "string",
+            "title": "Question Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "activity_id",
+          "question_id"
+        ],
+        "title": "QRInput"
+      },
+      "QRResponseInput": {
+        "properties": {
+          "student_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Student Id"
+          },
+          "option": {
+            "type": "integer",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Option"
+          }
+        },
+        "type": "object",
+        "required": [
+          "student_id",
+          "option"
+        ],
+        "title": "QRResponseInput"
       },
       "QuestionInput": {
         "properties": {
@@ -6249,6 +8193,184 @@
         ],
         "title": "RepairInput"
       },
+      "ResponseEvidence": {
+        "properties": {
+          "diagnosis_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Diagnosis Id"
+          },
+          "submission_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Submission Id"
+          },
+          "student_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Student Id"
+          },
+          "student_code": {
+            "type": "string",
+            "title": "Student Code"
+          },
+          "question_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Question Id"
+          },
+          "question_text": {
+            "type": "string",
+            "title": "Question Text"
+          },
+          "answer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Answer"
+          },
+          "student_explanation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Student Explanation"
+          },
+          "submitted_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Submitted At"
+          },
+          "suggested_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Suggested At"
+          },
+          "original_code": {
+            "type": "string",
+            "title": "Original Code"
+          },
+          "effective_code": {
+            "type": "string",
+            "title": "Effective Code"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "evidence_quote": {
+            "type": "string",
+            "title": "Evidence Quote"
+          },
+          "ai_explanation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ai Explanation"
+          },
+          "provider": {
+            "type": "string",
+            "title": "Provider"
+          },
+          "model_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model Version"
+          },
+          "uncertain": {
+            "type": "boolean",
+            "title": "Uncertain"
+          },
+          "review": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReviewEvidence"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "diagnosis_id",
+          "submission_id",
+          "student_id",
+          "student_code",
+          "question_id",
+          "question_text",
+          "answer",
+          "student_explanation",
+          "submitted_at",
+          "suggested_at",
+          "original_code",
+          "effective_code",
+          "confidence",
+          "evidence_quote",
+          "ai_explanation",
+          "provider",
+          "model_version",
+          "uncertain",
+          "review"
+        ],
+        "title": "ResponseEvidence"
+      },
+      "ReviewEvidence": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "teacher_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Teacher Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "reason",
+          "version",
+          "teacher_id",
+          "created_at"
+        ],
+        "title": "ReviewEvidence"
+      },
       "ReviewInput": {
         "properties": {
           "flagged": {
@@ -6303,6 +8425,39 @@
           "action"
         ],
         "title": "ReviewLesson"
+      },
+      "SetInput": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "activity_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "maxItems": 20,
+            "minItems": 1,
+            "title": "Activity Ids"
+          },
+          "minimum_percent": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Minimum Percent",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "activity_ids"
+        ],
+        "title": "SetInput"
       },
       "StudentAssessmentStatus": {
         "properties": {
@@ -6525,6 +8680,109 @@
         ],
         "title": "StudentSupportResponse"
       },
+      "StudioQuestion": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9_-]+$",
+            "title": "Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "choice",
+              "multiple_select",
+              "true_false",
+              "numeric",
+              "short_answer",
+              "writing",
+              "matching",
+              "categorize"
+            ],
+            "title": "Kind",
+            "default": "choice"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Text"
+          },
+          "options": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "title": "Options"
+          },
+          "items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 20,
+            "title": "Items"
+          },
+          "answer": {
+            "title": "Answer"
+          },
+          "explanation": {
+            "type": "string",
+            "maxLength": 4000,
+            "title": "Explanation",
+            "default": ""
+          },
+          "hint": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "Hint",
+            "default": ""
+          },
+          "standard": {
+            "type": "string",
+            "maxLength": 160,
+            "title": "Standard",
+            "default": ""
+          },
+          "concept": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "Concept",
+            "default": ""
+          },
+          "points": {
+            "type": "integer",
+            "maximum": 20.0,
+            "minimum": 1.0,
+            "title": "Points",
+            "default": 1
+          },
+          "tolerance": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Tolerance",
+            "default": 0
+          },
+          "distractors": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Distractors"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "text"
+        ],
+        "title": "StudioQuestion"
+      },
       "SubmitQuizInput": {
         "properties": {
           "answers": {
@@ -6729,6 +8987,41 @@
         ],
         "title": "ValidationError"
       },
+      "WorkInput": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Request Id"
+          },
+          "answers": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Answers"
+          },
+          "reasoning": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Reasoning"
+          },
+          "media": {
+            "additionalProperties": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "object",
+            "title": "Media"
+          }
+        },
+        "type": "object",
+        "required": [
+          "request_id",
+          "answers"
+        ],
+        "title": "WorkInput"
+      },
       "WorkedExample": {
         "properties": {
           "problem": {
@@ -6761,532 +9054,6 @@
           "answer"
         ],
         "title": "WorkedExample"
-      },
-      "AttentionCounts": {
-        "properties": {
-          "pending_diagnoses": {
-            "type": "integer",
-            "title": "Pending Diagnoses"
-          },
-          "pending_reviews": {
-            "type": "integer",
-            "title": "Pending Reviews"
-          },
-          "uncertain": {
-            "type": "integer",
-            "title": "Uncertain"
-          },
-          "proposed_groups": {
-            "type": "integer",
-            "title": "Proposed Groups"
-          },
-          "ready_for_reassessment": {
-            "type": "integer",
-            "title": "Ready For Reassessment"
-          }
-        },
-        "type": "object",
-        "required": [
-          "pending_diagnoses",
-          "pending_reviews",
-          "uncertain",
-          "proposed_groups",
-          "ready_for_reassessment"
-        ],
-        "title": "AttentionCounts"
-      },
-      "ConceptSummary": {
-        "properties": {
-          "code": {
-            "type": "string",
-            "title": "Code"
-          },
-          "response_count": {
-            "type": "integer",
-            "title": "Response Count"
-          },
-          "student_count": {
-            "type": "integer",
-            "title": "Student Count"
-          },
-          "pending_reviews": {
-            "type": "integer",
-            "title": "Pending Reviews"
-          },
-          "uncertain": {
-            "type": "integer",
-            "title": "Uncertain"
-          },
-          "reviewed": {
-            "type": "integer",
-            "title": "Reviewed"
-          }
-        },
-        "type": "object",
-        "required": [
-          "code",
-          "response_count",
-          "student_count",
-          "pending_reviews",
-          "uncertain",
-          "reviewed"
-        ],
-        "title": "ConceptSummary"
-      },
-      "EvidencePage": {
-        "properties": {
-          "total": {
-            "type": "integer",
-            "title": "Total"
-          },
-          "limit": {
-            "type": "integer",
-            "title": "Limit"
-          },
-          "offset": {
-            "type": "integer",
-            "title": "Offset"
-          },
-          "items": {
-            "items": {
-              "$ref": "#/components/schemas/ResponseEvidence"
-            },
-            "type": "array",
-            "title": "Items"
-          }
-        },
-        "type": "object",
-        "required": [
-          "total",
-          "limit",
-          "offset",
-          "items"
-        ],
-        "title": "EvidencePage"
-      },
-      "JourneyEvent": {
-        "properties": {
-          "kind": {
-            "type": "string",
-            "enum": [
-              "response",
-              "support",
-              "practice",
-              "reassessment"
-            ],
-            "title": "Kind"
-          },
-          "source_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Source Id"
-          },
-          "at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "At"
-          },
-          "assignment_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Assignment Id"
-          },
-          "question_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Question Id"
-          },
-          "question_text": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Question Text"
-          },
-          "answer": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Answer"
-          },
-          "title": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Title"
-          },
-          "status": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Status"
-          },
-          "correct": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Correct"
-          },
-          "total": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Total"
-          }
-        },
-        "type": "object",
-        "required": [
-          "kind",
-          "source_id",
-          "at"
-        ],
-        "title": "JourneyEvent"
-      },
-      "JourneyPage": {
-        "properties": {
-          "student_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Student Id"
-          },
-          "subject": {
-            "type": "string",
-            "title": "Subject"
-          },
-          "topic": {
-            "type": "string",
-            "title": "Topic"
-          },
-          "total": {
-            "type": "integer",
-            "title": "Total"
-          },
-          "offset": {
-            "type": "integer",
-            "title": "Offset"
-          },
-          "limit": {
-            "type": "integer",
-            "title": "Limit"
-          },
-          "events": {
-            "items": {
-              "$ref": "#/components/schemas/JourneyEvent"
-            },
-            "type": "array",
-            "title": "Events"
-          }
-        },
-        "type": "object",
-        "required": [
-          "student_id",
-          "subject",
-          "topic",
-          "total",
-          "offset",
-          "limit",
-          "events"
-        ],
-        "title": "JourneyPage"
-      },
-      "MapSummary": {
-        "properties": {
-          "class_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Class Id"
-          },
-          "subject": {
-            "type": "string",
-            "title": "Subject"
-          },
-          "topic": {
-            "type": "string",
-            "title": "Topic"
-          },
-          "queried_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Queried At"
-          },
-          "period_from": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date-time"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Period From"
-          },
-          "period_to": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date-time"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Period To"
-          },
-          "total_responses": {
-            "type": "integer",
-            "title": "Total Responses"
-          },
-          "total_students": {
-            "type": "integer",
-            "title": "Total Students"
-          },
-          "concepts": {
-            "items": {
-              "$ref": "#/components/schemas/ConceptSummary"
-            },
-            "type": "array",
-            "title": "Concepts"
-          },
-          "attention": {
-            "$ref": "#/components/schemas/AttentionCounts"
-          }
-        },
-        "type": "object",
-        "required": [
-          "class_id",
-          "subject",
-          "topic",
-          "queried_at",
-          "period_from",
-          "period_to",
-          "total_responses",
-          "total_students",
-          "concepts",
-          "attention"
-        ],
-        "title": "MapSummary"
-      },
-      "ResponseEvidence": {
-        "properties": {
-          "diagnosis_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Diagnosis Id"
-          },
-          "submission_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Submission Id"
-          },
-          "student_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Student Id"
-          },
-          "student_code": {
-            "type": "string",
-            "title": "Student Code"
-          },
-          "question_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Question Id"
-          },
-          "question_text": {
-            "type": "string",
-            "title": "Question Text"
-          },
-          "answer": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Answer"
-          },
-          "student_explanation": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Student Explanation"
-          },
-          "submitted_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Submitted At"
-          },
-          "suggested_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Suggested At"
-          },
-          "original_code": {
-            "type": "string",
-            "title": "Original Code"
-          },
-          "effective_code": {
-            "type": "string",
-            "title": "Effective Code"
-          },
-          "confidence": {
-            "type": "number",
-            "title": "Confidence"
-          },
-          "evidence_quote": {
-            "type": "string",
-            "title": "Evidence Quote"
-          },
-          "ai_explanation": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Ai Explanation"
-          },
-          "provider": {
-            "type": "string",
-            "title": "Provider"
-          },
-          "model_version": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Model Version"
-          },
-          "uncertain": {
-            "type": "boolean",
-            "title": "Uncertain"
-          },
-          "review": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/ReviewEvidence"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        },
-        "type": "object",
-        "required": [
-          "diagnosis_id",
-          "submission_id",
-          "student_id",
-          "student_code",
-          "question_id",
-          "question_text",
-          "answer",
-          "student_explanation",
-          "submitted_at",
-          "suggested_at",
-          "original_code",
-          "effective_code",
-          "confidence",
-          "evidence_quote",
-          "ai_explanation",
-          "provider",
-          "model_version",
-          "uncertain",
-          "review"
-        ],
-        "title": "ResponseEvidence"
-      },
-      "ReviewEvidence": {
-        "properties": {
-          "code": {
-            "type": "string",
-            "title": "Code"
-          },
-          "reason": {
-            "type": "string",
-            "title": "Reason"
-          },
-          "version": {
-            "type": "integer",
-            "title": "Version"
-          },
-          "teacher_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Teacher Id"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          }
-        },
-        "type": "object",
-        "required": [
-          "code",
-          "reason",
-          "version",
-          "teacher_id",
-          "created_at"
-        ],
-        "title": "ReviewEvidence"
       }
     }
   }

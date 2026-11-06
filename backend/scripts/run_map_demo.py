@@ -255,6 +255,13 @@ def prepare(directory: Path) -> dict:
     context['additional_patterned_students'] = roster['students_created']
     context['preloaded_responses'] += roster['students_created'] * 5
     context['class_rosters'] = {'Fractions': roster['student_count'], **roster['class_rosters']}
+    from scripts.seed_studio_demo import seed_studio_examples
+    studio_engine = create_engine(f'sqlite:///{context["database"]}')
+    try:
+        with Session(studio_engine) as studio_db:
+            context['studio'] = seed_studio_examples(studio_db)
+    finally:
+        studio_engine.dispose()
     return context
 
 

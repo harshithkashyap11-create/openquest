@@ -35,6 +35,10 @@ services:
       GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.5-flash-lite}
       GEMINI_BASE_URL: ${GEMINI_BASE_URL:-https://generativelanguage.googleapis.com/v1beta}
       GEMINI_TIMEOUT_SECONDS: ${GEMINI_TIMEOUT_SECONDS:-45}
+      LMS_ACCESS_TOKEN: ${LMS_ACCESS_TOKEN:-}
+      LMS_LINEITEMS: '${LMS_LINEITEMS:-{}}'
+      LMS_USER_IDS: '${LMS_USER_IDS:-{}}'
+      LMS_AUTO_PASSBACK: ${LMS_AUTO_PASSBACK:-false}
     ports:
       - "8000:8000"
     depends_on:

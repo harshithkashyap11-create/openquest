@@ -38,3 +38,4 @@ __all__ = [
 from app.models.learning import LearningEvent, LearnerState, LearningDecision, LearningSession, MutationReceipt, DiagnosisCorrection
 from app.models.access import AuthAccount, AuthSession
 from app.models.lesson import Lesson, LessonRevision, LessonReview, AssignedLesson
+from app.models.studio import StudioActivity, StudioWork, StudioSet, QRSession, StudioBankItem

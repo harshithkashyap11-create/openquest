@@ -227,6 +227,12 @@ class MockCopilotProvider:
                                  f"{question.reflected_students} shared reasoning, {question.uncertain_students} uncertain. "
                                  f"Tentative error themes: {', '.join(str(t['error_type']) + ': ' + str(t['students']) for t in question.themes) or 'none yet'}.")
 
+        if summary.studio_report.get('saved_attempts'):
+            studio = summary.studio_report
+            lines.append(f"\n#### Classroom Studio: {studio['submitted_students']} students, {studio['saved_attempts']} saved attempts")
+            for row in studio['standards']:
+                lines.append(f"- {row['standard']}: {row['earned']}/{row['possible']} observed points; {row['pending']} pending reviews.")
+            lines.append('Review the original work before deciding on support. These scores do not establish mastery.')
         reply = "\n".join(lines)
         return CopilotChatResponse(
             reply=reply,

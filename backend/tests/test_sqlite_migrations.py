@@ -59,7 +59,7 @@ def test_all_migrations_apply_to_empty_sqlite_and_models_can_query(tmp_path):
     current = _run_alembic(database_url, "current")
     _run_alembic(database_url, "check")
 
-    assert "0007_learning_intelligence (head)" in current.stdout
+    assert "0008_classroom_studio (head)" in current.stdout
 
     engine = create_engine(database_url)
     try:
