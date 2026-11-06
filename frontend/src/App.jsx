@@ -14,6 +14,7 @@ import { useDemoSession } from './context/useDemoSession';
 import { I18nProvider } from './i18n/I18nProvider';
 import './App.css';
 
+const InclusiveLearning = lazy(() => import('./pages/InclusiveLearning'));
 const LearningEvidence = lazy(() => import('./pages/LearningEvidence'));
 const MisconceptionMap = lazy(() => import('./pages/MisconceptionMap'));
 const WorkflowGuide = lazy(() => import('./pages/WorkflowGuide'));
@@ -67,6 +68,7 @@ function AppRoutes() {
             <Route path="guide" element={<WorkflowGuide />} />
             <Route path="learning" element={<LearningEvidence />} />
             <Route path="lessons" element={<LessonStudio />} />
+            <Route path="inclusive" element={<InclusiveLearning />} />
             <Route path="quizzes" element={<TeacherQuizzes />} />
             <Route path="studio" element={<ClassroomStudio />} />
             <Route path="insights" element={<ClassInsights />} />
@@ -80,6 +82,7 @@ function AppRoutes() {
             <Route path="dashboard" element={<StudentDashboard />} />
             <Route path="guide" element={<WorkflowGuide />} />
             <Route path="learning" element={<LearningLab />} />
+            <Route path="inclusive" element={<InclusiveLearning />} />
             <Route path="quizzes" element={<StudentQuizzes />} />
             <Route path="studio" element={<ClassroomStudio />} />
             <Route path="quizzes/:quizId" element={<StudentQuizzes />} />

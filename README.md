@@ -348,3 +348,33 @@ AI coding tools assisted with implementation, repository review, and documentati
 Project maintainers remain responsible for reviewing the product design, code,
 diagnosis rules, and safety decisions. This disclosure does not represent independent
 educational validation; that requires educator-led review and evaluation.
+
+## Inclusive Learning
+
+Teachers can open **Inclusive Learning** from the course navigation, import a
+TXT, Markdown, DOCX or text-based PDF lesson (or use an English Lesson Studio
+lesson), choose individual supports, and generate a reviewable draft. This
+workflow uses the configured Gemini or OpenRouter provider; mock mode reports
+that generation is unavailable. Lesson text is sent to the configured provider.
+
+Review the source, adapted blocks, verification findings, and any teacher-authored
+practice answer keys. Saving an edit creates a new version and clears review;
+run verification again and record a decision before assigning that version to
+students, groups, or the class. Students see only their assigned lesson and
+practice, with text size and spacing controls and optional browser speech.
+Teacher reports and support selections are not included in student responses.
+
+Apply the new database migrations and install the updated backend requirements
+before starting the application:
+
+```bash
+cd backend
+python -m pip install -r requirements.txt
+python -m alembic upgrade head
+```
+
+The checks assist teacher review; they do not certify accessibility or
+educational accuracy. Source images and scanned PDFs are not interpreted.
+Read-aloud depends on browser and device support. PDFs are intended for printing;
+PDF accessibility and assistive-technology behavior have not been independently
+verified. Adaptation and the new workspace text are currently in English.

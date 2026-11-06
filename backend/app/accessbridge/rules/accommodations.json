@@ -1,0 +1,13 @@
+{
+  "profiles": [
+    {"id":"reading","name":"Reading support","subtitle":"Clear language, confident reading","description":"Short explanations and vocabulary support, without losing the science.","rule_ids":["R1","R2","R3"],"requirements":["Sections must be 90 words or fewer, with descriptive headings.","Include at least 3 glossary terms with plain-language definitions.","Use plain language and explain scientific vocabulary."]},
+    {"id":"attention","name":"Attention support","subtitle":"One manageable step at a time","description":"A clear sequence, smaller tasks, and visible completion points.","rule_ids":["A1","A2","A3"],"requirements":["Provide at least 3 sequential tasks, rendered as a numbered list.","Every task must have an explicit done-when completion point.","Keep every section to 120 words or fewer and each task instruction to 45 words or fewer."]},
+    {"id":"screenreader","name":"Screen-reader support","subtitle":"A lesson that reads in order","description":"Semantic structure, meaningful descriptions, and a complete narration.","rule_ids":["S1","S2","S3"],"requirements":["Semantic headings and a logical, linear reading order.","Describe the lesson diagram in at least 20 words, including relationships.","Include a complete narration script of at least 60 words covering the lesson."]}
+  ],
+  "rules": {
+    "R1":"Short, clearly headed sections", "R2":"Vocabulary glossary", "R3":"Plain-language explanations",
+    "A1":"Numbered activity sequence", "A2":"Visible completion points", "A3":"Manageable segments",
+    "S1":"Semantic headings and linear reading order", "S2":"Meaningful diagram description", "S3":"Complete narration script"
+  },
+  "sources":[{"title":"CAST UDL Guidelines 3.0","url":"https://udlguidelines.cast.org/"},{"title":"W3C accessibility evaluation overview","url":"https://www.w3.org/WAI/test-evaluate/"}]
+}

@@ -850,5 +850,6 @@
   "lmsDisabled": "बंद",
   "sendGradeToLMS": "LMS पर अंक भेजें",
   "saveToLibrary": "प्रश्न संग्रह में सहेजें",
-  "savedToLibrary": "प्रश्न संग्रह में सहेजा गया"
+  "savedToLibrary": "प्रश्न संग्रह में सहेजा गया",
+  "inclusiveLearning": "समावेशी शिक्षा"
 }

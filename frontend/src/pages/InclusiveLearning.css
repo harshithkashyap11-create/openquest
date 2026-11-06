@@ -1,0 +1,10 @@
+.inclusive-page { max-width: 1100px; }
+.inclusive-row { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-block: .75rem; }
+.inclusive-page fieldset { border: 1px solid var(--border, #cad5ce); border-radius: .5rem; margin-block: 1rem; padding: 1rem; }
+.inclusive-option { display: flex; align-items: flex-start; gap: .65rem; margin-block: .75rem; }
+.inclusive-option input { flex: 0 0 auto; margin-top: .3rem; }
+.inclusive-block { display: block; margin-block: .75rem; }
+.inclusive-block input, .inclusive-block textarea, .inclusive-page textarea { display: block; width: 100%; }
+.inclusive-compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.inclusive-compare > div { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 700px) { .inclusive-compare { grid-template-columns: 1fr; } }

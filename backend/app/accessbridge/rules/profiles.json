@@ -1,0 +1,180 @@
+[
+  {
+    "profile_id": "learner_reading",
+    "teacher_visible_name": "Reading and Literacy Support",
+    "description": "Structured reading material, clear explanations, accessible presentation, and vocabulary assistance.",
+    "is_synthetic": true,
+    "accommodation_requirements": [
+      {
+        "accommodation_id": "READ-001",
+        "title": "Structured Content",
+        "description": "Divide long paragraphs into manageable, descriptively headed sections while preserving academic terminology.",
+        "severity": "SHOULD",
+        "verification_method": "hybrid",
+        "parameters": {
+          "max_paragraph_words": 90,
+          "min_headings": 2
+        },
+        "rationale": "Illustrative, individually selectable support; review suitability with the learner."
+      },
+      {
+        "accommodation_id": "READ-002",
+        "title": "Clear Instructions",
+        "description": "Use direct, age-appropriate instructions and accurate scientific terminology.",
+        "severity": "MUST",
+        "verification_method": "llm",
+        "parameters": {},
+        "rationale": "Illustrative, individually selectable support; review suitability with the learner."
+      },
+      {
+        "accommodation_id": "READ-003",
+        "title": "Vocabulary Support",
+        "description": "Explain important scientific terms accurately in a glossary.",
+        "severity": "MUST",
+        "verification_method": "hybrid",
+        "parameters": {
+          "min_glossary_terms": 3
+        },
+        "rationale": "Illustrative, individually selectable support; review suitability with the learner."
+      },
+      {
+        "accommodation_id": "READ-004",
+        "title": "Accessible Presentation",
+        "description": "Provide readable type, adjustable text size and spacing, and avoid dense unbroken text.",
+        "severity": "SHOULD",
+        "verification_method": "deterministic",
+        "parameters": {
+          "min_font_px": 18,
+          "min_line_height": 1.5
+        },
+        "rationale": "Illustrative, individually selectable support; review suitability with the learner."
+      },
+      {
+        "accommodation_id": "READ-005",
+        "title": "Objective Preservation",
+        "description": "Preserve every scientific concept and objective while simplifying presentation.",
+        "severity": "MUST",
+        "verification_method": "hybrid",
+        "parameters": {},
+        "rationale": "Illustrative, individually selectable support; review suitability with the learner."
+      }
+    ]
+  },
+  {
+    "profile_id": "learner_attention",
+    "teacher_visible_name": "Attention and Executive-Function Support",
+    "description": "Clearly sequenced tasks, manageable activities, visible checkpoints, and reduced organizational demands.",
+    "is_synthetic": true,
+    "accommodation_requirements": [
+      {
+        "accommodation_id": "ATTN-001",
+        "title": "Task Chunking",
+        "description": "Break activities into purposeful, numbered steps with one manageable instruction at a time.",
+        "severity": "MUST",
+        "verification_method": "hybrid",
+        "parameters": {
+          "max_activity_words": 45,
+          "min_activity_steps": 3
+        },
+        "rationale": "Illustrative, individually selectable support; review suitability with the learner."
+      },
+      {
+        "accommodation_id": "ATTN-002",
+        "title": "Progress Checkpoints",
+        "description": "Provide visible, non-punitive checkpoints between major activity stages.",
+        "severity": "MUST",
+        "verification_method": "hybrid",
+        "parameters": {
+          "min_checkpoints": 2
+        },
+        "rationale": "Illustrative, individually selectable support; review suitability with the learner."
+      },
+      {
+        "accommodation_id": "ATTN-003",
+        "title": "Clear Learning Sequence",
+        "description": "Present materials, ordered activities and expected results with clear transitions.",
+        "severity": "MUST",
+        "verification_method": "hybrid",
+        "parameters": {},
+        "rationale": "Illustrative, individually selectable support; review suitability with the learner."
+      },
+      {
+        "accommodation_id": "ATTN-004",
+        "title": "Optional Movement-Based Activities",
+        "description": "Where appropriate, offer a safe optional hands-on activity tied to the objective. Omit when inappropriate.",
+        "severity": "SHOULD",
+        "verification_method": "llm",
+        "parameters": {},
+        "rationale": "Illustrative, individually selectable support; review suitability with the learner."
+      },
+      {
+        "accommodation_id": "ATTN-005",
+        "title": "Objective Preservation",
+        "description": "Preserve all essential concepts and vocabulary throughout activities.",
+        "severity": "MUST",
+        "verification_method": "hybrid",
+        "parameters": {},
+        "rationale": "Illustrative, individually selectable support; review suitability with the learner."
+      }
+    ]
+  },
+  {
+    "profile_id": "learner_visual",
+    "teacher_visible_name": "Screen-Reader and Visual-Access Support",
+    "description": "Access to essential information without depending on visual layout, images or color.",
+    "is_synthetic": true,
+    "accommodation_requirements": [
+      {
+        "accommodation_id": "VIS-001",
+        "title": "Semantic Document Structure",
+        "description": "Use descriptive headings, appropriate lists and a logical reading order.",
+        "severity": "MUST",
+        "verification_method": "hybrid",
+        "parameters": {
+          "min_headings": 2
+        },
+        "rationale": "Illustrative, individually selectable support; review suitability with the learner."
+      },
+      {
+        "accommodation_id": "VIS-002",
+        "title": "Diagram Accessibility",
+        "description": "Describe supported scientific relationships in text. Flag missing source visual detail for teacher review.",
+        "severity": "MUST",
+        "verification_method": "hybrid",
+        "parameters": {
+          "min_diagram_words": 20
+        },
+        "rationale": "Illustrative, individually selectable support; review suitability with the learner."
+      },
+      {
+        "accommodation_id": "VIS-003",
+        "title": "Audio Narration Script",
+        "description": "Provide a complete narration script preserving terminology, activities and objectives.",
+        "severity": "MUST",
+        "verification_method": "hybrid",
+        "parameters": {
+          "min_narration_words": 60
+        },
+        "rationale": "Illustrative, individually selectable support; review suitability with the learner."
+      },
+      {
+        "accommodation_id": "VIS-004",
+        "title": "Nonvisual Instructions",
+        "description": "Avoid exclusive dependence on color or spatial references and flag information requiring clarification.",
+        "severity": "MUST",
+        "verification_method": "hybrid",
+        "parameters": {},
+        "rationale": "Illustrative, individually selectable support; review suitability with the learner."
+      },
+      {
+        "accommodation_id": "VIS-005",
+        "title": "Accessible HTML",
+        "description": "Produce semantic HTML with ordered headings and meaningful textual alternatives.",
+        "severity": "MUST",
+        "verification_method": "deterministic",
+        "parameters": {},
+        "rationale": "Illustrative, individually selectable support; review suitability with the learner."
+      }
+    ]
+  }
+]

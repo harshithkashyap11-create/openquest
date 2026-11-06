@@ -72,6 +72,7 @@ export default function AppShell({ role }) {
         { to: '/teacher/guide', label: t('mapGuide'), icon: BookOpenCheck },
         { to: '/teacher/learning', label: t('learningEvidence'), icon: Sprout },
         { to: '/teacher/lessons', label: t('lessonStudio'), icon: BookOpenCheck },
+        { to: '/teacher/inclusive', label: t('inclusiveLearning'), icon: BookOpenCheck },
         {
           to: '/teacher/insights',
           label: t('classInsights'),
@@ -102,6 +103,7 @@ export default function AppShell({ role }) {
         { to: '/student/quizzes', label: t('quizzes'), icon: BookOpenCheck },
         { to: '/student/studio', label: t('classroomStudio'), icon: BookOpenCheck },
         { to: '/student/learning', label: t('learningLab'), icon: Sprout },
+        { to: '/student/inclusive', label: t('inclusiveLearning'), icon: BookOpenCheck },
         { to: '/student/guide', label: t('mapGuide'), icon: BookOpenCheck },
         {
           to: '/student/assessment',

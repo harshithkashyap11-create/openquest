@@ -850,5 +850,6 @@
   "lmsDisabled": "Off",
   "sendGradeToLMS": "Send grade to LMS",
   "saveToLibrary": "Save to question library",
-  "savedToLibrary": "Saved to question library"
+  "savedToLibrary": "Saved to question library",
+  "inclusiveLearning": "Inclusive Learning"
 }

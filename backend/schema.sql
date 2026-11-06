@@ -571,4 +571,78 @@ CREATE INDEX ix_studio_work_student_id ON studio_work (student_id);
 
 UPDATE alembic_version SET version_num='0008_classroom_studio' WHERE alembic_version.version_num = '0007_learning_intelligence';
 
+-- Running upgrade 0008_classroom_studio -> 0009_inclusive_sources
+
+CREATE TABLE inclusive_sources (
+    id UUID NOT NULL,
+    class_id UUID NOT NULL,
+    created_by UUID NOT NULL,
+    source JSON NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY(class_id) REFERENCES classes (id) ON DELETE CASCADE,
+    FOREIGN KEY(created_by) REFERENCES teachers (id)
+);
+
+CREATE INDEX ix_inclusive_sources_class_id ON inclusive_sources (class_id);
+
+UPDATE alembic_version SET version_num='0009_inclusive_sources' WHERE alembic_version.version_num = '0008_classroom_studio';
+
+-- Running upgrade 0009_inclusive_sources -> 0010_inclusive_adaptations
+
+CREATE TABLE inclusive_adaptations (
+    id UUID NOT NULL,
+    class_id UUID NOT NULL,
+    source_id UUID NOT NULL,
+    created_by UUID NOT NULL,
+    supports JSON NOT NULL,
+    analysis JSON NOT NULL,
+    draft JSON NOT NULL,
+    findings JSON NOT NULL,
+    version INTEGER NOT NULL,
+    approved_version INTEGER,
+    review_note TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY(class_id) REFERENCES classes (id) ON DELETE CASCADE,
+    FOREIGN KEY(source_id) REFERENCES inclusive_sources (id),
+    FOREIGN KEY(created_by) REFERENCES teachers (id)
+);
+
+CREATE INDEX ix_inclusive_adaptations_class_id ON inclusive_adaptations (class_id);
+
+CREATE TABLE inclusive_assignments (
+    id UUID NOT NULL,
+    adaptation_id UUID NOT NULL,
+    student_id UUID NOT NULL,
+    version INTEGER NOT NULL,
+    content JSON NOT NULL,
+    progress JSON,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT uq_inclusive_assignment UNIQUE (adaptation_id, student_id, version),
+    FOREIGN KEY(adaptation_id) REFERENCES inclusive_adaptations (id),
+    FOREIGN KEY(student_id) REFERENCES students (id) ON DELETE CASCADE
+);
+
+CREATE INDEX ix_inclusive_assignments_student_id ON inclusive_assignments (student_id);
+
+CREATE TABLE inclusive_history (
+    id SERIAL NOT NULL,
+    adaptation_id UUID NOT NULL,
+    actor_id UUID NOT NULL,
+    action TEXT NOT NULL,
+    version INTEGER NOT NULL,
+    snapshot JSON NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY(adaptation_id) REFERENCES inclusive_adaptations (id) ON DELETE CASCADE,
+    FOREIGN KEY(actor_id) REFERENCES teachers (id)
+);
+
+CREATE INDEX ix_inclusive_history_adaptation_id ON inclusive_history (adaptation_id);
+
+UPDATE alembic_version SET version_num='0010_inclusive_adaptations' WHERE alembic_version.version_num = '0009_inclusive_sources';
+
 COMMIT;
+

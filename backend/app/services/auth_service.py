@@ -23,6 +23,7 @@ STUDENT_ROUTES = {
  'system_status',
  'studio_student_activities', 'studio_student_activity', 'studio_submit',
  'studio_student_sets', 'studio_student_export', 'studio_feedback',
+ 'inclusive_student_lessons', 'inclusive_student_practice',
 }
 
 

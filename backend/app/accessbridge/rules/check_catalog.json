@@ -1,0 +1,386 @@
+[
+  {
+    "check_id": "DET-STRUCT-001",
+    "title": "Heading presence",
+    "description": "Heading presence. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "READ-001",
+      "VIS-001"
+    ],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-STRUCT-002",
+    "title": "Heading hierarchy",
+    "description": "Heading hierarchy. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "READ-001",
+      "VIS-001"
+    ],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "export"
+  },
+  {
+    "check_id": "DET-STRUCT-003",
+    "title": "Configured paragraph segmentation",
+    "description": "Configured paragraph segmentation. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "READ-001",
+      "VIS-001"
+    ],
+    "severity": "SHOULD",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-STRUCT-004",
+    "title": "Unique block sequence",
+    "description": "Unique block sequence. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-STRUCT-005",
+    "title": "Nonempty essential content",
+    "description": "Nonempty essential content. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-STRUCT-006",
+    "title": "Source traceability",
+    "description": "Source traceability. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-STRUCT-007",
+    "title": "Duplicate identifier detection",
+    "description": "Duplicate identifier detection. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-READ-001",
+    "title": "Structured sections",
+    "description": "Structured sections. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "READ-001"
+    ],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-READ-002",
+    "title": "Glossary presence",
+    "description": "Glossary presence. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "READ-003"
+    ],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-READ-003",
+    "title": "Essential terminology",
+    "description": "Essential terminology. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "READ-003"
+    ],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-READ-004",
+    "title": "Reading structure",
+    "description": "Reading structure. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "READ-001"
+    ],
+    "severity": "SHOULD",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-READ-005",
+    "title": "Accessible typography",
+    "description": "Accessible typography. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "READ-004"
+    ],
+    "severity": "SHOULD",
+    "method": "deterministic",
+    "scope": "export"
+  },
+  {
+    "check_id": "DET-READ-006",
+    "title": "Objective candidate mapping",
+    "description": "Objective candidate mapping. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "READ-005"
+    ],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-ATTN-001",
+    "title": "Numbered activities",
+    "description": "Numbered activities. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "ATTN-001"
+    ],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-ATTN-002",
+    "title": "Completion checkpoints",
+    "description": "Completion checkpoints. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "ATTN-002"
+    ],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-ATTN-003",
+    "title": "Explicit task instructions",
+    "description": "Explicit task instructions. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "ATTN-001"
+    ],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-ATTN-004",
+    "title": "Materials section",
+    "description": "Materials section. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "ATTN-003"
+    ],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-ATTN-005",
+    "title": "Activity sequence",
+    "description": "Activity sequence. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "ATTN-003"
+    ],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-ATTN-006",
+    "title": "Configured task chunking",
+    "description": "Configured task chunking. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "ATTN-001"
+    ],
+    "severity": "SHOULD",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-ATTN-007",
+    "title": "Activity objective mapping",
+    "description": "Activity objective mapping. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "ATTN-005"
+    ],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-VIS-001",
+    "title": "Semantic HTML",
+    "description": "Semantic HTML. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "VIS-005"
+    ],
+    "severity": "SHOULD",
+    "method": "deterministic",
+    "scope": "export"
+  },
+  {
+    "check_id": "DET-VIS-002",
+    "title": "Heading order",
+    "description": "Heading order. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "VIS-001"
+    ],
+    "severity": "SHOULD",
+    "method": "deterministic",
+    "scope": "export"
+  },
+  {
+    "check_id": "DET-VIS-003",
+    "title": "Diagram alternative text",
+    "description": "Diagram alternative text. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "VIS-002"
+    ],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-VIS-004",
+    "title": "Narration availability",
+    "description": "Narration availability. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "VIS-003"
+    ],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-VIS-005",
+    "title": "Narration terminology coverage",
+    "description": "Narration terminology coverage. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "VIS-003"
+    ],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-VIS-006",
+    "title": "Color-dependent instructions",
+    "description": "Color-dependent instructions. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "VIS-004"
+    ],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-VIS-007",
+    "title": "Accessible list structure",
+    "description": "Accessible list structure. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "VIS-005"
+    ],
+    "severity": "SHOULD",
+    "method": "deterministic",
+    "scope": "export"
+  },
+  {
+    "check_id": "DET-VIS-008",
+    "title": "Reading order",
+    "description": "Reading order. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [
+      "VIS-001"
+    ],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-CONTENT-001",
+    "title": "Meaningful numbers and units",
+    "description": "Meaningful numbers and units. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-CONTENT-002",
+    "title": "Essential vocabulary retention",
+    "description": "Essential vocabulary retention. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-CONTENT-003",
+    "title": "Source safety instruction preservation",
+    "description": "Source safety instruction preservation. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-CONTENT-004",
+    "title": "Student label leakage",
+    "description": "Student label leakage. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-CONTENT-005",
+    "title": "Required source-section coverage",
+    "description": "Required source-section coverage. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-CONTENT-006",
+    "title": "Objective reference validity",
+    "description": "Objective reference validity. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-CONTENT-007",
+    "title": "Accommodation reference validity",
+    "description": "Accommodation reference validity. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-SECURITY-001",
+    "title": "Student content contains no active markup",
+    "description": "Student content contains no active markup. Automated result has the stated scope and does not establish legal compliance.",
+    "accommodation_ids": [],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  },
+  {
+    "check_id": "DET-CONTENT-008",
+    "title": "Named entity preservation",
+    "description": "Check names identified from source text and flag missing names. Extraction can be incomplete.",
+    "accommodation_ids": [],
+    "severity": "MUST",
+    "method": "deterministic",
+    "scope": "content"
+  }
+]
